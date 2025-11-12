@@ -1,15 +1,19 @@
 {
   "name": "CS465-Project",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd app && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "frontend-dev": "npm --prefix frontend run dev",
+    "server-dev": "nodemon ./server/index.js",
+    "frontend-build": "npm --prefix frontend run build",
+    "test": "npm run frontend-test && npm run server-test",
+    "frontend-test": "npm run frontend-build & exit 0",
+    "server-test": "node ./server/test.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "module",
-  "dependencies": {}
+  "type": "module"
 }
