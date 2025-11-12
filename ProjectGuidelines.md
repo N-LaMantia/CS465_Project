@@ -25,8 +25,8 @@
 
 - Tests should be run through GitHub Actions after every push to `dev`
 - Tests should be created for new features and updated for bug fixes
-- Tests should validate all required functionality as defined in the [/FeatureDescriptions.md](descriptions).
+- Tests should validate all required functionality as defined in the [descriptions](./FeatureDescriptions.md).
 
 ## Style Guide
 
-[/StyleGuide.md](/StyleGuide.md)
+[StyleGuide.md](./StyleGuide.md)
