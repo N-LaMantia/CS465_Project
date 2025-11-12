@@ -25,8 +25,27 @@
 
 - Tests should be run through GitHub Actions after every push to `dev`
 - Tests should be created for new features and updated for bug fixes
-- Tests should validate all required functionality as defined in the [descriptions](./FeatureDescriptions.md).
+- Tests should validate all required functionality as defined in the [Feature Descriptions](./FeatureDescriptions.md) file.
 
 ## Style Guide
 
-[StyleGuide.md](./StyleGuide.md)
+[Style Guide](./StyleGuide.md)
+
+## Communication
+
+- Discord will be the main communication channel
+- All communication should be in English
+- Monday.com will be used for task management (like a to-do list)
+
+## Documentation
+
+- The majority of the documentation will be auto-generated according to comments.
+
+### Requirements
+
+- All features must have a set of requirements that must be defined in the
+  [Feature Descriptions](./FeatureDescriptions.md) file.
+
+#### Prior to Coding
+
+- Base requirements for the project and each feature must be defined.
