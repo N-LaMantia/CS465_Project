@@ -8,8 +8,8 @@
     "frontend-dev": "npm --prefix frontend run dev",
     "server-dev": "nodemon ./server/index.js",
     "frontend-build": "npm --prefix frontend run build",
-    "test": "npm run frontend-test && npm run server-test",
-    "frontend-test": "npm run frontend-build & exit 0",
+    "test": "npm run frontend-test && node ./server/test.js",
+    "frontend-test": "npm run frontend-build",
     "server-test": "node ./server/test.js"
   },
   "keywords": [],
