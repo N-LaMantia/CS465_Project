@@ -18,14 +18,15 @@
 
 ### Pull Requests
 
-- All PRs must have a description of the change (who, what, when, why)
+- All PRs must have a description of the change (what, why)
 - PRs must be approved by at least two members of the team
 
 ### Testing
 
 - Tests should be run through GitHub Actions after every push to `dev`
 - Tests should be created for new features and updated for bug fixes
-- Tests should validate all required functionality as defined in the [Feature Descriptions](./FeatureDescriptions.md) file.
+- Tests should validate all required functionality as defined in the
+  [Feature Descriptions](./FeatureDescriptions.md) file.
 
 ## Style Guide
 

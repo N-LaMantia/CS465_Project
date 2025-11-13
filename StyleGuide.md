@@ -10,6 +10,7 @@
 ## Comments
 
 - All sourcecode files must have a file level comment that describes the file
+- All comments must be updated (if necessary) before a pull request
 
 ### File Comment Example
 
@@ -43,13 +44,15 @@
      * @param param2 Description of param2
      *
      * @return Description of return value
+     *
+     * @throws Error Description of thrown error
      */
 
     ```
 
 - Use `//` for single line comments and `/** */` for multi-line comments
 - Use single line comments to describe functionality as necessary
-- To describe variables use multi-line comments `/* description /`
+- To describe variables use multi-line comments `/** description */`
 - If a logical operation is not yet implemented use a placeholder `// TODO: description`
 
 For more information see [https://jsdoc.app/](https://jsdoc.app/)
@@ -89,7 +92,7 @@ return (
 ### Indentation and Line Length
 
 - Use 4 spaces for indentation
-- Use 100 characters for maximum line length
+- Use 80 characters for maximum line length
 
 Curly braces should in the K&R style
 
