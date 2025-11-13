@@ -9,14 +9,22 @@
 
 ## Installation Instructions
 
-### Installation:
+### Installation
 
 1. `npm install`
 
-### To run front-end:
+### To run front-end
 
 1. `npm run frontend-dev`
 
-### To run server:
+### To run server
 
 1. `npm run server-dev`
+
+## Project Description
+
+The project is a code snippet manager made for multiple different languages which
+allows searching, comparison, and copying. This is to provide a portal for
+developers with an easy and quick interface to reference commonly used snippets
+and to help learn them in other languages. Some stretch goals include: Custom
+Snippets (User defined) and a CLI interface for those weirdos who use CLI too much.
