@@ -1,17 +1,21 @@
-# Installation and Run Instructions 
+# Installation and Run Instructions
 
-### Installation: 
+### Installation:
+
 1. `npm install`
 
-### To run front-end: 
+### To run front-end:
+
 1. `npm run frontend-dev`
 
-### To run server: 
+### To run server:
+
 1. `npm run server-dev`
 
 # Project Name: CSnippy
 
 # Team Members:
+
 - N-LaMantia, Nicholas LaMantia
 - jhenderson616, Jace Henderson
 - ThomasStG, Thomas Gallaher
