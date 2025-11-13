@@ -1,4 +1,13 @@
-# Installation and Run Instructions
+# Project Name: CSnippy
+
+## Team Members
+
+- N-LaMantia, Nicholas LaMantia
+- jhenderson616, Jace Henderson
+- ThomasStG, Thomas Gallaher
+- MEaganEagan, Matthew Eagan
+
+## Installation Instructions
 
 ### Installation:
 
@@ -11,12 +20,3 @@
 ### To run server:
 
 1. `npm run server-dev`
-
-# Project Name: CSnippy
-
-# Team Members:
-
-- N-LaMantia, Nicholas LaMantia
-- jhenderson616, Jace Henderson
-- ThomasStG, Thomas Gallaher
-- MEaganEagan, Matthew Eagan
