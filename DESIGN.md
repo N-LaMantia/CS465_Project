@@ -8,7 +8,11 @@ why are you doing it? Who will it benefit (students, senior citizens, teachers, 
 
 List of which project parts will be (at least initially) worked on by which team member(s).
 
--
+### Nicholas
+
+- Feature 3 (display languages based on the selected snippet).
+- Feature 4 (a drop-down menu of all languages).
+- Any front-end work that comes with the features above.
 
 ## External Data Sources
 
