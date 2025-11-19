@@ -11,6 +11,9 @@ description
 ## 1: Display list of snippets with filtering/sorting
 
 ### Requirements
+- the application shall allow the user to select wether they want to sort by language or by snippet
+- - after previous is selected have a selection tool for what languages or what snippets to show
+  - (can this be all in one, checkboxes?)
 
 ## 2: Display information/use cases for selected snippet
 
