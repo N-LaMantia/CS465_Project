@@ -1,0 +1,9 @@
+{
+  "title": "Snippet Title",
+  "description": "Snippet Description",
+  "language": "JavaScript",
+  "tags": ["AI", "Flow Control", "Loop", "..."],
+  "rendered": "<pre><code>console.log(\"Hello World!\");</code></pre>",
+  "code": "console.log(\"Hello World!\");",
+  "compatibleVersions": ["1", "2", "3"]
+}

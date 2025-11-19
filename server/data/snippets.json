@@ -1,0 +1,11 @@
+{
+  "snippets": [
+    {
+      "title": "HelloWorld",
+      "description": "Prints 'Hello World'",
+      "language": "JavaScript",
+      "code": "console.log('Hello World');",
+      "rendered": "<pre><code>console.log('Hello World');</code></pre>"
+    }
+  ]
+}

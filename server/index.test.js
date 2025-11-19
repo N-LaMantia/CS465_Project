@@ -1,7 +1,7 @@
 import { spawn } from "child_process";
 
 const TIMEOUT_MS = 5000; // how long to wait before failing
-const proc = spawn("npx", ["nodemon", "--verbose", "server/index.js"]);
+const proc = spawn("npm", ["run", "dev"], { stdio: "inherit" });
 
 let started = false;
 
@@ -23,3 +23,5 @@ setTimeout(() => {
     process.exit(1);
   }
 }, TIMEOUT_MS);
+
+// TODO: loop through the rest of the endpoints and ensure a valid response. Also validate invalid request handling

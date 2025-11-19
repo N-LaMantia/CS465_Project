@@ -27,4 +27,5 @@ The project is a code snippet manager made for multiple different languages whic
 allows searching, comparison, and copying. This is to provide a portal for
 developers with an easy and quick interface to reference commonly used snippets
 and to help learn them in other languages. Some stretch goals include: Custom
-Snippets (User defined) and a CLI interface for those weirdos who use CLI too much.
+Snippets (User defined), a CLI interface for those weirdos who use CLI too much,
+and a long stretch goal of extending past code snippets.

@@ -2,13 +2,17 @@
 
 ## Project Motivation
 
-why are you doing it? Who will it benefit (students, senior citizens, teachers, disabled, travelers, etc.)
+This application is intended to serve as a reference for anyone programming
+without a snippet manager. The goal is to get a unified resource for programming
+snippets and to allow comparison between languages.
 
 ## Project Parts
 
-List of which project parts will be (at least initially) worked on by which team member(s).
+### Thomas
 
--
+- Database/Mock for development
+- Requirement 2
+- Start compiling snippets
 
 ## External Data Sources
 
