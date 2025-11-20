@@ -10,6 +10,8 @@ description
 
 ## 1: Display list of snippets with filtering/sorting
 
+users should be able to sort what snippets they want to see by selecting a language or a snippet (s)
+
 ### Requirements
 - the application shall allow the user to select wether they want to sort by language or by snippet
 - - after previous is selected have a selection tool for what languages or what snippets to show
@@ -49,7 +51,11 @@ A drop down menu displaying all languages.
 
 ## 6: Allow the user to copy snippets easily
 
+have a button to copy the snippet
+
 ### Requirements
+
+- button near snippet that indicates it is a copy button
 
 ## Design Phase notes
 
