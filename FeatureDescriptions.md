@@ -21,11 +21,21 @@ description
 
 ## 3: Display list of languages available for the selected snippet
 
+Drop down menu to display all of the languages possible for the selected snippet. 
+
 ### Requirements
+
+- Must be legible and free of spelling or grammar mistakes.
+- Must be a vertical list of all languages for the selected snippet. 
 
 ## 4: Display list of all languages
 
+A drop down menu displaying all languages. 
+
 ### Requirements
+
+- Must be legible and free of spelling or grammar mistakes.
+- Must be selectable and when selected, select UI will change.
 
 ## 5: Display list of snippets for the chosen language
 
