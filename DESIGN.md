@@ -20,6 +20,11 @@ team member(s).
  - Application UI wireframes
  - Allow user to copy snippet code through highlighting or a copy button
 
+### Jace
+ -  feature 1
+ -  feature 6
+ -  other things as needed
+
 ## External Data Sources
 
 - We will use external documentation to write snippets to include in our project.
