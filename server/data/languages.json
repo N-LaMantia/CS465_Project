@@ -1,0 +1,19 @@
+{
+  "languages": [
+    {
+      "title": "JavaScript",
+      "description": "Popular front-end and back-end language",
+      "languageType": "OOP"
+    },
+    {
+      "title": "Python",
+      "description": "Versatile high-level language",
+      "languageType": "OOP"
+    },
+    {
+      "title": "Haskell",
+      "description": "Pure functional programming language",
+      "languageType": "Functional"
+    }
+  ]
+}

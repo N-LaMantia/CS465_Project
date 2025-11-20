@@ -1,0 +1,5 @@
+  await User.create({
+    name: "Admin",
+    password: "password",
+    role: "admin",
+  });
