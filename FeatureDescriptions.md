@@ -47,9 +47,8 @@ A drop down menu displaying all languages.
 
 ## 5: Display list of snippets for the chosen language
 
-### Requirements
-
-## 6: Allow the user to copy snippets easily
+When a language is chosen first the list of snippets available for that language
+is displayed and selectable.
 
 Have a button to copy the snippet to the clipboard
 
@@ -60,25 +59,17 @@ Have a button to copy the snippet to the clipboard
 ## Design Phase notes
 
 ### App flow
+- When a language is chosen a list of snippets for that language is displayed
+- The snippets must be sortable and filterable
+- The snippets must be selectable
+- A short desctiption of the snippet must be displayed
 
-- Display list of snippets
-- Sort/filter snippets (name, line count, language)
-- Selecting snippet gives information/use cases for the snippet
-- Allows user to select language(s) to view the snippet in
-- Possibly provide examples for snippet use
-- Copy snippet
+## 6: Allow the user to copy snippets easily
 
-### Alternate Flow
+When a snippet and language(s) the snippet(s) are available to be easily copied
 
-- Display list of languages
-- sort/filter languages
-- display list of snippets for the language
-- sort/filter snippets
-- selecting snippet gives information/use cases
-- copy snippet
+### Requirements
 
-### Settings?
-
-- Preferred language
-- Dark/light mode?
-- Favorited snippets
+- When a snippet is selected display an easily understood method to copy the snippet
+  to the user's clipboard.
+- The snippet must be successfully copied to the user's clipboard

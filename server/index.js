@@ -1,56 +1,18 @@
-import fs from "fs";
-import express from "express";
-import morgan from "morgan";
-import cors from "cors";
-import log from "npmlog";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import app from "./app.js";
 
-const fileStream = fs.createWriteStream("app.log", { flags: "a" });
+dotenv.config();
 
-log.stream = fileStream;
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    dbName: "cs465",
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
-const app = express();
-
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  }),
-);
-
-app.use(morgan("dev"));
-
-app.get("/api/topics", (req, res) => {
-  try {
-    const data = fs.readFileSync("./api/topics.json", "utf8");
-    const jsonData = JSON.parse(data);
-    res.status(200);
-    res.json(jsonData);
-    log.info("server", "Topics read successfully");
-  } catch (parseErr) {
-    log.error("server", "Error parsing JSON: " + parseErr);
-    res.status(500).send("Invalid JSON format");
-  }
-});
-
-app.get("/api/quizes/:topic", (req, res) => {
-  try {
-    const topicIndex = {
-      history: "history_quizes.json",
-      lotr: "lotr_quizes.json",
-    };
-    const topic = topicIndex[req.params.topic];
-    const data = fs.readFileSync(`./api/${topic}`, "utf8");
-    const jsonData = JSON.parse(data);
-    res.status(200);
-    res.json(jsonData);
-    log.info("server", "Quizes read successfully");
-  } catch (e) {
-    log.error("server", "Error reading quizes: " + e);
-    res.status(500).send("Error reading quizes");
-  }
-});
-
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// example route
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
