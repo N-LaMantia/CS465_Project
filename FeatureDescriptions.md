@@ -11,9 +11,8 @@ description
 ## 1: Display list of snippets with filtering/sorting
 
 ### Requirements
-- the application shall allow the user to select wether they want to sort by language or by snippet
-- - after previous is selected have a selection tool for what languages or what snippets to show
-  - (can this be all in one, checkboxes?)
+- The application shall allow the user to select wether they want to sort by language or by snippet
+- After previous is selected, there will be a selection tool for what languages or what snippets to show
 
 ## 2: Display information/use cases for selected snippet
 
@@ -23,7 +22,7 @@ the snippet code in the UI
 - Text related to the snippets shall be stored alongside the snippet code
 - Information shall describe the functional use of the snippet
 - Use cases shall include examples of situations where the snippet shall be
-usefull
+useful
 
 ## 3: Display list of languages available for the selected snippet
 
@@ -53,7 +52,7 @@ is displayed and selectable.
 - When a language is chosen a list of snippets for that language is displayed
 - The snippets must be sortable and filterable
 - The snippets must be selectable
-- A short desctiption of the snippet must be displayed
+- A short description of the snippet must be displayed
 
 ## 6: Allow the user to copy snippets easily
 
@@ -61,6 +60,5 @@ When a snippet and language(s) the snippet(s) are available to be easily copied
 
 ### Requirements
 
-- When a snippet is selected display an easily understood method to copy the snippet
-  to the user's clipboard.
+- When a snippet is selected display an easily understood method to copy the snippet to the user's clipboard.
 - The snippet must be successfully copied to the user's clipboard
