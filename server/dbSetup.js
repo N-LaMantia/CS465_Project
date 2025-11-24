@@ -40,3 +40,5 @@ const seed = async () => {
   console.log("Database seeded!");
   mongoose.disconnect();
 };
+
+seed();
