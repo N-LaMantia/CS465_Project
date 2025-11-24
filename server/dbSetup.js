@@ -17,12 +17,6 @@ const seed = async () => {
   await Snippet.deleteMany({});
   await User.deleteMany({});
 
-  const jsLang = await Language.create({
-    title: "JavaScript",
-    description: "Popular front-end and back-end language",
-    languageType: "OOP",
-  });
-
   await User.create({
     name: "Admin",
     password: "password",

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./App.css";
-import langList from "./components/Component/languagesList.jsx";
+import LanguagesList from "./components/Component/languagesList.jsx";
 
-function App() {
+export default function App() {
   const [count, setCount] = useState(0);
+  const [showLanguages, setShowLanguages] = useState(false);
 
   return (
     <>
@@ -13,10 +14,12 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <button onClick={langList}>
+        <button onClick={() => setShowLanguages(true)}>
           Load Languages
         </button>
-        <div id="languages-container"></div>
+        <div id="languages-container">
+          <LanguagesList shouldFetch={showLanguages} />
+        </div>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
@@ -28,5 +31,3 @@ function App() {
     </>
   );
 }
-
-export default App;
