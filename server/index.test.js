@@ -1,20 +1,26 @@
 import { spawn } from "child_process";
 
-const TIMEOUT_MS = 5000; // how long to wait before failing
-const proc = spawn("npm", ["run", "dev"], { stdio: "inherit" });
+const TIMEOUT_MS = 5000;
+
+const proc = spawn("npm", ["run", "server-dev"], {
+  stdio: ["inherit", "pipe", "inherit"],
+});
 
 let started = false;
 
 proc.stdout.on("data", (data) => {
   const text = data.toString();
-  console.log(text);
+  process.stdout.write(text); // still show output live
 
-  // Nodemon prints "starting" when it actually launches Node
   if (text.includes("starting")) {
     started = true;
     proc.kill();
     process.exit(0);
   }
+});
+
+proc.on("close", (code) => {
+  if (!started) process.exit(1);
 });
 
 setTimeout(() => {
@@ -23,5 +29,3 @@ setTimeout(() => {
     process.exit(1);
   }
 }, TIMEOUT_MS);
-
-// TODO: loop through the rest of the endpoints and ensure a valid response. Also validate invalid request handling
