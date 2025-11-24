@@ -5,7 +5,6 @@ const snippetSchema = new mongoose.Schema({
   description: { type: String, required: true },
   tags: { type: [String], default: [] },
   language: { type: String, required: true },
-  rendered: { type: String, required: true },
   code: { type: String, required: true },
   compatibleVersions: { type: [String], default: [] },
 });

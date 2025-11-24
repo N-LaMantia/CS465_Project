@@ -57,14 +57,14 @@
     {
       "title": "Go",
       "description": "A statically typed language designed at Google for simplicity, concurrency, and efficiency, commonly used for web services and cloud applications, supporting procedural and imperative paradigms.",
-      "languageType": ["Procedural", "Imperative", "Concurrent"],
+      "languageType": ["Procedural", "Imperative"],
       "environments": ["Systems", "Cloud"]
     },
     {
       "title": "Rust",
       "description": "A systems programming language focused on safety, concurrency, and performance, supporting functional, object-oriented, and imperative programming patterns.",
-      "languageType": ["OOP", "Functional", "Imperative", "Concurrent"],
-      "environments": ["Systems", "Performance", "Concurrent"]
+      "languageType": ["OOP", "Functional", "Imperative"],
+      "environments": ["Systems", "Performance"]
     },
     {
       "title": "C",
@@ -95,12 +95,6 @@
       "description": "A Unix shell and command language used for scripting, automation, and system administration tasks, supporting procedural and imperative programming.",
       "languageType": ["Procedural", "Imperative"],
       "environments": ["Scripting", "Automation"]
-    },
-    {
-      "title": "Docker",
-      "description": "A containerization platform that allows developers to package, share, and run applications in isolated environments, supporting containerization and orchestration.",
-      "languageType": ["Containerization", "Orchestration"],
-      "environments": ["Systems", "Automation"]
     },
     {
       "title": "PowerShell",
