@@ -11,7 +11,9 @@
 
 ### Installation
 
-1. `npm install`
+1. `npm install --save-dev concurrently`
+
+2. `npm run install-all`
 
 ### To run front-end
 
