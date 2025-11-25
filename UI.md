@@ -21,13 +21,13 @@
 ## Typography
 
 - Text font sizes shall be classified per usage:
-    - CSnippy header title: 40pt (BOLD)
-    - Misc. text: 32pt
-    - Snippet code: 24pt
+    - CSnippy header title: 40px (BOLD)
+    - Misc. text: 24px
+    - Snippet code: 20px
 - Text fonts shall be classified per usage:
     - CSnippy header title: 'Instrument Sans'
-    - Misc. text: 'Jaldi'
-    - Snippet code: 'Roboto Mono'
+    - Misc. text: 'Trebuchet MS'
+    - Snippet code: 'Consolas'
 
 ## Layout
 
