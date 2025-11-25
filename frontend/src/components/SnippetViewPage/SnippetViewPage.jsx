@@ -44,24 +44,36 @@ export default function SnippetViewPage() {
   const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` + 
   `button below to copy`
 
+  // Visual indicator of successful snippet copy
   const [conf, setConf] = useState("");
-
   const showConf = (confMessage, duration = 3000) => {
     setConf(confMessage);
 
+    // Automatically reset the inidcator
     setTimeout(() => {
       setConf("");
     }, duration);
   };
 
+  // Handler for when the copy button is clicked allows for 2 functions
   let currCode = "";
-
   const CopyButtonHandler = () => {
     currCode = document.getElementById('codeArea1');
-    currCode = currCode.value;
-    console.log(currCode);
-    CopySnippetToClipBoard(currCode);
+    // Copy current modified text to system clipboard
+    CopySnippetToClipBoard(currCode.value);
+    // Display confirmation message
     showConf("Copied!");
+  };
+
+  // Handler for when the refresh button is clicked allows for 2 functions
+  const RefreshButtonHandler = (ogSnippet) => {
+    if(ogSnippet){
+      currCode = document.getElementById('codeArea1');
+      // Reset to original snippet code
+      currCode.value = ogSnippet;
+      // Display confirmation message
+      showConf("Refreshed!");
+    }
   };
 
   return (
@@ -97,13 +109,11 @@ export default function SnippetViewPage() {
             <CopyIcon/>
           </button>
           <button id='refreshButton' className='snippetButton' onClick={
-            () => CopySnippetToClipBoard(sampleSnippet)
-          }>
+          () => RefreshButtonHandler(sampleSnippet)}>
             <RefreshIcon/>
           </button>
           <button id='addButton' className='snippetButton' onClick={
-            () => CopySnippetToClipBoard(sampleSnippet)
-          }>
+          () => CopySnippetToClipBoard(sampleSnippet)}>
             <AddIcon/>
           </button>
         </div>

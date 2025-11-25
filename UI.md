@@ -26,7 +26,7 @@
     - Snippet code: 20px
 - Text fonts shall be classified per usage:
     - CSnippy header title: 'Instrument Sans'
-    - Misc. text: 'Jaldi'
+    - Misc. text: 'Trebuchet MS'
     - Snippet code: 'Consolas'
 
 ## Layout
