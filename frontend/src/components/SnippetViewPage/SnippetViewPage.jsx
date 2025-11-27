@@ -7,7 +7,8 @@
  */
 
 import './SnippetViewPage.css';
-
+import { SettingsIcon, CopyIcon, RefreshIcon, AddIcon } from '../../assets.jsx';
+import { useState } from 'react';
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -40,23 +41,88 @@ async function CopySnippetToClipBoard(snippet) {
  * @return A page for viewing snippet code
  */
 export default function SnippetViewPage() {
-  const sampleSnippet = "Hello! This is code for you to copy! \nPress the " + 
-  "button below to copy"
+  const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` + 
+  `button below to copy`
+
+  // Visual indicator of successful snippet copy
+  const [conf, setConf] = useState("");
+  const showConf = (confMessage, duration = 3000) => {
+    setConf(confMessage);
+
+    // Automatically reset the inidcator
+    setTimeout(() => {
+      setConf("");
+    }, duration);
+  };
+
+  // Handler for when the copy button is clicked allows for 2 functions
+  let currCode = "";
+  const CopyButtonHandler = () => {
+    currCode = document.getElementById('codeArea1');
+    // Copy current modified text to system clipboard
+    CopySnippetToClipBoard(currCode.value);
+    // Display confirmation message
+    showConf("Copied!");
+  };
+
+  // Handler for when the refresh button is clicked allows for 2 functions
+  const RefreshButtonHandler = (ogSnippet) => {
+    if(ogSnippet){
+      currCode = document.getElementById('codeArea1');
+      // Reset to original snippet code
+      currCode.value = ogSnippet;
+      // Display confirmation message
+      showConf("Refreshed!");
+    }
+  };
 
   return (
     <>
+      <title>
+        Snippet
+      </title>
+      <header>
+        <div id='siteLogo'>
+          <b>CSnippy</b>
+        </div>
+        <nav>
+          <ul id='navIcons'>
+            <li className='icon'>
+              {<SettingsIcon/>}
+            </li>
+          </ul>
+        </nav>
+      </header>
       <div id='body'>
+        <b>&lt; All Snippets</b>
         <div id='content'>
-          <p>
+          <select id='language1' className='snippetLanguage'>
+            <option value="c++">C++</option>
+            <option value="python">Python</option>
+            <option value="js">JavaScript</option>
+          </select>
+          <textarea id='codeArea1' className='snippetCode'>
             {sampleSnippet}
-          </p>
-          <button className='copySnippet' onClick={
-            () => CopySnippetToClipBoard(sampleSnippet)
-          }>
-            Copy Snippet
+          </textarea>
+          <button id='copyButton' className='snippetButton' onClick={
+          () => CopyButtonHandler()}>
+            <CopyIcon/>
+          </button>
+          <button id='refreshButton' className='snippetButton' onClick={
+          () => RefreshButtonHandler(sampleSnippet)}>
+            <RefreshIcon/>
+          </button>
+          <button id='addButton' className='snippetButton' onClick={
+          () => CopySnippetToClipBoard(sampleSnippet)}>
+            <AddIcon/>
           </button>
         </div>
       </div>
+      {conf && (
+        <div id='confMessage'>
+          {conf}
+        </div>
+      )}
     </>
   );
 }
