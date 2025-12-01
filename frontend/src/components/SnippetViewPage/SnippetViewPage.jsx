@@ -44,7 +44,6 @@ async function CopySnippetToClipBoard(snippet) {
 export const SnippetViewPage = () => {
   //Initialize useNavigate as an object to avoid invalid hook calls
   const navigate = useNavigate();
-
   const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` +
     `button below to copy`
 
