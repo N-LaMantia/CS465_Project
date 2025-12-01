@@ -9,6 +9,7 @@
 import './SnippetViewPage.css';
 import { SettingsIcon, CopyIcon, RefreshIcon, AddIcon, GetLanguages } from '../../assets.jsx';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -40,7 +41,10 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @return A page for viewing snippet code
  */
-export default function SnippetViewPage() {
+export const SnippetViewPage = () => {
+  //Initialize useNavigate as an object to avoid invalid hook calls
+  const navigate = useNavigate();
+
   const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` +
     `button below to copy`
 
@@ -94,7 +98,7 @@ export default function SnippetViewPage() {
         </nav>
       </header>
       <div id='body'>
-        <b>&lt; All Snippets</b>
+        <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
         <div id='content'>
           <GetLanguages />
           <textarea id='codeArea1' className='snippetCode'>
