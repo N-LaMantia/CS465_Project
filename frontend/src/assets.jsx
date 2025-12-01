@@ -10,6 +10,15 @@
 
 import { useEffect, useState } from 'react';
 
+
+
+/**
+ * Author: Matthew Eagan
+ * Contributors:
+ * 
+ * 
+ * @returns A icon for settings 
+ */
 export function SettingsIcon() {
     return (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
@@ -94,6 +103,14 @@ export function SettingsIcon() {
     );
 }
 
+/**
+ * Author: Nicholas LaMantia
+ * Contributors:
+ * 
+ * @function GetLanguages
+ * 
+ * @returns HTML to display a selectable drop-down with a list of languages
+ */
 export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = null }) {
     const [languages, setLanguages] = useState([]);
     const [open, setOpen] = useState(false);
@@ -177,6 +194,13 @@ export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = nul
     );
 }
 
+/**
+ * Author: Matthew Eagan
+ * Contributors:
+ * 
+ * 
+ * @returns An icon
+ */
 export function CopyIcon() {
     return (
         <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
@@ -197,6 +221,13 @@ export function CopyIcon() {
     );
 }
 
+/**
+ * Authors: Matthew Eagan
+ * Contributors:
+ * 
+ * @returns An icon
+ * 
+ * */
 export function RefreshIcon() {
     return (
         <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
@@ -216,6 +247,14 @@ export function RefreshIcon() {
     );
 }
 
+/**
+ * Author: Matthew Eagan
+ * Contributors:
+ * 
+ * 
+ * @returns An icon
+ * 
+ */
 export function AddIcon() {
     return (
         <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
