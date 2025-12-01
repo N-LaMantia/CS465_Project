@@ -15,13 +15,10 @@
 
 2. `npm run install-all`
 
-### To run front-end
 
-1. `npm run frontend-dev`
+### To run application
 
-### To run server
-
-1. `npm run server-dev`
+1. `npm run dev`
 
 ## Project Description
 

@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
  * Author: Matthew Eagan
  * Contributors:
  * 
+ * @function SettingsIcon
  * 
  * @returns A icon for settings 
  */
@@ -198,6 +199,8 @@ export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = nul
  * Author: Matthew Eagan
  * Contributors:
  * 
+ * @function CopyIcon
+ * 
  * 
  * @returns An icon
  */
@@ -225,6 +228,8 @@ export function CopyIcon() {
  * Authors: Matthew Eagan
  * Contributors:
  * 
+ * @function RefreshIcon
+ * 
  * @returns An icon
  * 
  * */
@@ -251,6 +256,7 @@ export function RefreshIcon() {
  * Author: Matthew Eagan
  * Contributors:
  * 
+ * @function AddIcon
  * 
  * @returns An icon
  * 
