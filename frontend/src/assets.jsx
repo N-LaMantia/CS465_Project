@@ -94,12 +94,13 @@ export function SettingsIcon() {
     );
 }
 
-export function GetLanguages({ id = 'language1', onSelect }) {
+export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = null }) {
     const [languages, setLanguages] = useState([]);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+    const [selected, setSelected] = useState(defaultLanguage);
+
 
     useEffect(() => {
         let mounted = true;
@@ -143,13 +144,14 @@ export function GetLanguages({ id = 'language1', onSelect }) {
         if (select) select.value = lang;
 
         if (typeof onSelect === 'function') onSelect(lang);
+        setSelected(lang);
         setOpen(false);
     };
 
     return (
         <div className="language-dropdown">
-            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)}>
-                {open ? 'Close Languages' : 'Select Language'}
+            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                {open ? 'Close Languages' : (selected || 'Select Language')}
             </button>
             {open && (
                 <div className="dropdown-menu">
@@ -166,7 +168,7 @@ export function GetLanguages({ id = 'language1', onSelect }) {
                 </div>
             )}
             {/* keep a hidden select so any existing DOM code can still reference language1 */}
-            <select id={id} style={{ display: 'none' }} aria-hidden="true">
+            <select id={id} style={{ display: 'none' }} aria-hidden="true" value={selected || ''}>
                 {languages.map((language) => (
                     <option key={language} value={language}>{language}</option>
                 ))}
