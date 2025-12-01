@@ -3,11 +3,11 @@
  *
  * @file SnippetViewPage.jsx
  * @author Matthew Eagan
- * Contributors:
+ * Contributors: Nicholas LaMantia
  */
 
 import './SnippetViewPage.css';
-import { SettingsIcon, CopyIcon, RefreshIcon, AddIcon } from '../../assets.jsx';
+import { SettingsIcon, CopyIcon, RefreshIcon, AddIcon, GetLanguages } from '../../assets.jsx';
 import { useState } from 'react';
 
 /**
@@ -24,7 +24,7 @@ async function CopySnippetToClipBoard(snippet) {
   try {
     await navigator.clipboard.writeText(snippet);
   }
-  catch(error){
+  catch (error) {
     console.error("Failed to copy snippet: ", error);
   }
 }
@@ -36,13 +36,13 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan,
+ * Contributors: Matthew Eagan, Nicholas LaMantia
  *
  * @return A page for viewing snippet code
  */
 export default function SnippetViewPage() {
-  const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` + 
-  `button below to copy`
+  const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` +
+    `button below to copy`
 
   // Visual indicator of successful snippet copy
   const [conf, setConf] = useState("");
@@ -67,7 +67,7 @@ export default function SnippetViewPage() {
 
   // Handler for when the refresh button is clicked allows for 2 functions
   const RefreshButtonHandler = (ogSnippet) => {
-    if(ogSnippet){
+    if (ogSnippet) {
       currCode = document.getElementById('codeArea1');
       // Reset to original snippet code
       currCode.value = ogSnippet;
@@ -88,7 +88,7 @@ export default function SnippetViewPage() {
         <nav>
           <ul id='navIcons'>
             <li className='icon'>
-              {<SettingsIcon/>}
+              {<SettingsIcon />}
             </li>
           </ul>
         </nav>
@@ -96,25 +96,21 @@ export default function SnippetViewPage() {
       <div id='body'>
         <b>&lt; All Snippets</b>
         <div id='content'>
-          <select id='language1' className='snippetLanguage'>
-            <option value="c++">C++</option>
-            <option value="python">Python</option>
-            <option value="js">JavaScript</option>
-          </select>
+          <GetLanguages />
           <textarea id='codeArea1' className='snippetCode'>
             {sampleSnippet}
           </textarea>
           <button id='copyButton' className='snippetButton' onClick={
-          () => CopyButtonHandler()}>
-            <CopyIcon/>
+            () => CopyButtonHandler()}>
+            <CopyIcon />
           </button>
           <button id='refreshButton' className='snippetButton' onClick={
-          () => RefreshButtonHandler(sampleSnippet)}>
-            <RefreshIcon/>
+            () => RefreshButtonHandler(sampleSnippet)}>
+            <RefreshIcon />
           </button>
           <button id='addButton' className='snippetButton' onClick={
-          () => CopySnippetToClipBoard(sampleSnippet)}>
-            <AddIcon/>
+            () => CopySnippetToClipBoard(sampleSnippet)}>
+            <AddIcon />
           </button>
         </div>
       </div>

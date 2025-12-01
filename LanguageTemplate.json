@@ -1,6 +1,14 @@
 {
   "title": "JavaScript",
   "description": "A high-level, dynamic language primarily used for web development on both client and server sides, supporting event-driven, functional, and object-oriented programming.",
-  "languageType": ["OOP", "Functional", "Imperative", "Event-driven"],
-  "environments": ["Web", "Scripting"]
-},
+  "languageType": [
+    "OOP",
+    "Functional",
+    "Imperative",
+    "Event-driven"
+  ],
+  "environments": [
+    "Web",
+    "Scripting"
+  ]
+}
