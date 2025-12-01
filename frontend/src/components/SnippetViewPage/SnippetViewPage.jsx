@@ -95,6 +95,15 @@ export default function SnippetViewPage() {
       </header>
       <div id='body'>
         <b>&lt; All Snippets</b>
+        <div class="dropdown">
+        <button class="dropbtn">Snippet type</button>
+         <div class="dropdown-content">
+    <a href="#">Lua</a>
+    <a href="#">Python</a>
+    <a href="#">JavaScript</a>
+    <a href="#">C++</a>
+  </div>
+</div>
         <div id='content'>
           <select id='language1' className='snippetLanguage'>
             <option value="c++">C++</option>
