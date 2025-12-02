@@ -6,10 +6,19 @@
  * Contributors: Nicholas LaMantia
  */
 
-import './SnippetViewPage.css';
-import { SettingsIcon, CopyIcon, RefreshIcon, AddIcon, GetLanguages, SnipList } from '../../assets.jsx';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import "./SnippetViewPage.css";
+import {
+  SettingsIcon,
+  CopyIcon,
+  RefreshIcon,
+  AddIcon,
+  GetLanguages,
+  SnipList,
+} from "../../assets.jsx";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -24,14 +33,13 @@ import { useNavigate } from 'react-router-dom';
 async function CopySnippetToClipBoard(snippet) {
   try {
     await navigator.clipboard.writeText(snippet);
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Failed to copy snippet: ", error);
   }
 }
 
 /**
- * A page that displays the code for a selected snippet; Allows the user to 
+ * A page that displays the code for a selected snippet; Allows the user to
  * copy code, modify code, reset code, and add a second text window for direct
  * comparison with another chosen language
  *
@@ -44,14 +52,22 @@ async function CopySnippetToClipBoard(snippet) {
 export const SnippetViewPage = () => {
   //Initialize useNavigate as an object to avoid invalid hook calls
   const navigate = useNavigate();
-  const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` +
-    `button below to copy`
+  const sampleSnippet =
+    `Hello! This is code for you to copy! \nPress the ` +
+    `button below to copy`;
 
   // Selected language / snippet and code state
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-  const [selectedSnippet, setSelectedSnippet] = useState(null);
+  const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
+
+  let languageMap = {
+    "C++": "cpp",
+    JavaScript: "javascript",
+    Python: "python",
+    Lua: "lua",
+  };
 
   // Visual indicator of successful snippet copy
   const [conf, setConf] = useState("");
@@ -80,51 +96,75 @@ export const SnippetViewPage = () => {
     showConf("Refreshed!");
   };
 
-
   return (
     <>
-      <title>
-        Snippet
-      </title>
+      <title>Snippet</title>
       <header>
-        <div id='siteLogo'>
+        <div id="siteLogo">
           <b>CSnippy</b>
         </div>
         <nav>
-          <ul id='navIcons'>
-            <li className='icon'>
-              {<SettingsIcon />}
-            </li>
+          <ul id="navIcons">
+            <li className="icon">{<SettingsIcon />}</li>
           </ul>
         </nav>
       </header>
-      <div id='body'>
+      <div id="body">
         <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
-        <div id='content'>
+        <div id="content">
           <div className="dropdown-row">
-            <GetLanguages onSelect={(lang) => { setSelectedLanguage(lang); setSelectedSnippet(null); setCurrentCode(sampleSnippet); setOriginalCode(sampleSnippet); }} />
-            <SnipList language={selectedLanguage} onSelect={(snip) => { setSelectedSnippet(snip); setCurrentCode(snip.code || sampleSnippet); setOriginalCode(snip.code || sampleSnippet); }} />
+            <GetLanguages
+              onSelect={(lang) => {
+                setSelectedLanguage(lang);
+                setSelectedSnippet(null);
+                setCurrentCode(sampleSnippet);
+                setOriginalCode(sampleSnippet);
+              }}
+            />
+            <SnipList
+              language={selectedLanguage}
+              onSelect={(snip) => {
+                setSelectedSnippet(snip);
+                setCurrentCode(snip.code || sampleSnippet);
+                setOriginalCode(snip.code || sampleSnippet);
+              }}
+            />
           </div>
-          <textarea id='codeArea1' className='snippetCode' value={currentCode} onChange={(e) => setCurrentCode(e.target.value)} />
-          <button id='copyButton' className='snippetButton' onClick={
-            () => CopyButtonHandler()}>
+          <div className="snippetCode" id="codeArea1">
+            <SyntaxHighlighter
+              language={languageMap[selectedLanguage]}
+              style={oneDark}
+              showLineNumbers
+              wrapLongLines
+              className="code"
+            >
+              {currentCode}
+            </SyntaxHighlighter>
+          </div>
+          <button
+            id="copyButton"
+            className="snippetButton"
+            onClick={() => CopyButtonHandler()}
+          >
             <CopyIcon />
           </button>
-          <button id='refreshButton' className='snippetButton' onClick={
-            () => RefreshButtonHandler(sampleSnippet)}>
+          <button
+            id="refreshButton"
+            className="snippetButton"
+            onClick={() => RefreshButtonHandler(sampleSnippet)}
+          >
             <RefreshIcon />
           </button>
-          <button id='addButton' className='snippetButton' onClick={
-            () => CopySnippetToClipBoard(sampleSnippet)}>
+          <button
+            id="addButton"
+            className="snippetButton"
+            onClick={() => CopySnippetToClipBoard(sampleSnippet)}
+          >
             <AddIcon />
           </button>
         </div>
       </div>
-      {conf && (
-        <div id='confMessage'>
-          {conf}
-        </div>
-      )}
+      {conf && <div id="confMessage">{conf}</div>}
     </>
   );
-}
+};
