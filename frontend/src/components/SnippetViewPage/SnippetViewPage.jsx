@@ -3,11 +3,13 @@
  *
  * @file SnippetViewPage.jsx
  * @author Matthew Eagan
- * Contributors:
+ * Contributors: Nicholas LaMantia
  */
 
 import './SnippetViewPage.css';
-
+import { SettingsIcon, CopyIcon, RefreshIcon, AddIcon, GetLanguages, SnipList } from '../../assets.jsx';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -23,7 +25,7 @@ async function CopySnippetToClipBoard(snippet) {
   try {
     await navigator.clipboard.writeText(snippet);
   }
-  catch(error){
+  catch (error) {
     console.error("Failed to copy snippet: ", error);
   }
 }
@@ -35,28 +37,94 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan,
+ * Contributors: Matthew Eagan, Nicholas LaMantia
  *
  * @return A page for viewing snippet code
  */
-export default function SnippetViewPage() {
-  const sampleSnippet = "Hello! This is code for you to copy! \nPress the " + 
-  "button below to copy"
+export const SnippetViewPage = () => {
+  //Initialize useNavigate as an object to avoid invalid hook calls
+  const navigate = useNavigate();
+  const sampleSnippet = `Hello! This is code for you to copy! \nPress the ` +
+    `button below to copy`
+
+  // Selected language / snippet and code state
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [selectedSnippet, setSelectedSnippet] = useState(null);
+  const [currentCode, setCurrentCode] = useState(sampleSnippet);
+  const [originalCode, setOriginalCode] = useState(sampleSnippet);
+
+  // Visual indicator of successful snippet copy
+  const [conf, setConf] = useState("");
+  const showConf = (confMessage, duration = 3000) => {
+    setConf(confMessage);
+
+    // Automatically reset the inidcator
+    setTimeout(() => {
+      setConf("");
+    }, duration);
+  };
+
+  // Handler for when the copy button is clicked allows for 2 functions
+  const CopyButtonHandler = () => {
+    // Copy current modified text to system clipboard
+    CopySnippetToClipBoard(currentCode);
+    // Display confirmation message
+    showConf("Copied!");
+  };
+
+  // Handler for when the refresh button is clicked allows for 2 functions
+  const RefreshButtonHandler = () => {
+    // Reset to original snippet code
+    setCurrentCode(originalCode);
+    // Display confirmation message
+    showConf("Refreshed!");
+  };
+
 
   return (
     <>
+      <title>
+        Snippet
+      </title>
+      <header>
+        <div id='siteLogo'>
+          <b>CSnippy</b>
+        </div>
+        <nav>
+          <ul id='navIcons'>
+            <li className='icon'>
+              {<SettingsIcon />}
+            </li>
+          </ul>
+        </nav>
+      </header>
       <div id='body'>
+        <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
         <div id='content'>
-          <p>
-            {sampleSnippet}
-          </p>
-          <button className='copySnippet' onClick={
-            () => CopySnippetToClipBoard(sampleSnippet)
-          }>
-            Copy Snippet
+          <div className="dropdown-row">
+            <GetLanguages onSelect={(lang) => { setSelectedLanguage(lang); setSelectedSnippet(null); setCurrentCode(sampleSnippet); setOriginalCode(sampleSnippet); }} />
+            <SnipList language={selectedLanguage} onSelect={(snip) => { setSelectedSnippet(snip); setCurrentCode(snip.code || sampleSnippet); setOriginalCode(snip.code || sampleSnippet); }} />
+          </div>
+          <textarea id='codeArea1' className='snippetCode' value={currentCode} onChange={(e) => setCurrentCode(e.target.value)} />
+          <button id='copyButton' className='snippetButton' onClick={
+            () => CopyButtonHandler()}>
+            <CopyIcon />
+          </button>
+          <button id='refreshButton' className='snippetButton' onClick={
+            () => RefreshButtonHandler(sampleSnippet)}>
+            <RefreshIcon />
+          </button>
+          <button id='addButton' className='snippetButton' onClick={
+            () => CopySnippetToClipBoard(sampleSnippet)}>
+            <AddIcon />
           </button>
         </div>
       </div>
+      {conf && (
+        <div id='confMessage'>
+          {conf}
+        </div>
+      )}
     </>
   );
 }

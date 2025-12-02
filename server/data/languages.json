@@ -3,20 +3,46 @@
     {
       "title": "JavaScript",
       "description": "A high-level, dynamic language primarily used for web development on both client and server sides, supporting event-driven, functional, and object-oriented programming.",
-      "languageType": ["OOP", "Functional", "Imperative", "Event-driven"],
-      "environments": ["Web", "Scripting"]
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative",
+        "Event-driven"
+      ],
+      "environments": [
+        "Web",
+        "Scripting"
+      ]
     },
     {
       "title": "Python",
       "description": "A versatile, high-level language known for readability and ease of use, widely used in web development, data science, automation, and AI, supporting procedural, OOP, and functional programming.",
-      "languageType": ["OOP", "Functional", "Imperative", "Procedural"],
-      "environments": ["General-purpose", "Data", "Scripting"]
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative",
+        "Procedural"
+      ],
+      "environments": [
+        "General-purpose",
+        "Data",
+        "Scripting"
+      ]
     },
     {
       "title": "C++",
       "description": "A powerful, multi-paradigm language supporting procedural, object-oriented, and generic programming, commonly used for system software, games, and performance-critical applications.",
-      "languageType": ["OOP", "Imperative", "Procedural", "Generic"],
-      "environments": ["Systems", "Game Development"]
+      "languageType": [
+        "OOP",
+        "Imperative",
+        "Procedural",
+        "Generic"
+      ],
+      "environments": [
+        "Systems",
+        "Performance",
+        "Game Development"
+      ]
     },
     {
       "title": "Lua",

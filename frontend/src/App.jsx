@@ -1,13 +1,12 @@
-import { useState } from "react";
 import "./App.css";
-import Component from "./components/Component/Component";
+import LanguagesList from "./components/Component/languagesList.jsx";
 
-function App() {
+export default function App() {
+
   return (
-    <div>
-      <Component />
-    </div>
+    <>
+      <div></div>
+
+    </>
   );
 }
-
-export default App;

@@ -32,5 +32,6 @@
     "mongodb": "^7.0.0",
     "mongoose": "^8.20.0",
     "react-syntax-highlighter": "^16.1.0"
+    "nodemon": "^3.1.11"
   }
 }
