@@ -196,6 +196,92 @@ export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = nul
 }
 
 /**
+   * 
+   * Author: Nicholas LaMantia 
+   * Contributors: 
+   * 
+   * @function <SnipList>
+   * 
+   * @return A list of snippets in HTML from the database,
+   *  each being clickable buttons.
+   * 
+   */
+export function SnipList({ id = 'snippet1', onSelect: onSelectSnippet, language = null }) {
+    const [snippets, setSnippets] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selected, setSelected] = useState(null);
+
+    useEffect(() => {
+        let mounted = true;
+
+        const fetchSnippets = async () => {
+            setLoading(true);
+            try {
+                const endpoint = language ? `/api/snippets/${encodeURIComponent(language)}` : '/api/snippets';
+                const resp = await fetch(endpoint);
+                const json = await resp.json();
+                // json should be an array of snippet objects
+                const items = Array.isArray(json) ? json : [];
+                if (mounted) setSnippets(items);
+            } catch (err) {
+                console.error(err);
+                if (mounted) setError(err.message || 'Error fetching snippets');
+            } finally {
+                if (mounted) setLoading(false);
+            }
+        };
+
+        if (open) fetchSnippets();
+
+        return () => {
+            mounted = false;
+        };
+    }, [open, snippets.length, language]);
+
+    const handleSelectSnippet = (snippet) => {
+        const label = snippet.title || snippet.name || snippet;
+        const select = document.getElementById(id);
+        if (select) select.value = label;
+        setSelected(label);
+        setOpen(false);
+        if (typeof onSelectSnippet === 'function') onSelectSnippet(snippet);
+    };
+
+    return (
+        <div className="snippet-dropdown">
+            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                {open ? 'Close Snippets' : (selected || 'Select Snippet')}
+            </button>
+            {open && (
+                <div className="dropdown-menu">
+                    {loading && <div className="dropdown-item">Loading...</div>}
+                    {error && <div className="dropdown-item">Error: {error}</div>}
+                    {!loading && !error && snippets.length === 0 && (
+                        <div className="dropdown-item">No snippets found</div>
+                    )}
+                    {!loading && !error && snippets.map((snippet) => {
+                        const title = snippet.title || snippet.name || snippet;
+                        return (
+                            <button key={title} type="button" className="dropdown-item" onClick={() => handleSelectSnippet(snippet)}>
+                                {title}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+            <select id={id} style={{ display: 'none' }} aria-hidden="true" value={selected || ''}>
+                {snippets.map((snippet) => {
+                    const title = snippet.title || snippet.name || snippet;
+                    return <option key={title} value={title}>{title}</option>
+                })}
+            </select>
+        </div>
+    );
+}
+
+/**
  * Author: Matthew Eagan
  * Contributors:
  * 
