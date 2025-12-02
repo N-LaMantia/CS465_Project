@@ -11,7 +11,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "https://cs465-project.onrender.com",
+        target: "http://localhost:8000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "/api"), // optional
       },

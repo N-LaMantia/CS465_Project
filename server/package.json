@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "jest --runInBand",
-    "start": "node index.js"
+    "test": "jest --runInBand"
   },
   "jest": {
     "testEnvironment": "node"
