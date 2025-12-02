@@ -269,7 +269,7 @@
       "description": "A blueprint for creating objects with shared structure and behavior.",
       "language": "JavaScript",
       "code": "class Person{    constructor(name){ this.name=name; }}",
-      "compatibleVersions": [],
+      "compatibleVersions": ["ES2015"],
       "tags": ["class", "object", "instance", "constructor"]
     },
     {

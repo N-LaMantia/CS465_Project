@@ -8,6 +8,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 /**
  * A description of the component
@@ -21,6 +23,13 @@ import axios from "axios";
 export default function Component() {
   const [languages, setLanguages] = useState([]);
   const [snippets, setSnippets] = useState([]);
+
+  const langMap = {
+    "c++": "cpp",
+    JavaScript: "javascript",
+    Python: "python",
+    Lua: "lua",
+  };
 
   useEffect(() => {
     axios
@@ -47,13 +56,14 @@ export default function Component() {
       ))}
       <br />
       {snippets.map((snippet) => (
-        <div key={snippet._id || snippet.title}>
-          {snippet.title} - {snippet.language}
-          <br />
-          <code style={{ whiteSpace: "pre-wrap", align: "left" }}>
-            <pre>{snippet.code}</pre>
-          </code>
-        </div>
+        <SyntaxHighlighter
+          language={langMap[snippet.language]}
+          style={oneDark}
+          showLineNumbers
+          showInlineLineNumbers
+        >
+          {snippet.code}
+        </SyntaxHighlighter>
       ))}
     </div>
   );
