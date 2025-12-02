@@ -49,6 +49,10 @@ export default function Component() {
       {snippets.map((snippet) => (
         <div key={snippet._id || snippet.title}>
           {snippet.title} - {snippet.language}
+          <br />
+          <code style={{ whiteSpace: "pre-wrap", align: "left" }}>
+            <pre>{snippet.code}</pre>
+          </code>
         </div>
       ))}
     </div>

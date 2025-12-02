@@ -2,122 +2,318 @@
   "snippets": [
     {
       "title": "For Loop",
-      "description": "A loop that iterates over a range of values",
+      "description": "Basic for loop",
       "language": "JavaScript",
-      "code": "for (let i = 0; i < 10; i++) {\n  console.log(i);\n}",
-      "compatibleVersions": [""]
+      "code": "for (let i = 0; i < 5; i++) {    console.log(i);}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "For Loop",
+      "description": "Basic for loop",
+      "language": "Python",
+      "code": "for i in range(5):\n    print(i)",
+      "compatibleVersions": []
+    },
+    {
+      "title": "For Loop",
+      "description": "Basic for loop",
+      "language": "C++",
+      "code": "for(int i=0;i<5;i++){std::cout << i << std::endl;}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "For Loop",
+      "description": "Basic for loop",
+      "language": "Lua",
+      "code": "for i=1,5 do\n    print(i)\nend",
+      "compatibleVersions": []
     },
     {
       "title": "While Loop",
-      "description": "A loop that runs while a condition is true",
+      "description": "Basic while loop",
       "language": "JavaScript",
-      "code": "let i = 0;\nwhile (i < 10) {\n  console.log(i);\n  i++;\n}",
-      "compatibleVersions": [""]
+      "code": "let i = 0;while (i < 5) {    console.log(i);    i++;}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "While Loop",
+      "description": "Basic while loop",
+      "language": "Python",
+      "code": "i = 0\nwhile i < 5:\n    print(i)\n    i += 1",
+      "compatibleVersions": []
+    },
+    {
+      "title": "While Loop",
+      "description": "Basic while loop",
+      "language": "C++",
+      "code": "int i=0;while(i<5){    std::cout << i << std::endl;    i++;}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "While Loop",
+      "description": "Basic while loop",
+      "language": "Lua",
+      "code": "i=1\n while i<=5 do\n    print(i)\n    i=i+1\nend",
+      "compatibleVersions": []
     },
     {
       "title": "If Statement",
-      "description": "The base conditional statement",
+      "description": "Basic if/else statement",
       "language": "JavaScript",
-      "code": "if (condition) {\n  // code to execute if condition is true\n} else if (anotherCondition) {\n  // code to execute if anotherCondition is true\n} else {\n  // code to execute if condition is false\n}",
-      "compatibleVersions": [""]
+      "code": "if (true) {    console.log('true');} else {    console.log('false');}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "If Statement",
+      "description": "Basic if/else statement",
+      "language": "Python",
+      "code": "if True:\n    print('true')\nelse:\n    print('false')",
+      "compatibleVersions": []
+    },
+    {
+      "title": "If Statement",
+      "description": "Basic if/else statement",
+      "language": "C++",
+      "code": "if(true){    std::cout << \"true\";}else{    std::cout << \"false\";}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "If Statement",
+      "description": "Basic if/else statement",
+      "language": "Lua",
+      "code": "if true then\n    print('true')\nelse\n    print('false')\nend",
+      "compatibleVersions": []
     },
     {
       "title": "Do While Loop",
-      "description": "A while loop that runs at least once",
+      "description": "Basic do/while loop",
       "language": "JavaScript",
-      "code": "do {\n  // code to execute \n} while (condition);",
-      "compatibleVersions": [""]
+      "code": "let i = 0;do {    console.log(i);    i++;} while (i < 5);",
+      "compatibleVersions": []
     },
     {
-      "title": "Switch Statement",
-      "description": "A conditional statement that executes a block of code based on a value",
+      "title": "Do While Loop",
+      "description": "Basic do/while loop",
+      "language": "Python",
+      "code": "# Python has no do-while, emulate with while True\ni = 0\nwhile True:\n    print(i)\n    i += 1\n    if i >= 5:\n        break",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Do While Loop",
+      "description": "Basic do/while loop",
+      "language": "C++",
+      "code": "int i=0;do{    std::cout << i << std::endl;    i++;}while(i<5);",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Do While Loop",
+      "description": "Basic do/while loop",
+      "language": "Lua",
+      "code": "i=1\nrepeat\n    print(i)\n    i=i+1\nuntil i>5",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Switch/Case",
+      "description": "Basic switch/case",
       "language": "JavaScript",
-      "code": "switch (value) {\n  case 1:\n    console.log('Value is 1');\n    break;\n  case 2:\n    console.log('Value is 2');\n    break;\n  default:\n    console.log('Value does not match any case');\n    break;\n}",
-      "compatibleVersions": [""]
+      "code": "switch(day){    case 1: console.log('Mon'); break;    case 2: console.log('Tue'); break;    default: console.log('Other');}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Switch/Case",
+      "description": "Basic switch/case",
+      "language": "Python",
+      "code": "# Python 3.10+ uses match\nmatch day:\n    case 1: print('Mon')\n    case 2: print('Tue')\n    case _: print('Other')",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Switch/Case",
+      "description": "Basic switch/case",
+      "language": "C++",
+      "code": "switch(day){    case 1: std::cout << \"Mon\"; break;    case 2: std::cout << \"Tue\"; break;    default: std::cout << \"Other\";}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Switch/Case",
+      "description": "Basic switch/case",
+      "language": "Lua",
+      "code": "-- Lua has no native switch, use if/elseif\nif day==1 then\n print('Mon')\nelseif day==2 then\n print('Tue')\nelse\n print('Other')\n end",
+      "compatibleVersions": []
     },
     {
       "title": "Try/Catch/Finally",
-      "description": "A block of code that can handle errors",
+      "description": "Exception handling",
       "language": "JavaScript",
-      "code": "try {\n  // code to execute\n} catch (error) {\n  // code to execute if an error occurs\n} finally {\n  // code to execute regardless of whether an error occurred or not\n}",
-      "compatibleVersions": [""]
+      "code": "try {    risky();} catch(e) {    console.error(e);} finally {    cleanup();}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Try/Catch/Finally",
+      "description": "Exception handling",
+      "language": "Python",
+      "code": "try:\n    risky()\nexcept Exception as e:\n    print(e)\nfinally:\n    cleanup()",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Try/Catch/Finally",
+      "description": "Exception handling",
+      "language": "C++",
+      "code": "try{    risky();}catch(std::exception &e){    std::cerr << e.what();}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Try/Catch/Finally",
+      "description": "Exception handling",
+      "language": "Lua",
+      "code": "local ok, err = pcall(risky)\nif not ok then\n print(err)\n end",
+      "compatibleVersions": []
     },
     {
       "title": "Async/Await",
-      "description": "A way to handle asynchronous operations",
+      "description": "Async function example",
       "language": "JavaScript",
-      "code": "async function getData() {\n  const response = await fetch('https://api.example.com/data');\n  const data = await response.json();\n  // do something with the data\n}",
-      "compatibleVersions": [""]
+      "code": "async function fetchData(){    const data = await getData();    console.log(data);}",
+      "compatibleVersions": []
     },
     {
       "title": "Function",
-      "description": "A block of code that performs a specific task",
+      "description": "Basic function declaration",
       "language": "JavaScript",
-      "code": "function greet(name) {\n  console.log('Hello, ' + name);\n}",
-      "compatibleVersions": [""]
+      "code": "function add(a,b){    return a+b;}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Function",
+      "description": "Basic function declaration",
+      "language": "Python",
+      "code": "def add(a,b):\n    return a+b",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Function",
+      "description": "Basic function declaration",
+      "language": "C++",
+      "code": "int add(int a,int b){    return a+b;}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Function",
+      "description": "Basic function declaration",
+      "language": "Lua",
+      "code": "function add(a,b)\n    return a+b\nend",
+      "compatibleVersions": []
     },
     {
       "title": "Class",
-      "description": "A blueprint for creating objects",
+      "description": "Class example",
       "language": "JavaScript",
-      "code": "class Person {\n  constructor(name, age) {\n    this.name = name;\n    this.age = age;\n  }\n  sayHello() {\n    console.log('Hello, my name is ' + this.name);\n  }\n}",
-      "compatibleVersions": [""]
+      "code": "class Person{    constructor(name){ this.name=name; }}",
+      "compatibleVersions": []
     },
     {
-      "title": "Struct",
-      "description": "A user-defined data type",
-      "language": "C++",
-      "code": "struct Person {\n  string name;\n  int age;\n};",
-      "compatibleVersions": [""]
+      "title": "Class",
+      "description": "Class example",
+      "language": "Python",
+      "code": "class Person:\n    def __init__(self,name):\n        self.name=name",
+      "compatibleVersions": []
     },
     {
-      "title": "Union",
-      "description": "A user-defined data type that can hold multiple values in the same memory location",
+      "title": "Class",
+      "description": "Class example",
       "language": "C++",
-      "code": "union Color {\n  int r;\n  int g;\n  int b;\n};",
-      "compatibleVersions": [""]
+      "code": "class Person{public:    std::string name;    Person(std::string n):name(n){}};",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Class",
+      "description": "Class example",
+      "language": "Lua",
+      "code": "Person = {}\nfunction Person:\nnew(name)\n    local o = {name=name}\n    setmetatable(o,self)\n    self.__index = self\n    return o\nend",
+      "compatibleVersions": []
     },
     {
       "title": "Array",
-      "description": "A list of values that can be accessed by index",
+      "description": "Basic array/list",
       "language": "JavaScript",
-      "code": "const arr = [1, 2, 3, 4, 5];\nconsole.log(arr[0]); // Output: 1",
-      "compatibleVersions": [""]
+      "code": "const arr = [1,2,3];",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Array",
+      "description": "Basic array/list",
+      "language": "Python",
+      "code": "arr = [1,2,3]",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Array",
+      "description": "Basic array/list",
+      "language": "C++",
+      "code": "int arr[] = {1,2,3};",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Array",
+      "description": "Basic array/list",
+      "language": "Lua",
+      "code": "arr = {1,2,3}",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Import/Export/Require",
+      "description": "Module system",
+      "language": "JavaScript",
+      "code": "import fs from 'fs';const data = require('data');export { data };",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Import/Export/Require",
+      "description": "Module system",
+      "language": "Python",
+      "code": "from path import *\nimport path",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Import/Export/Require",
+      "description": "Module system",
+      "language": "C++",
+      "code": "#include <iostream>\n#include \"myfile.h\"",
+      "compatibleVersions": []
+    },
+    {
+      "title": "Import/Export/Require",
+      "description": "Module system",
+      "language": "Lua",
+      "code": "local mod = require('mod')",
+      "compatibleVersions": []
     },
     {
       "title": "Enum",
-      "description": "A set of named constants",
+      "description": "Enumeration example",
       "language": "JavaScript",
-      "code": "const Color = {\n  RED: 'red',\n  GREEN: 'green',\n  BLUE: 'blue'\n};",
-      "compatibleVersions": [""]
+      "code": "const Color = {Red:0,Green:1,Blue:2};",
+      "compatibleVersions": []
     },
     {
-      "title": "Singleton",
-      "description": "A class that can only have one instance",
-      "language": "JavaScript",
-      "code": "class Singleton {\n  static instance;\n  constructor() {\n    if (!Singleton.instance) {\n      Singleton.instance = this;\n    }\n    return Singleton.instance;\n  }\n}",
-      "compatibleVersions": [""]
+      "title": "Enum",
+      "description": "Enumeration example",
+      "language": "Python",
+      "code": "from enum import Enum\nclass Color(Enum):\n    Red=0\n    Green=1\n    Blue=2",
+      "compatibleVersions": []
     },
     {
-      "title": "Factory",
-      "description": "A design pattern that provides a method for creating objects without specifying the exact class to instantiate.",
-      "language": "JavaScript",
-      "code": "class Car {\n  constructor(model) {\n    this.model = model;\n  }\n}\n\nclass Truck {\n  constructor(model) {\n    this.model = model;\n  }\n}\n\nclass VehicleFactory {\n  createVehicle(type, model) {\n    switch(type) {\n      case 'car':\n        return new Car(model);\n      case 'truck':\n        return new Truck(model);\n      default:\n        throw new Error('Unknown vehicle type');\n    }\n  }\n}\n\nconst factory = new VehicleFactory();\nconst myCar = factory.createVehicle('car', 'Sedan');\nconst myTruck = factory.createVehicle('truck', 'Pickup');",
-      "compatibleVersions": [""]
+      "title": "Enum",
+      "description": "Enumeration example",
+      "language": "C++",
+      "code": "enum Color {Red,Green,Blue};",
+      "compatibleVersions": []
     },
     {
-      "title": "Observer",
-      "description": "An object that can be notified when another object's state changes",
-      "language": "JavaScript",
-      "code": "class Observer {\n  constructor(subject) {\n    this.subject = subject;\n    this.subject.attach(this);\n  }\n  update() {\n    // do something\n  }\n}",
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Decorator",
-      "description": "A design pattern that allows adding behavior to objects at runtime",
-      "language": "JavaScript",
-      "code": "class Decorator {\n  constructor(component) {\n    this.component = component;\n  }\n  operation() {\n    // do something\n  }\n}",
-      "compatibleVersions": [""]
+      "title": "Enum",
+      "description": "Enumeration example",
+      "language": "Lua",
+      "code": "Color = {Red=0,Green=1,Blue=2}",
+      "compatibleVersions": []
     }
   ],
   "snps": [
@@ -133,62 +329,19 @@
     "struct",
     "union",
     "array",
+    "import/export/require",
     "enum",
+
     "Singleton",
     "Factory",
     "Observer",
     "Decorator",
     "Template Method",
-    "Flyweight",
-    "Proxy",
-    "Strategy",
-    "Facade",
-    "Adapter",
-    "Composite",
-    "Memento",
-    "Chain of Responsibility",
-    "Command",
-    "Interpreter",
-    "Iterator",
-    "Mediator",
-    "MVC",
-    "State",
-    "Publish-Subscribe",
     "lambda",
-    "import/export/require",
+
     "linked list",
     "binary tree",
-    "graph",
-    "heap",
-    "priority queue",
     "stack",
-    "queue",
-    "set",
-    "map",
-    "list/array",
-    "hash table",
-    "binary search",
-    "merge sort",
-    "quick sort",
-    "insertion sort",
-    "selection sort",
-    "semaphore",
-    "mutex",
-    "SQL stuff",
-    "Abstract class",
-    "Interface",
-    "dictionary",
-    "thread",
-    "DFS",
-    "BFS",
-    "binary search tree",
-    "create table",
-    "insert/update/delete",
-    "select with join",
-    "group by / having",
-    "transactions",
-    "stored procedure",
-    "index",
-    "foreign key"
+    "queue"
   ]
 }
