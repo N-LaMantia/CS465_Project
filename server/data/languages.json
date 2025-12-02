@@ -1,0 +1,241 @@
+{
+  "languages": [
+    {
+      "title": "JavaScript",
+      "description": "A high-level, dynamic language primarily used for web development on both client and server sides, supporting event-driven, functional, and object-oriented programming.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative",
+        "Event-driven"
+      ],
+      "environments": [
+        "Web",
+        "Scripting"
+      ]
+    },
+    {
+      "title": "TypeScript",
+      "description": "A statically typed superset of JavaScript that adds type safety and tooling improvements, commonly used for large-scale web applications, supporting OOP, functional, and event-driven programming.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative",
+        "Event-driven"
+      ],
+      "environments": [
+        "Web",
+        "Scripting"
+      ]
+    },
+    {
+      "title": "Python",
+      "description": "A versatile, high-level language known for readability and ease of use, widely used in web development, data science, automation, and AI, supporting procedural, OOP, and functional programming.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative",
+        "Procedural"
+      ],
+      "environments": [
+        "General-purpose",
+        "Data",
+        "Scripting"
+      ]
+    },
+    {
+      "title": "Haskell",
+      "description": "A pure functional programming language with strong static typing and lazy evaluation, ideal for academic research, compilers, and high-assurance software.",
+      "languageType": [
+        "Functional",
+        "Declarative"
+      ],
+      "environments": [
+        "Functional",
+        "Academic"
+      ]
+    },
+    {
+      "title": "Java",
+      "description": "A class-based, object-oriented language with platform independence, widely used for enterprise applications, Android apps, and large-scale systems.",
+      "languageType": [
+        "OOP",
+        "Imperative"
+      ],
+      "environments": [
+        "General-purpose",
+        "Enterprise",
+        "Mobile"
+      ]
+    },
+    {
+      "title": "C++",
+      "description": "A powerful, multi-paradigm language supporting procedural, object-oriented, and generic programming, commonly used for system software, games, and performance-critical applications.",
+      "languageType": [
+        "OOP",
+        "Imperative",
+        "Procedural",
+        "Generic"
+      ],
+      "environments": [
+        "Systems",
+        "Performance",
+        "Game Development"
+      ]
+    },
+    {
+      "title": "C#",
+      "description": "A modern, object-oriented language developed by Microsoft for Windows applications, web development, and game development, also supporting functional programming patterns.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative"
+      ],
+      "environments": [
+        "General-purpose",
+        "Enterprise",
+        "Game Development"
+      ]
+    },
+    {
+      "title": "Ruby",
+      "description": "A dynamic, high-level language known for simplicity and productivity, commonly used in web development (e.g., Rails), supporting object-oriented and functional programming.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative"
+      ],
+      "environments": [
+        "Web",
+        "General-purpose"
+      ]
+    },
+    {
+      "title": "Swift",
+      "description": "A modern language for iOS and macOS development, supporting safety, performance, object-oriented, and functional programming.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative"
+      ],
+      "environments": [
+        "Mobile",
+        "Systems"
+      ]
+    },
+    {
+      "title": "Go",
+      "description": "A statically typed language designed at Google for simplicity, concurrency, and efficiency, commonly used for web services and cloud applications, supporting procedural and imperative paradigms.",
+      "languageType": [
+        "Procedural",
+        "Imperative",
+        "Concurrent"
+      ],
+      "environments": [
+        "Systems",
+        "Cloud"
+      ]
+    },
+    {
+      "title": "Rust",
+      "description": "A systems programming language focused on safety, concurrency, and performance, supporting functional, object-oriented, and imperative programming patterns.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative",
+        "Concurrent"
+      ],
+      "environments": [
+        "Systems",
+        "Performance",
+        "Concurrent"
+      ]
+    },
+    {
+      "title": "C",
+      "description": "A procedural, low-level language widely used for systems programming, embedded systems, and performance-critical applications.",
+      "languageType": [
+        "Procedural",
+        "Imperative"
+      ],
+      "environments": [
+        "Systems",
+        "Low-level"
+      ]
+    },
+    {
+      "title": "SQL",
+      "description": "A domain-specific language used for managing and querying relational databases, supporting declarative programming and procedural extensions.",
+      "languageType": [
+        "Declarative",
+        "Procedural"
+      ],
+      "environments": [
+        "Data",
+        "Database"
+      ]
+    },
+    {
+      "title": "Kotlin",
+      "description": "A modern, statically typed language for Android and JVM applications, supporting object-oriented and functional programming.",
+      "languageType": [
+        "OOP",
+        "Functional",
+        "Imperative"
+      ],
+      "environments": [
+        "Mobile",
+        "General-purpose"
+      ]
+    },
+    {
+      "title": "R",
+      "description": "A language and environment for statistical computing and graphics, widely used in data analysis and scientific research.",
+      "languageType": [
+        "Functional",
+        "Procedural",
+        "Declarative"
+      ],
+      "environments": [
+        "Data",
+        "Analytics"
+      ]
+    },
+    {
+      "title": "Bash",
+      "description": "A Unix shell and command language used for scripting, automation, and system administration tasks, supporting procedural and imperative programming.",
+      "languageType": [
+        "Procedural",
+        "Imperative"
+      ],
+      "environments": [
+        "Scripting",
+        "Automation"
+      ]
+    },
+    {
+      "title": "Docker",
+      "description": "A containerization platform that allows developers to package, share, and run applications in isolated environments, supporting containerization and orchestration.",
+      "languageType": [
+        "Containerization",
+        "Orchestration"
+      ],
+      "environments": [
+        "Systems",
+        "Automation"
+      ]
+    },
+    {
+      "title": "PowerShell",
+      "description": "A command-line interface and scripting language for Windows, supporting declarative and imperative programming.",
+      "languageType": [
+        "Declarative",
+        "Procedural"
+      ],
+      "environments": [
+        "Automation",
+        "Scripting"
+      ]
+    }
+  ]
+}

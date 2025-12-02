@@ -1,0 +1,35 @@
+{
+  "name": "CS465-Project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "frontend-dev": "npm --prefix frontend run dev",
+    "server-dev": "nodemon ./server/index.js",
+    "dev": "concurrently --names root,frontend,server --prefix name \"npm run server-dev\" \"npm run frontend-dev\"",
+    "frontend-build": "npm --prefix frontend run build",
+    "test": "npm run frontend-test && node ./server/index.test.js",
+    "frontend-test": "npm run frontend-build",
+    "server-test": "node ./server/index.test.js",
+    "install-all": "concurrently --names root,frontend,server --prefix name \"npm install\" \"npm --prefix frontend install\" \"npm --prefix server install\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "concurrently": "^9.2.1",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.8"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongodb": "^7.0.0",
+    "mongoose": "^8.20.0",
+    "nodemon": "^3.1.11",
+    "react-syntax-highlighter": "^16.1.0"
+  }
+}

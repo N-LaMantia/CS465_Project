@@ -1,0 +1,7 @@
+{
+  "title": "For Loop",
+  "description": "A loop that iterates over a range of values",
+  "language": "JavaScript",
+  "code": "for (let i = 0; i < 10; i++) {\n  console.log(i);\n}",
+  "compatibleVersions": [""]
+}
