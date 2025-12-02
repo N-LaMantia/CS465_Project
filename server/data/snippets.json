@@ -2,318 +2,427 @@
   "snippets": [
     {
       "title": "For Loop",
-      "description": "Basic for loop",
+      "description": "A loop that iterates a fixed number of times or over a defined range.",
       "language": "JavaScript",
       "code": "for (let i = 0; i < 5; i++) {    console.log(i);}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow", "range"]
     },
     {
       "title": "For Loop",
-      "description": "Basic for loop",
+      "description": "A loop that iterates a fixed number of times or over a defined range.",
       "language": "Python",
       "code": "for i in range(5):\n    print(i)",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow", "range"]
     },
     {
       "title": "For Loop",
-      "description": "Basic for loop",
+      "description": "A loop that iterates a fixed number of times or over a defined range.",
       "language": "C++",
       "code": "for(int i=0;i<5;i++){std::cout << i << std::endl;}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow", "range"]
     },
     {
       "title": "For Loop",
-      "description": "Basic for loop",
+      "description": "A loop that iterates a fixed number of times or over a defined range.",
       "language": "Lua",
       "code": "for i=1,5 do\n    print(i)\nend",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow", "range"]
     },
     {
       "title": "While Loop",
-      "description": "Basic while loop",
+      "description": "A loop that runs as long as its condition remains true.",
       "language": "JavaScript",
       "code": "let i = 0;while (i < 5) {    console.log(i);    i++;}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow"]
     },
     {
       "title": "While Loop",
-      "description": "Basic while loop",
+      "description": "A loop that runs as long as its condition remains true.",
       "language": "Python",
       "code": "i = 0\nwhile i < 5:\n    print(i)\n    i += 1",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow"]
     },
     {
       "title": "While Loop",
-      "description": "Basic while loop",
+      "description": "A loop that runs as long as its condition remains true.",
       "language": "C++",
       "code": "int i=0;while(i<5){    std::cout << i << std::endl;    i++;}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow"]
     },
     {
       "title": "While Loop",
-      "description": "Basic while loop",
+      "description": "A loop that runs as long as its condition remains true.",
       "language": "Lua",
       "code": "i=1\n while i<=5 do\n    print(i)\n    i=i+1\nend",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["loop", "iteration", "conditional", "control flow"]
     },
     {
       "title": "If Statement",
-      "description": "Basic if/else statement",
+      "description": "A conditional branch that runs code only when a condition is true.",
       "language": "JavaScript",
       "code": "if (true) {    console.log('true');} else {    console.log('false');}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow"]
     },
     {
       "title": "If Statement",
-      "description": "Basic if/else statement",
+      "description": "A conditional branch that runs code only when a condition is true.",
       "language": "Python",
       "code": "if True:\n    print('true')\nelse:\n    print('false')",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow"]
     },
     {
       "title": "If Statement",
-      "description": "Basic if/else statement",
+      "description": "A conditional branch that runs code only when a condition is true.",
       "language": "C++",
       "code": "if(true){    std::cout << \"true\";}else{    std::cout << \"false\";}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow"]
     },
     {
       "title": "If Statement",
-      "description": "Basic if/else statement",
+      "description": "A conditional branch that runs code only when a condition is true.",
       "language": "Lua",
       "code": "if true then\n    print('true')\nelse\n    print('false')\nend",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow"]
     },
     {
       "title": "Do While Loop",
-      "description": "Basic do/while loop",
+      "description": "A loop that executes once before checking its condition.",
       "language": "JavaScript",
       "code": "let i = 0;do {    console.log(i);    i++;} while (i < 5);",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "loop", "iteration"]
     },
     {
       "title": "Do While Loop",
-      "description": "Basic do/while loop",
+      "description": "A loop that executes once before checking its condition.",
       "language": "Python",
       "code": "# Python has no do-while, emulate with while True\ni = 0\nwhile True:\n    print(i)\n    i += 1\n    if i >= 5:\n        break",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "loop", "iteration"]
     },
     {
       "title": "Do While Loop",
-      "description": "Basic do/while loop",
+      "description": "A loop that executes once before checking its condition.",
       "language": "C++",
       "code": "int i=0;do{    std::cout << i << std::endl;    i++;}while(i<5);",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "loop", "iteration"]
     },
     {
       "title": "Do While Loop",
-      "description": "Basic do/while loop",
+      "description": "A loop that executes once before checking its condition.",
       "language": "Lua",
       "code": "i=1\nrepeat\n    print(i)\n    i=i+1\nuntil i>5",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "loop", "iteration"]
     },
     {
-      "title": "Switch/Case",
-      "description": "Basic switch/case",
+      "title": "Switch/Match",
+      "description": "A multi-branch conditional that selects code based on a matched value.",
       "language": "JavaScript",
       "code": "switch(day){    case 1: console.log('Mon'); break;    case 2: console.log('Tue'); break;    default: console.log('Other');}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "match", "switch", "case"]
     },
     {
-      "title": "Switch/Case",
-      "description": "Basic switch/case",
+      "title": "Switch/Match",
+      "description": "A multi-branch conditional that selects code based on a matched value.",
       "language": "Python",
       "code": "# Python 3.10+ uses match\nmatch day:\n    case 1: print('Mon')\n    case 2: print('Tue')\n    case _: print('Other')",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "match", "switch", "case"]
     },
     {
-      "title": "Switch/Case",
-      "description": "Basic switch/case",
+      "title": "Switch/Match",
+      "description": "A multi-branch conditional that selects code based on a matched value.",
       "language": "C++",
       "code": "switch(day){    case 1: std::cout << \"Mon\"; break;    case 2: std::cout << \"Tue\"; break;    default: std::cout << \"Other\";}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "match", "switch", "case"]
     },
     {
-      "title": "Switch/Case",
-      "description": "Basic switch/case",
+      "title": "Switch/Match",
+      "description": "A multi-branch conditional that selects code based on a matched value.",
       "language": "Lua",
       "code": "-- Lua has no native switch, use if/elseif\nif day==1 then\n print('Mon')\nelseif day==2 then\n print('Tue')\nelse\n print('Other')\n end",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["conditional", "control flow", "match", "switch", "case"]
     },
     {
-      "title": "Try/Catch/Finally",
-      "description": "Exception handling",
+      "title": "Error Handling",
+      "description": "Error-handling structure for catching exceptions and running cleanup code.",
       "language": "JavaScript",
       "code": "try {    risky();} catch(e) {    console.error(e);} finally {    cleanup();}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "exception",
+        "error",
+        "try",
+        "catch",
+        "finally",
+        "error handling",
+        "exception handling"
+      ]
     },
     {
-      "title": "Try/Catch/Finally",
-      "description": "Exception handling",
+      "title": "Error Handling",
+      "description": "Error-handling structure for catching exceptions and running cleanup code.",
       "language": "Python",
       "code": "try:\n    risky()\nexcept Exception as e:\n    print(e)\nfinally:\n    cleanup()",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "exception",
+        "error",
+        "try",
+        "catch",
+        "finally",
+        "error handling",
+        "exception handling"
+      ]
     },
     {
-      "title": "Try/Catch/Finally",
-      "description": "Exception handling",
+      "title": "Error Handling",
+      "description": "Error-handling structure for catching exceptions and running cleanup code.",
       "language": "C++",
       "code": "try{    risky();}catch(std::exception &e){    std::cerr << e.what();}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "exception",
+        "error",
+        "try",
+        "catch",
+        "finally",
+        "error handling",
+        "exception handling"
+      ]
     },
     {
-      "title": "Try/Catch/Finally",
-      "description": "Exception handling",
+      "title": "Error Handling",
+      "description": "Error-handling structure for catching exceptions and running cleanup code.",
       "language": "Lua",
       "code": "local ok, err = pcall(risky)\nif not ok then\n print(err)\n end",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "exception",
+        "error",
+        "try",
+        "catch",
+        "finally",
+        "error handling",
+        "exception handling"
+      ]
     },
     {
       "title": "Async/Await",
-      "description": "Async function example",
+      "description": "Syntax for writing asynchronous code in a readable, sequential style.",
       "language": "JavaScript",
       "code": "async function fetchData(){    const data = await getData();    console.log(data);}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["async", "await", "promise", "async/await", "asyncronous"]
     },
     {
       "title": "Function",
-      "description": "Basic function declaration",
+      "description": "A reusable block of code that performs a specific task.",
       "language": "JavaScript",
       "code": "function add(a,b){    return a+b;}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["function", "declaration", "method"]
     },
     {
       "title": "Function",
-      "description": "Basic function declaration",
+      "description": "A reusable block of code that performs a specific task.",
       "language": "Python",
       "code": "def add(a,b):\n    return a+b",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["function", "declaration", "method"]
     },
     {
       "title": "Function",
-      "description": "Basic function declaration",
+      "description": "A reusable block of code that performs a specific task.",
       "language": "C++",
       "code": "int add(int a,int b){    return a+b;}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["function", "declaration", "method"]
     },
     {
       "title": "Function",
-      "description": "Basic function declaration",
+      "description": "A reusable block of code that performs a specific task.",
       "language": "Lua",
       "code": "function add(a,b)\n    return a+b\nend",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["function", "declaration", "method"]
     },
     {
       "title": "Class",
-      "description": "Class example",
+      "description": "A blueprint for creating objects with shared structure and behavior.",
       "language": "JavaScript",
       "code": "class Person{    constructor(name){ this.name=name; }}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["class", "object", "instance", "constructor"]
     },
     {
       "title": "Class",
-      "description": "Class example",
+      "description": "A blueprint for creating objects with shared structure and behavior.",
       "language": "Python",
       "code": "class Person:\n    def __init__(self,name):\n        self.name=name",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["class", "object", "instance", "constructor"]
     },
     {
       "title": "Class",
-      "description": "Class example",
+      "description": "A blueprint for creating objects with shared structure and behavior.",
       "language": "C++",
       "code": "class Person{public:    std::string name;    Person(std::string n):name(n){}};",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["class", "object", "instance", "constructor"]
     },
     {
       "title": "Class",
-      "description": "Class example",
+      "description": "A blueprint for creating objects with shared structure and behavior.",
       "language": "Lua",
       "code": "Person = {}\nfunction Person:\nnew(name)\n    local o = {name=name}\n    setmetatable(o,self)\n    self.__index = self\n    return o\nend",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["class", "object", "instance", "constructor"]
     },
     {
       "title": "Array",
-      "description": "Basic array/list",
+      "description": "An ordered collection of values stored by index.",
       "language": "JavaScript",
       "code": "const arr = [1,2,3];",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["array", "list"]
     },
     {
       "title": "Array",
-      "description": "Basic array/list",
+      "description": "An ordered collection of values stored by index.",
       "language": "Python",
       "code": "arr = [1,2,3]",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["array", "list"]
     },
     {
       "title": "Array",
-      "description": "Basic array/list",
+      "description": "An ordered collection of values stored by index.",
       "language": "C++",
       "code": "int arr[] = {1,2,3};",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["array", "list"]
     },
     {
       "title": "Array",
-      "description": "Basic array/list",
+      "description": "An ordered collection of values stored by index.",
       "language": "Lua",
       "code": "arr = {1,2,3}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["array", "list"]
     },
     {
-      "title": "Import/Export/Require",
-      "description": "Module system",
+      "title": "Module/Library importing and exporting",
+      "description": "Syntax for including external modules or exposing code to other files.",
       "language": "JavaScript",
       "code": "import fs from 'fs';const data = require('data');export { data };",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "import",
+        "export",
+        "require",
+        "module",
+        "system",
+        "include",
+        "library"
+      ]
     },
     {
-      "title": "Import/Export/Require",
-      "description": "Module system",
+      "title": "Module/Library importing and exporting",
+      "description": "Syntax for including external modules or exposing code to other files.",
       "language": "Python",
       "code": "from path import *\nimport path",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "import",
+        "export",
+        "require",
+        "module",
+        "system",
+        "include",
+        "library"
+      ]
     },
     {
-      "title": "Import/Export/Require",
-      "description": "Module system",
+      "title": "Module/Library importing and exporting",
+      "description": "Syntax for including external modules or exposing code to other files.",
       "language": "C++",
       "code": "#include <iostream>\n#include \"myfile.h\"",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "import",
+        "export",
+        "require",
+        "module",
+        "system",
+        "include",
+        "library"
+      ]
     },
     {
-      "title": "Import/Export/Require",
-      "description": "Module system",
+      "title": "Module/Library importing and exporting",
+      "description": "Syntax for including external modules or exposing code to other files.",
       "language": "Lua",
       "code": "local mod = require('mod')",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": [
+        "import",
+        "export",
+        "require",
+        "module",
+        "system",
+        "include",
+        "library"
+      ]
     },
     {
       "title": "Enum",
-      "description": "Enumeration example",
+      "description": "A type that defines a set of named constants.",
       "language": "JavaScript",
       "code": "const Color = {Red:0,Green:1,Blue:2};",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["enum", "enumeration"]
     },
     {
       "title": "Enum",
-      "description": "Enumeration example",
+      "description": "A type that defines a set of named constants.",
       "language": "Python",
       "code": "from enum import Enum\nclass Color(Enum):\n    Red=0\n    Green=1\n    Blue=2",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["enum", "enumeration"]
     },
     {
       "title": "Enum",
-      "description": "Enumeration example",
+      "description": "A type that defines a set of named constants.",
       "language": "C++",
       "code": "enum Color {Red,Green,Blue};",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["enum", "enumeration"]
     },
     {
       "title": "Enum",
-      "description": "Enumeration example",
+      "description": "A type that defines a set of named constants.",
       "language": "Lua",
       "code": "Color = {Red=0,Green=1,Blue=2}",
-      "compatibleVersions": []
+      "compatibleVersions": [],
+      "tags": ["enum", "enumeration"]
     }
   ],
   "snps": [
