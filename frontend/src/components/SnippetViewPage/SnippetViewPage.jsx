@@ -58,7 +58,7 @@ export const SnippetViewPage = () => {
 
   // Selected language / snippet and code state
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-  const [SelectedSnippet, setSelectedSnippet] = useState(null);
+  const [selectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
 
@@ -68,6 +68,9 @@ export const SnippetViewPage = () => {
     Python: "python",
     Lua: "lua",
   };
+
+  // Active comparison states
+  const [compareSnippet, isComparing] = useState(false);
 
   // Visual indicator of successful snippet copy
   const [conf, setConf] = useState("");
@@ -112,7 +115,7 @@ export const SnippetViewPage = () => {
       <div id="body">
         <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
         <div id="content">
-          <div className="dropdown-row">
+          {/* <div className="dropdown-row">
             <GetLanguages
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
@@ -161,7 +164,59 @@ export const SnippetViewPage = () => {
             onClick={() => CopySnippetToClipBoard(sampleSnippet)}
           >
             <AddIcon />
-          </button>
+          </button> */}
+          {!compareSnippet && <>
+            <div className="dropdown-row">
+              <GetLanguages
+                onSelect={(lang) => {
+                  setSelectedLanguage(lang);
+                  setSelectedSnippet(null);
+                  setCurrentCode(sampleSnippet);
+                  setOriginalCode(sampleSnippet);
+                }}
+              />
+              <SnipList
+                language={selectedLanguage}
+                onSelect={(snip) => {
+                  setSelectedSnippet(snip);
+                  setCurrentCode(snip.code || sampleSnippet);
+                  setOriginalCode(snip.code || sampleSnippet);
+                }}
+              />
+            </div>
+            <div className="snippetCode" id="codeArea1">
+              <SyntaxHighlighter
+                language={languageMap[selectedLanguage]}
+                style={oneDark}
+                showLineNumbers
+                wrapLongLines
+                className="code"
+              >
+                {currentCode}
+              </SyntaxHighlighter>
+            </div>
+            <button
+              id="copyButton"
+              className="snippetButton"
+              onClick={() => CopyButtonHandler()}
+            >
+              <CopyIcon />
+            </button>
+            <button
+              id="refreshButton"
+              className="snippetButton"
+              onClick={() => RefreshButtonHandler(sampleSnippet)}
+            >
+              <RefreshIcon />
+            </button>
+            <button
+              id="addButton"
+              className="snippetButton"
+              onClick={() => CopySnippetToClipBoard(sampleSnippet)}
+            >
+              <AddIcon />
+            </button>
+          </>}
         </div>
       </div>
       {conf && <div id="confMessage">{conf}</div>}
