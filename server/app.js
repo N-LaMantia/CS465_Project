@@ -102,7 +102,7 @@ app.get("/api/snippets", async (req, res) => {
     }
 
     res.json(snippets);
-  } catch (err) {
+  } catch (err) {//error handling
     console.error(err);
     res.status(500).json({ error: "Error retrieving snippets" });
   }

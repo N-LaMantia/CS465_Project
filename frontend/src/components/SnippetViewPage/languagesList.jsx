@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
  * @function LanguagesList
  * @author Nicholas LaMantia
  * 
- * Contributors:
+ * Contributors: 
  * 
  * 
  * * @return A list of programming languages as buttons in HTML

@@ -1,7 +1,7 @@
 /**
  * Author: Matthew Eagan
  * 
- * Contributors: Matthew Eagan, Nicholas LaMantia
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
  * 
  * 
  * @returns functions to use in SnippetViewPage
@@ -14,12 +14,16 @@ import { useEffect, useState } from 'react';
 
 /**
  * Author: Matthew Eagan
- * Contributors:
+ * Contributors: Jace Henderson, why is this repeated????????
  * 
  * @function SettingsIcon
  * 
- * @returns A icon for settings 
+ * @returns A icon for settings , DO NOT TOUCH
  */
+/* DON'T TOUCH YOU WILL BREAK THE ICON*/
+/* DON'T TOUCH YOU WILL BREAK THE ICON*/
+/* DON'T TOUCH YOU WILL BREAK THE ICON*/
+/* DON'T TOUCH YOU WILL BREAK THE ICON*/
 export function SettingsIcon() {
     return (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
@@ -28,7 +32,7 @@ export function SettingsIcon() {
                 <path d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 
                 18 24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 
                 30Z" stroke="white" stroke-width="4" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                    stroke-linejoin="round" /> 
 
                 <path d="M38.8 30C38.5338 30.6032 38.4544 31.2724 38.572 
                 31.9212C38.6896 32.57 38.9989 33.1686 39.46 33.64L39.58 

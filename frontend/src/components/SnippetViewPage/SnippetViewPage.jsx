@@ -3,7 +3,7 @@
  *
  * @file SnippetViewPage.jsx
  * @author Matthew Eagan
- * Contributors: Nicholas LaMantia
+ * Contributors: Nicholas LaMantia, Jace Henderson
  */
 
 import "./SnippetViewPage.css";
@@ -45,7 +45,7 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan, Nicholas LaMantia
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
  *
  * @return A page for viewing snippet code
  */
@@ -113,7 +113,7 @@ export const SnippetViewPage = () => {
         <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
         <div id="content">
           <div className="dropdown-row">
-            <GetLanguages
+            <GetLanguages //tab 1 (left), see assets.jsx for component details
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
                 setSelectedSnippet(null);
@@ -121,7 +121,7 @@ export const SnippetViewPage = () => {
                 setOriginalCode(sampleSnippet);
               }}
             />
-            <SnipList
+            <SnipList // tab 2 (right)
               language={selectedLanguage}
               onSelect={(snip) => {
                 setSelectedSnippet(snip);
@@ -131,7 +131,7 @@ export const SnippetViewPage = () => {
             />
           </div>
           <div className="snippetCode" id="codeArea1">
-            <SyntaxHighlighter
+            <SyntaxHighlighter //this is for the block where the code is displayed
               language={languageMap[selectedLanguage]}
               style={oneDark}
               showLineNumbers
@@ -141,14 +141,14 @@ export const SnippetViewPage = () => {
               {currentCode}
             </SyntaxHighlighter>
           </div>
-          <button
+          <button //copy button
             id="copyButton"
             className="snippetButton"
             onClick={() => CopyButtonHandler()}
           >
             <CopyIcon />
           </button>
-          <button
+          <button //refresh button
             id="refreshButton"
             className="snippetButton"
             onClick={() => RefreshButtonHandler(sampleSnippet)}
