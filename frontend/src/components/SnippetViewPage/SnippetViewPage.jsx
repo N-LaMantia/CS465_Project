@@ -110,7 +110,7 @@ export const SnippetViewPage = () => {
         </nav>
       </header>
       <div id="body">
-        <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
+        <button className="backButton" onClick={() => navigate(`/`)}>&lt; Back</button>
         <div id="content">
           <div className="dropdown-row">
             <GetLanguages
