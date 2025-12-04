@@ -1,6 +1,9 @@
 #root {
     padding: 0;
     font-family: 'Trebuchet MS', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -15,9 +18,57 @@ header {
     width: 100%;
 }
 
+hr {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #D9D9D9;
+    margin: 0;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 20px 400px;
+    text-align: center;
+    color: #D9D9D9;
+    font-size: 14px;
+    width: 100%;
+    height: auto;
+    margin-top: auto;
+}
+
+button.snipConverterButton {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-color: blue;
+}
+
+h3.description {
+    font-size: 25px;
+    color: #D9D9D9;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    margin-left: 400px;
+    margin-right: 400px;
+}
+
+h4 {
+    font-size: 15px;
+    color: #D9D9D9;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 200px;
+    margin-left: 400px;
+    margin-right: 400px;
+}
+
 #siteLogo {
     font-family: 'Instrument Sans', sans-serif;
-    font-size: 40px;
+    font-size: 10px;
     color: #D9D9D9;
     text-align: left;
 }
@@ -42,6 +93,7 @@ nav {
     align-content: center;
     text-align: left;
     place-items: center;
+    flex: 1;
 }
 
 /* TEMPORARY - REMOVE WHEN WORKING ON UI */

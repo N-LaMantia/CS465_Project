@@ -45,7 +45,7 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan, Nicholas LaMantia
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Thomas Gallaher
  *
  * @return A page for viewing snippet code
  */
@@ -57,7 +57,9 @@ export const SnippetViewPage = () => {
     `button below to copy`;
 
   // Selected language / snippet and code state
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    () => localStorage.getItem('preferredLanguage') || null
+  );
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
@@ -110,12 +112,14 @@ export const SnippetViewPage = () => {
         </nav>
       </header>
       <div id="body">
-        <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
+        <button className="backButton" onClick={() => navigate(`/`)}>&lt; Back</button>
         <div id="content">
           <div className="dropdown-row">
             <GetLanguages
+              defaultLanguage={selectedLanguage}
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
+                localStorage.setItem('preferredLanguage', lang);
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);
