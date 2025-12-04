@@ -49,6 +49,20 @@ app.get("/api", (req, res) => {
   res.send("API is running");
 });
 
+app.get("api/routes", (req, res) => {
+  res.send({
+    Routes: [
+      "/api",
+      "/api/languages",
+      "/api/snippets",
+      "/api/languages/:snippet",
+      "/api/snippets/:language",
+      "/api/tags",
+      "/api/tags/:language",
+    ],
+  });
+});
+
 /**
  * Route to get all languages
  *
@@ -204,6 +218,41 @@ app.get("/api/snippets/:language", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error retrieving snippets by language" });
+  }
+});
+
+app.get("/api/tags", async (req, res) => {
+  try {
+    const snippets = await Snippet.find({});
+    const tags = [...new Set(snippets.flatMap((s) => s.tags))];
+    res.json(tags);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error retrieving tags" });
+  }
+});
+
+app.get("/api/tags/:language", async (req, res) => {
+  try {
+    const snippets = await Snippet.find({ language: req.params.language });
+    const tags = [...new Set(snippets.flatMap((s) => s.tags))];
+    res.json(tags);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error retrieving tags" });
+  }
+});
+
+app.get("api/snippets/:language/:tag", async (req, res) => {
+  try {
+    const snippets = await Snippet.find({
+      language: req.params.language,
+      tags: req.params.tag,
+    });
+    res.json(snippets);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error retrieving snippets by tag" });
   }
 });
 
