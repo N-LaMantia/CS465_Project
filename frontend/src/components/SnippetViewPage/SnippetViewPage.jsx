@@ -45,7 +45,7 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan, Nicholas LaMantia
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Thomas Gallaher
  *
  * @return A page for viewing snippet code
  */
