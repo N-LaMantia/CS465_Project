@@ -13,32 +13,46 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x, 24.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: npm
+
       - run: npm ci
       - run: npm --prefix frontend ci
       - run: npm run build --if-present
-      - run: npm test
+
+      - name: Run build tests
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: npm test
+
   test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
+
     steps:
       - name: Checkout code
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: npm
 
       - name: Install dependencies
-      - run: npm ci
+        run: npm ci
 
-      - name: Run tests
-      - run: npm test -- --ci --coverage
+      - name: Run tests with coverage
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: npm test -- --ci --coverage
