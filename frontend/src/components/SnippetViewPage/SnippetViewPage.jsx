@@ -15,7 +15,7 @@ import {
   GetLanguages,
   SnipList,
 } from "../../assets.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -57,7 +57,9 @@ export const SnippetViewPage = () => {
     `button below to copy`;
 
   // Selected language / snippet and code state
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    () => localStorage.getItem('preferredLanguage') || null
+  );
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
@@ -114,8 +116,10 @@ export const SnippetViewPage = () => {
         <div id="content">
           <div className="dropdown-row">
             <GetLanguages
+              defaultLanguage={selectedLanguage}
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
+                localStorage.setItem('preferredLanguage', lang);
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);

@@ -9,6 +9,7 @@
 import './LandingPage.css';
 import { SettingsIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom'
+import { PreferredLangSetting } from '../PreferredLangSetting/PreferredLangSetting.jsx';
 
 /**
  * The primary landing page for the application which displays snippets in a
@@ -50,6 +51,8 @@ export const LandingPage = () => {
                     onClick={() => navigate(`/snippet`)}>
                     Snippet Comparer
                 </button>
+                &nbsp;
+                <PreferredLangSetting />
                 &nbsp;
                 <h3 className="description">
                     This application is designed for developers to
