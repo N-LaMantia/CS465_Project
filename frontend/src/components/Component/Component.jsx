@@ -40,17 +40,29 @@ export default function Component() {
       .catch((err) => console.error(err));
   }, []); // empty array = run once on mount
 
-  return (
+    return (
     <div>
-      {languages.map((language) => (
-        <div key={language._id || language.title}>{language.title}</div>
-      ))}
+      {/* Dropdown for languages */}
+      <label htmlFor="languageDropdown">Languages:</label>
+      <select id="languageDropdown">
+        {languages.map((language) => (
+          <option key={language._id || language.title} value={language.title}>
+            {language.title}
+          </option>
+        ))}
+      </select>
+
       <br />
-      {snippets.map((snippet) => (
-        <div key={snippet._id || snippet.title}>
-          {snippet.title} - {snippet.language}
-        </div>
-      ))}
+
+      {/* Dropdown for snippets */}
+      <label htmlFor="snippetDropdown">Snippets:</label>
+      <select id="snippetDropdown">
+        {snippets.map((snippet) => (
+          <option key={snippet._id || snippet.title} value={snippet.title}>
+            {snippet.title} - {snippet.language}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
