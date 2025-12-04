@@ -1,5 +1,19 @@
+/**
+ * This file contains all endpoint routes for the API.
+ *
+ * @file
+ * @author Thomas Gallaher
+ * Contributors:
+ *
+ * Contents:
+ *  Routes
+ *    - /api - Route to test if API is running
+ *    - /api/languages - Route to get all languages
+ *    - /api/snippets - Route to get all snippets
+ *    - /api/languages/:snippet - Route to get languages available for a specific snippet
+ *    - /api/snippets/:language - Route to get snippets available for a specific language
+ */
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 
 import Language from "./models/Language.js";
@@ -10,6 +24,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Cache
 const cacheTimeout = 60 * 60 * 1000;
 
 let cache = {
@@ -20,26 +35,41 @@ let cache = {
   snippets: {
     retrieveTime: 0,
     snippets: [], // full list of fetched snippets
-    byTitle: new Map(), // snippet title → snippet object(s)
-    byLanguage: new Map(), // language → array of snippet objects
+    byTitle: new Map(), // map of snippets by title
+    byLanguage: new Map(), // map of snippets by language
   },
 };
 
-// example route
+// Routes
+
+/**
+ * Route to test if API is running
+ */
 app.get("/api", (req, res) => {
   res.send("API is running");
 });
 
+/**
+ * Route to get all languages
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @returns {Object} - JSON object containing all languages
+ */
 app.get("/api/languages", async (req, res) => {
   try {
     if (Date.now() - cache.languages.retrieveTime < cacheTimeout) {
+      // Check if languages are in cache and return
       return res.json(cache.languages.languages);
     }
 
+    // If languages are not in cache, fetch them
     const languages = await Language.find({});
     cache.languages.retrieveTime = Date.now();
     cache.languages.languages = languages;
 
+    // Return languages
     res.json(languages);
   } catch (err) {
     console.error(err);
@@ -47,9 +77,20 @@ app.get("/api/languages", async (req, res) => {
   }
 });
 
+/**
+ * Route to get languages available for a specific snippet
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @param {string} snippet - The title of the snippet
+ *
+ * @returns {Object} - JSON object containing all languages available for the snippet
+ */
 app.get("/api/languages/:snippet", async (req, res) => {
   try {
     if (Date.now() - cache.snippets.retrieveTime < cacheTimeout) {
+      // Check if snippet is in cache
       const languageSet = new Set();
 
       for (const snippet of cache.snippets.snippets) {
@@ -58,14 +99,21 @@ app.get("/api/languages/:snippet", async (req, res) => {
         }
       }
 
+      // If snippet is in cache return the set
       return res.json([...languageSet]);
     }
 
+    // If snippet is not in cache, fetch it
     const snippets = await Snippet.find({ title: req.params.snippet });
+
+    // Update cache
     cache.snippets.retrieveTime = Date.now();
     cache.snippets.snippets = snippets;
 
+    // Get languages
     const languages = [...new Set(snippets.map((s) => s.language))];
+
+    // Return language list
     res.json(languages);
   } catch (err) {
     console.error(err);
@@ -73,6 +121,14 @@ app.get("/api/languages/:snippet", async (req, res) => {
   }
 });
 
+/**
+ * Route to get all snippets
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @returns {Object} - JSON object containing all snippets
+ */
 app.get("/api/snippets", async (req, res) => {
   try {
     if (Date.now() - cache.snippets.retrieveTime < cacheTimeout) {
@@ -108,6 +164,16 @@ app.get("/api/snippets", async (req, res) => {
   }
 });
 
+/**
+ * Route to get snippets available for a specific language
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @param {string} language - The language
+ *
+ * @returns {Object} - JSON object containing all snippets available for the language
+ */
 app.get("/api/snippets/:language", async (req, res) => {
   try {
     const language = req.params.language;
