@@ -52,24 +52,17 @@ nav {
   text-align: center;
   place-items: center;
   justify-items: center;
-  display: grid;
-  grid-template-columns: 1fr 120px;
-  grid-template-rows: 1fr 2fr 120px 120px 120px;
-  grid-template-areas:
-    "select sidebar"
-    "main sidebar"
-    "main button1"
-    "main button2"
-    "main button3";
-  grid-column-gap: 10px;
+}
+
+#codeArea {
+  /* grid-area: main; */
 }
 
 .snippetCode {
   resize: none;
-  grid-area: main;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  height: 92%;
   padding: 20px;
   text-align: left;
   align-items: start;
@@ -82,8 +75,15 @@ nav {
   border-top-width: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  text-wrap: nowrap;
-  scrollbar-color: #171717;
+  display: grid;
+  grid-template-columns: 1fr 110px;
+  grid-template-rows: 110px 1fr 1fr 110px;
+  grid-template-areas:
+    "main button1"
+    "main sidebar"
+    "main sidebar"
+    "main button3";
+  grid-column-gap: 10px;
 }
 
 .snippetLanguage {
@@ -102,8 +102,8 @@ nav {
 }
 
 .snippetButton {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   place-items: center;
   border-color: #d9d9d9;
   border-width: 3px;
@@ -197,5 +197,6 @@ nav {
 }
 
 .code {
-  height: 50%;
+  width: 100%;
+  height: 100%;
 }

@@ -53,8 +53,8 @@ export const SnippetViewPage = () => {
   //Initialize useNavigate as an object to avoid invalid hook calls
   const navigate = useNavigate();
   const sampleSnippet =
-    `Hello! This is code for you to copy! \nPress the ` +
-    `button below to copy`;
+    `/*Hello! This is code for you to copy! \nPress the ` +
+    `button below to copy*/`;
 
   // Selected language / snippet and code state
   const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -64,9 +64,9 @@ export const SnippetViewPage = () => {
 
   let languageMap = {
     "C++": "cpp",
-    JavaScript: "javascript",
-    Python: "python",
-    Lua: "lua",
+    "JavaScript": "javascript",
+    "Python": "python",
+    "Lua": "lua",
   };
 
   // Active comparison states
@@ -184,38 +184,40 @@ export const SnippetViewPage = () => {
                 }}
               />
             </div>
-            <div className="snippetCode" id="codeArea1">
+            <div className="snippetCode" id="fullCodeArea">
               <SyntaxHighlighter
+                id="codeArea" 
                 language={languageMap[selectedLanguage]}
                 style={oneDark}
+                customStyle={{padding: '0'}}
                 showLineNumbers
                 wrapLongLines
                 className="code"
               >
                 {currentCode}
               </SyntaxHighlighter>
+              <button
+                id="copyButton"
+                className="snippetButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              {/* <button
+                id="refreshButton"
+                className="snippetButton"
+                onClick={() => RefreshButtonHandler(sampleSnippet)}
+              >
+                <RefreshIcon />
+              </button> */}
+              <button
+                id="addButton"
+                className="snippetButton"
+                onClick={() => CopySnippetToClipBoard(sampleSnippet)}
+              >
+                <AddIcon />
+              </button>
             </div>
-            <button
-              id="copyButton"
-              className="snippetButton"
-              onClick={() => CopyButtonHandler()}
-            >
-              <CopyIcon />
-            </button>
-            <button
-              id="refreshButton"
-              className="snippetButton"
-              onClick={() => RefreshButtonHandler(sampleSnippet)}
-            >
-              <RefreshIcon />
-            </button>
-            <button
-              id="addButton"
-              className="snippetButton"
-              onClick={() => CopySnippetToClipBoard(sampleSnippet)}
-            >
-              <AddIcon />
-            </button>
           </>}
         </div>
       </div>
