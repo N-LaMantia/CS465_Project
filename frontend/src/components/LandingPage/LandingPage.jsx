@@ -3,13 +3,13 @@
  *
  * @file SnippetViewPage.jsx
  * @author Matthew Eagan
- * Contributors:
+ * Contributors: Nicholas LaMantia
  */
 
 import './LandingPage.css';
 import { SettingsIcon } from '../../assets';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { PreferredLangSetting } from '../PreferredLangSetting/PreferredLangSetting.jsx';
 
 /**
  * The primary landing page for the application which displays snippets in a
@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom'
  *
  * @function LandingPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan,
+ * Contributors: Nicholas LaMantia
  *
  * @return The primary landing page for the application
  */
@@ -32,28 +32,39 @@ export const LandingPage = () => {
             </title>
             <header>
                 <div id='siteLogo'>
-                <b>CSnippy</b>
+                    <b>CSnippy</b>
                 </div>
                 <nav>
-                <ul id='navIcons'>
-                    <li className='icon'>
-                    {<SettingsIcon/>}
-                    </li>
-                </ul>
+                    <ul id='navIcons'>
+                        <li className='icon'>
+                            {<SettingsIcon />}
+                        </li>
+                    </ul>
                 </nav>
             </header>
+            <hr></hr>
             <div id='body'>
                 <h1>
                     Welcome to CSnippy!
                 </h1>
-                <h2>
-                    Currently under construction!
-                </h2>
-                <button onClick={() => navigate(`/snippet`)}>
-                    Snippet View Page
+                <button className="snipConverterButton"
+                    onClick={() => navigate(`/snippet`)}>
+                    Snippet Comparer
                 </button>
-                <div id='content'>
-                </div>
+                &nbsp;
+                <PreferredLangSetting />
+                &nbsp;
+                <h3 className="description">
+                    This application is designed for developers to
+                    easily compare code snippets across multiple programming
+                    languages. Please continue by hitting the "Snippet Comparer"
+                    button above.
+                </h3>
+                &nbsp;&nbsp;&nbsp;
+                <footer className='footer'>
+                    Created by Matthew Eagan, Nicholas LaMantia,
+                    Thomas Gallaher, and Jace Henderson. © 2025 CSnippy. All rights reserved.
+                </footer>
             </div>
         </>
     );
