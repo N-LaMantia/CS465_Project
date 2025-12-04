@@ -1,5 +1,4 @@
 import { spawn } from "child_process";
-import axios from "axios";
 import { PORT_NUMBER } from "./index.js";
 import assert from "node:assert";
 
@@ -48,10 +47,24 @@ proc.on("close", (code) => {
   process.exit(0);
 });
 
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  const text = await res.text();
+  let data;
+
+  try {
+    data = JSON.parse(text);
+  } catch {
+    data = text; // plain text responses
+  }
+
+  return { status: res.status, data };
+}
+
 async function waitForServer() {
   for (let i = 0; i < 20; i++) {
     try {
-      await axios.get(`http://localhost:${PORT_NUMBER}/api`);
+      await fetchJSON(`http://localhost:${PORT_NUMBER}/api`);
       return; // server is actually ready
     } catch {
       await new Promise((r) => setTimeout(r, 150));
@@ -62,7 +75,7 @@ async function waitForServer() {
 
 async function testAPIOn() {
   console.log("testAPIOn");
-  const response = await axios.get(`http://localhost:${PORT_NUMBER}/api`);
+  const response = await fetchJSON(`http://localhost:${PORT_NUMBER}/api`);
   assert.equal(response.status, 200);
   assert.equal(response.data, "API is running");
   return true;
@@ -70,7 +83,7 @@ async function testAPIOn() {
 
 async function testEndpointLanguages() {
   console.log("testEndpointLanguages");
-  const response = await axios.get(
+  const response = await fetchJSON(
     `http://localhost:${PORT_NUMBER}/api/languages`,
   );
   assert.equal(response.status, 200);
@@ -80,7 +93,7 @@ async function testEndpointLanguages() {
 
 async function testEndpointSnippets() {
   console.log("testEndpointSnippets");
-  const response = await axios.get(
+  const response = await fetchJSON(
     `http://localhost:${PORT_NUMBER}/api/snippets`,
   );
   assert.equal(response.status, 200);
@@ -90,7 +103,7 @@ async function testEndpointSnippets() {
 
 async function testEndpointSnippetFromLanguage() {
   console.log("testEndpointSnippetFromLanguage");
-  const response = await axios.get(
+  const response = await fetchJSON(
     `http://localhost:${PORT_NUMBER}/api/snippets/JavaScript`,
   );
   assert.equal(response.status, 200);
@@ -100,7 +113,7 @@ async function testEndpointSnippetFromLanguage() {
 
 async function testEndpointLanguagesFromSnippet() {
   console.log("testEndpointLanguagesFromSnippet");
-  const response = await axios.get(
+  const response = await fetchJSON(
     `http://localhost:${PORT_NUMBER}/api/languages/Switch%2fMatch`,
   );
   assert.equal(response.status, 200);
