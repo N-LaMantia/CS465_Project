@@ -10,11 +10,9 @@ snippets and to allow comparison between languages.
 
 ### Thomas
 
-- Database/Mock for development
+- Database/Mock for development: Complete
 - Requirement 2
 - Start compiling snippets
-  why are you doing it? Who will it benefit (students, senior citizens, teachers,
-  disabled, travelers, etc.)
 
 ### Nicholas
 
@@ -28,9 +26,10 @@ snippets and to allow comparison between languages.
 - Allow user to copy snippet code through highlighting or a copy button
 
 ### Jace
- -  feature 1
- -  feature 6
- -  other things as needed
+
+- feature 1
+- feature 6
+- other things as needed
 
 ## External Data Sources
 
