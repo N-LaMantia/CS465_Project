@@ -5,6 +5,11 @@
  * @author Thomas Gallaher
  * Contributors:
  */
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const Language = require("./models/Language.js");
+const Snippet = require("./models/Snippet.js");
+const User = require("./models/User.js");
 
 dotenv.config();
 

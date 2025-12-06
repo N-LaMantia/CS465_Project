@@ -13,12 +13,11 @@
  *    - /api/languages/:snippet - Route to get languages available for a specific snippet
  *    - /api/snippets/:language - Route to get snippets available for a specific language
  */
-import express from "express";
-import cors from "cors";
+const express = require("express");
+const cors = require("cors");
 
-import Language from "./models/Language.js";
-import Snippet from "./models/Snippet.js";
-import User from "./models/User.js";
+const Language = require("./models/Language.js");
+const Snippet = require("./models/Snippet.js");
 
 const app = express();
 app.use(express.json());
@@ -49,7 +48,7 @@ app.get("/api", (req, res) => {
   res.send("API is running");
 });
 
-app.get("api/routes", (req, res) => {
+app.get("/api/routes", (req, res) => {
   res.send({
     Routes: [
       "/api",
@@ -243,7 +242,7 @@ app.get("/api/tags/:language", async (req, res) => {
   }
 });
 
-app.get("api/snippets/:language/:tag", async (req, res) => {
+app.get("/api/snippets/:language/:tag", async (req, res) => {
   try {
     const snippets = await Snippet.find({
       language: req.params.language,
@@ -256,4 +255,4 @@ app.get("api/snippets/:language/:tag", async (req, res) => {
   }
 });
 
-export default app;
+module.exports = app;

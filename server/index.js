@@ -1,12 +1,13 @@
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-import app from "./app.js";
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const app = require("./app.js");
 
 dotenv.config();
+const uri = process.env.MONGODB_URI_TEST || process.env.MONGODB_URI;
 
 // Connect to MongoDB database with uri from .env
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(uri, {
     useNewUrlParser: true,
     dbName: "cs465",
     useUnifiedTopology: true,
