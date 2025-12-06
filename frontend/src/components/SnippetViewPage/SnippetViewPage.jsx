@@ -155,7 +155,7 @@ export const SnippetViewPage = () => {
           >
             <RefreshIcon />
           </button>
-          <button
+          <button //copy to clipboard button
             id="addButton"
             className="snippetButton"
             onClick={() => CopySnippetToClipBoard(sampleSnippet)}

@@ -24,6 +24,14 @@ import { useEffect, useState } from 'react';
 /* DON'T TOUCH YOU WILL BREAK THE ICON*/
 /* DON'T TOUCH YOU WILL BREAK THE ICON*/
 /* DON'T TOUCH YOU WILL BREAK THE ICON*/
+
+
+
+
+/* YEA I MEAN IT DON'T TOUCH THE ICON YOU ABSOLUTE BUFOON*/
+
+
+
 export function SettingsIcon() {
     return (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none"

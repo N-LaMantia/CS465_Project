@@ -4,7 +4,7 @@ import { SnippetViewPage } from "./components/SnippetViewPage/SnippetViewPage.js
 
 export const PageRoutes = () =>{
     return(
-        <>
+        <> {/* Application routes */}
             <Routes>
                 {/* Home page with grid view of snippets */}
                 <Route path="/" element={<LandingPage/>}/>

@@ -7,7 +7,7 @@ import './index.css'
 // import SnippetViewPage from './components/SnippetViewPage/SnippetViewPage.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <StrictMode> {/*layout*/}
     <BrowserRouter>
       <PageRoutes />
     </BrowserRouter>

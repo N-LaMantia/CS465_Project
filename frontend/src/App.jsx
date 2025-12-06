@@ -5,7 +5,7 @@ export default function App() {
   return (
     <>
       <div>
-        <Component />
+        <Component /> {/* Example component, for full app see routes.jsx */}
       </div>
     </>
   );

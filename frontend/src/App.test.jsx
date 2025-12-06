@@ -7,7 +7,7 @@ test("describe action performed", async () => {
   render(<App />); // render the application
   // const button = screen.getByRole('button', { name: /increment/i }) // Find element
 
-  // Simulate user clicking the button
+  // Simulate user clicking the button //example test, will fail
   //
   // await userEvent.click(button)
   // expect(screen.getByText("Hello World")).toBeInTheDocument(); // Validate operation
