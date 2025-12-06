@@ -6,6 +6,7 @@
  * Contributors: Nicholas LaMantia
  */
 
+import React from "react";
 import "./SnippetViewPage.css";
 import {
   SettingsIcon,
@@ -58,7 +59,7 @@ export const SnippetViewPage = () => {
 
   // Selected language / snippet and code state
   const [selectedLanguage, setSelectedLanguage] = useState(
-    () => localStorage.getItem('preferredLanguage') || null
+    () => localStorage.getItem("preferredLanguage") || null,
   );
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
@@ -112,14 +113,16 @@ export const SnippetViewPage = () => {
         </nav>
       </header>
       <div id="body">
-        <button className="backButton" onClick={() => navigate(`/`)}>&lt; Back</button>
+        <button className="backButton" onClick={() => navigate(`/`)}>
+          &lt; Back
+        </button>
         <div id="content">
           <div className="dropdown-row">
             <GetLanguages
               defaultLanguage={selectedLanguage}
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
-                localStorage.setItem('preferredLanguage', lang);
+                localStorage.setItem("preferredLanguage", lang);
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);

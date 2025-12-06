@@ -6,6 +6,8 @@
  * Contributors:
  */
 
+import React from "react";
+
 /**
  * A description of the component
  *
