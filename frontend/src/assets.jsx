@@ -18,17 +18,13 @@ import { useEffect, useState } from 'react';
  * 
  * @function SettingsIcon
  * 
- * @returns A icon for settings , DO NOT TOUCH
+ * @returns A icon for settings , 
  */
-/* DON'T TOUCH YOU WILL BREAK THE ICON*/
-/* DON'T TOUCH YOU WILL BREAK THE ICON*/
-/* DON'T TOUCH YOU WILL BREAK THE ICON*/
-/* DON'T TOUCH YOU WILL BREAK THE ICON*/
 
 
 
 
-/* YEA I MEAN IT DON'T TOUCH THE ICON YOU ABSOLUTE BUFOON*/
+/* DO NOT TOUCH. BREAKS EASILY*/
 
 
 
