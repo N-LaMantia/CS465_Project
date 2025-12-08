@@ -147,6 +147,7 @@ export const SnippetViewPage = () => {
             >
               {currentCode}
             </SyntaxHighlighter>
+            <div>{SelectedSnippet && SelectedSnippet.description}</div>
           </div>
           <button
             id="copyButton"
