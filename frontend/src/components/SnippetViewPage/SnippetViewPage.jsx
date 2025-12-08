@@ -6,7 +6,6 @@
  * Contributors: Nicholas LaMantia
  */
 
-import React from "react";
 import "./SnippetViewPage.css";
 import {
   SettingsIcon,
@@ -16,7 +15,7 @@ import {
   GetLanguages,
   SnipList,
 } from "../../assets.jsx";
-import { useState } from "react";
+import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -64,6 +63,27 @@ export const SnippetViewPage = () => {
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  const [allTags, setAllTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setAllTags(data.tags || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchTags();
+  }, [selectedLanguage]);
 
   let languageMap = {
     "C++": "cpp",
@@ -117,6 +137,24 @@ export const SnippetViewPage = () => {
           &lt; Back
         </button>
         <div id="content">
+          <div>
+            Tag Selection <br />
+            {allTags.map((tag) => (
+              <input
+                type="checkbox"
+                id={tag}
+                name="tag"
+                value={tag}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedTags([...selectedTags, tag]);
+                  } else {
+                    setSelectedTags(selectedTags.filter((t) => t !== tag));
+                  }
+                }}
+              />
+            ))}
+          </div>
           <div className="dropdown-row">
             <GetLanguages
               defaultLanguage={selectedLanguage}
