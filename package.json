@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "frontend-dev": "npm --prefix frontend run dev",
-    "server-dev": "nodemon ./server/index.js",
+    "server-dev": "nodemon ./server/index.cjs",
     "dev": "concurrently --names root,frontend,server --prefix name \"npm run server-dev\" \"npm run frontend-dev\"",
     "frontend-build": "npm --prefix frontend run build",
     "server-test": "jest --config ./server/jest.config.cjs --runInBand",

@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../app.js");
+const app = require("../app.cjs");
 const Snippet = require("../models/Snippet.js");
 const Language = require("../models/Language.js");
 
