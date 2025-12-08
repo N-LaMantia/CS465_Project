@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 
 /**
  * Author: Matthew Eagan
- * Contributors: Jace Henderson, why is this repeated????????
+ * Contributors: Jace Henderson
  * 
  * @function SettingsIcon
  * 
