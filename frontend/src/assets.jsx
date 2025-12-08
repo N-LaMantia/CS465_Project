@@ -358,3 +358,24 @@ export function AddIcon() {
 
     );
 }
+
+
+/**
+ * Author: Matthew Eagan
+ * Contributors:
+ * 
+ * @function SubIcon
+ * 
+ * @returns An icon
+ * 
+ */
+export function SubIcon() {
+    return (
+        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="49" height="49"/>
+            <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4" 
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    );
+}

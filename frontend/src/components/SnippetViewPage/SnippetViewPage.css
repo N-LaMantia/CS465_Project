@@ -54,15 +54,18 @@ nav {
   justify-items: center;
 }
 
-#codeArea {
-  /* grid-area: main; */
+#codeAreaLeft {
+  grid-area: main;
+}
+
+#codeAreaRight {
+  grid-area: main1;
 }
 
 .snippetCode {
   resize: none;
   box-sizing: border-box;
   width: 100%;
-  height: 92%;
   padding: 20px;
   text-align: left;
   align-items: start;
@@ -76,13 +79,29 @@ nav {
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   display: grid;
+}
+
+#fullCodeArea {
+  height: 92%;
   grid-template-columns: 1fr 110px;
   grid-template-rows: 110px 1fr 1fr 110px;
   grid-template-areas:
     "main button1"
-    "main sidebar"
-    "main sidebar"
-    "main button3";
+    "main ."
+    "main ."
+    "main button2";
+  grid-column-gap: 10px;
+}
+
+#compareCodeArea {
+  height: 81%;
+  grid-template-columns: 1fr 110px 1fr 110px;
+  grid-template-rows: 110px 1fr 1fr 110px;
+  grid-template-areas:
+    "main button1 main1 button3"
+    "main . main1 ."
+    "main . main1 ."
+    "main button2 main1 button4";
   grid-column-gap: 10px;
 }
 
@@ -114,12 +133,23 @@ nav {
   grid-area: button1;
 }
 
+#copyButton1 {
+  grid-area: button3;
+}
+
 #refreshButton {
   grid-area: button2;
 }
 
 #addButton {
-  grid-area: button3;
+  grid-area: button2;
+}
+
+#subtractButton {
+  grid-area: button2;
+}
+#subtractButton1 {
+  grid-area: button4;
 }
 
 #confMessage {
@@ -136,12 +166,28 @@ nav {
 }
 
 /* Custom dropdown for languages */
-.dropdown-row {
-  grid-area: select;
+#fullDropdown {
   display: flex;
-  gap: 12px;
   align-items: start;
   width: 100%;
+}
+
+#compareDropdown {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 
+    "snippet snippet"
+    "language1 language2";
+}
+
+.snippet-dropdown {
+  grid-area: snippet;
+}
+
+.language-dropdown {
+  grid-area: language1;
 }
 
 .language-dropdown,

@@ -12,6 +12,7 @@ import {
   CopyIcon,
   RefreshIcon,
   AddIcon,
+  SubIcon,
   GetLanguages,
   SnipList,
 } from "../../assets.jsx";
@@ -115,58 +116,8 @@ export const SnippetViewPage = () => {
       <div id="body">
         <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
         <div id="content">
-          {/* <div className="dropdown-row">
-            <GetLanguages
-              onSelect={(lang) => {
-                setSelectedLanguage(lang);
-                setSelectedSnippet(null);
-                setCurrentCode(sampleSnippet);
-                setOriginalCode(sampleSnippet);
-              }}
-            />
-            <SnipList
-              language={selectedLanguage}
-              onSelect={(snip) => {
-                setSelectedSnippet(snip);
-                setCurrentCode(snip.code || sampleSnippet);
-                setOriginalCode(snip.code || sampleSnippet);
-              }}
-            />
-          </div>
-          <div className="snippetCode" id="codeArea1">
-            <SyntaxHighlighter
-              language={languageMap[selectedLanguage]}
-              style={oneDark}
-              showLineNumbers
-              wrapLongLines
-              className="code"
-            >
-              {currentCode}
-            </SyntaxHighlighter>
-          </div>
-          <button
-            id="copyButton"
-            className="snippetButton"
-            onClick={() => CopyButtonHandler()}
-          >
-            <CopyIcon />
-          </button>
-          <button
-            id="refreshButton"
-            className="snippetButton"
-            onClick={() => RefreshButtonHandler(sampleSnippet)}
-          >
-            <RefreshIcon />
-          </button>
-          <button
-            id="addButton"
-            className="snippetButton"
-            onClick={() => CopySnippetToClipBoard(sampleSnippet)}
-          >
-            <AddIcon />
-          </button> */}
           {!compareSnippet && <>
-            <div className="dropdown-row">
+            <div className="dropdown-row" id="fullDropdown">
               <GetLanguages
                 onSelect={(lang) => {
                   setSelectedLanguage(lang);
@@ -185,17 +136,19 @@ export const SnippetViewPage = () => {
               />
             </div>
             <div className="snippetCode" id="fullCodeArea">
-              <SyntaxHighlighter
-                id="codeArea" 
-                language={languageMap[selectedLanguage]}
-                style={oneDark}
-                customStyle={{padding: '0'}}
-                showLineNumbers
-                wrapLongLines
-                className="code"
-              >
-                {currentCode}
-              </SyntaxHighlighter>
+              <div className="displayedSnippet">  
+                <SyntaxHighlighter
+                  id="codeArea" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {currentCode}
+                </SyntaxHighlighter>
+              </div>
               <button
                 id="copyButton"
                 className="snippetButton"
@@ -203,19 +156,92 @@ export const SnippetViewPage = () => {
               >
                 <CopyIcon />
               </button>
-              {/* <button
-                id="refreshButton"
-                className="snippetButton"
-                onClick={() => RefreshButtonHandler(sampleSnippet)}
-              >
-                <RefreshIcon />
-              </button> */}
               <button
                 id="addButton"
                 className="snippetButton"
-                onClick={() => CopySnippetToClipBoard(sampleSnippet)}
+                onClick={() => isComparing(true)}
               >
                 <AddIcon />
+              </button>
+            </div>
+          </>}
+
+          {compareSnippet && <>
+            <div className="dropdown-row" id="compareDropdown">
+              <GetLanguages id="languageSelect"
+                onSelect={(lang) => {
+                  setSelectedLanguage(lang);
+                  setSelectedSnippet(null);
+                  setCurrentCode(sampleSnippet);
+                  setOriginalCode(sampleSnippet);
+                }}
+              />
+              <SnipList id="snippetSelect"
+                language={selectedLanguage}
+                onSelect={(snip) => {
+                  setSelectedSnippet(snip);
+                  setCurrentCode(snip.code || sampleSnippet);
+                  setOriginalCode(snip.code || sampleSnippet);
+                }}
+              />
+            </div>
+            <div className="snippetCode" id="compareCodeArea">
+              <div className="displayedSnippet">  
+                <SyntaxHighlighter
+                  id="codeAreaLeft" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {currentCode}
+                </SyntaxHighlighter>
+              </div>
+              <button
+                id="copyButton"
+                className="snippetButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="subtractButton"
+                className="snippetButton"
+                onClick={() => isComparing(false)}
+              >
+                <SubIcon />
+              </button>
+              
+              {/* Second snippet view to be compared */}
+              <div className="displayedSnippet"> 
+                 {/* Displayed code  */}
+                <SyntaxHighlighter
+                  id="codeAreaRight" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {currentCode}
+                </SyntaxHighlighter>
+              </div>
+              <button
+                id="copyButton1"
+                className="snippetButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="subtractButton1"
+                className="snippetButton"
+                onClick={() => isComparing(false)}
+              >
+                <SubIcon />
               </button>
             </div>
           </>}
