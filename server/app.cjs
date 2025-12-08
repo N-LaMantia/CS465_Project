@@ -255,4 +255,46 @@ app.get("/api/snippets/:language/:tag", async (req, res) => {
   }
 });
 
+app.get("/api/snippets/:tag", async (req, res) => {
+  try {
+    const snippets = await Snippet.find({ tags: req.params.tag });
+    res.json(snippets);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error retrieving snippets by tag" });
+  }
+});
+
+/**
+ * Route to get snippets available for a specific language list and tag list
+ *
+ * sample: /api/tags/language1,language2/tag1,tag2
+ */
+app.get("/api/tags/:languages/:tags", async (req, res) => {
+  try {
+    const { languages, tags } = req.params;
+
+    const languageArray =
+      languages && languages !== "all" ? languages.split(",") : [];
+    const tagArray = tags && tags !== "all" ? tags.split(",") : [];
+
+    // Build dynamic query
+    const query = {};
+
+    if (languageArray.length > 0) {
+      query.language = { $in: languageArray };
+    }
+
+    if (tagArray.length > 0) {
+      query.tags = { $in: tagArray };
+    }
+
+    const snippets = await Snippet.find(query);
+    return res.json({ snippets });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Error retrieving snippets" });
+  }
+});
+
 module.exports = app;
