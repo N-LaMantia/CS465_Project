@@ -47,7 +47,7 @@ test("Renders Landing Page with welcome message and button", async () => {
  * @function LandingPage.test.jsx
  * Contributors:
  * 
- * Test to ensure Snippet Comparer button is clickable
+ * @description Test to ensure Snippet Comparer button is clickable
  * @returns {void}
  */
 
