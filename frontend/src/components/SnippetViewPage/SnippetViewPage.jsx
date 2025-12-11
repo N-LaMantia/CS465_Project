@@ -15,6 +15,7 @@ import {
   AddIcon,
   GetLanguages,
   SnipList,
+  TagFilter,
 } from "../../assets.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -64,6 +65,7 @@ export const SnippetViewPage = () => {
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   let languageMap = {
     "C++": "cpp",
@@ -126,10 +128,18 @@ export const SnippetViewPage = () => {
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);
+                setSelectedTags([]);
+              }}
+            />
+            <TagFilter 
+              language={selectedLanguage}
+              onTagsChange={(tags) => {
+                setSelectedTags(tags);
               }}
             />
             <SnipList
               language={selectedLanguage}
+              selectedTags={selectedTags}
               onSelect={(snip) => {
                 setSelectedSnippet(snip);
                 setCurrentCode(snip.code || sampleSnippet);
