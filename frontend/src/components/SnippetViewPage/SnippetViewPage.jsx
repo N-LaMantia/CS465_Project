@@ -53,17 +53,27 @@ async function CopySnippetToClipBoard(snippet) {
 export const SnippetViewPage = () => {
   //Initialize useNavigate as an object to avoid invalid hook calls
   const navigate = useNavigate();
+  // Default text to prompt the user
   const sampleSnippet =
-    `/*Hello! This is code for you to copy! \nPress the ` +
-    `button below to copy*/`;
+    `/*Select a language and a snippet above!
+Press the plus (+) button to compare snippets!*/`;
 
   // Selected language / snippet and code state
   const [selectedLanguage, setSelectedLanguage] = useState(
     () => localStorage.getItem("preferredLanguage") || null,
   );
+  // An additional selected language for comparing
+  const [compareLanguage, setCompareLanugage] = useState(null);
+
+  // The main selected code snippet
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
+
+  // The text information pulled from the DB for the selected snippet
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
-  const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  // The text information pulled from the DB for the compare snippet
+  const [compareCode, setCompareCode] = useState(sampleSnippet);
+
+  // Filters a user can select to streamline snippet selection
   const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -115,14 +125,6 @@ export const SnippetViewPage = () => {
     showConf("Copied!");
   };
 
-  // Handler for when the refresh button is clicked allows for 2 functions
-  const RefreshButtonHandler = () => {
-    // Reset to original snippet code
-    setCurrentCode(originalCode);
-    // Display confirmation message
-    showConf("Refreshed!");
-  };
-
   return (
     <>
       <title>Snippet</title>
@@ -142,7 +144,6 @@ export const SnippetViewPage = () => {
         </button>
         <div id="content">
           <div>
-            Tag Selection <br />
             {allTags.map((tag) => (
               <input
                 type="checkbox"
@@ -163,11 +164,11 @@ export const SnippetViewPage = () => {
           {!compareSnippet && <>
             <div className="dropdown-row" id="fullDropdown">
               <GetLanguages
+                defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
                   setSelectedLanguage(lang);
                   setSelectedSnippet(null);
                   setCurrentCode(sampleSnippet);
-                  setOriginalCode(sampleSnippet);
                 }}
               />
               <SnipList
@@ -175,7 +176,6 @@ export const SnippetViewPage = () => {
                 onSelect={(snip) => {
                   setSelectedSnippet(snip);
                   setCurrentCode(snip.code || sampleSnippet);
-                  setOriginalCode(snip.code || sampleSnippet);
                 }}
               />
             </div>
@@ -212,14 +212,22 @@ export const SnippetViewPage = () => {
 
           {compareSnippet && <>
             <div className="dropdown-row" id="compareDropdown">
-              <GetLanguages
+              <GetLanguages id="originalLang"
                 defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
                   setSelectedLanguage(lang);
                   localStorage.setItem("preferredLanguage", lang);
                   setSelectedSnippet(null);
                   setCurrentCode(sampleSnippet);
-                  setOriginalCode(sampleSnippet);
+                }}
+              />
+              <GetLanguages id="compareLang"
+                defaultLanguage={selectedLanguage}
+                onSelect={(lang) => {
+                  setSelectedLanguage(lang);
+                  localStorage.setItem("preferredLanguage", lang);
+                  setSelectedSnippet(null);
+                  setCompareCode(sampleSnippet);
                 }}
               />
               <SnipList id="snippetSelect"
@@ -227,7 +235,6 @@ export const SnippetViewPage = () => {
                 onSelect={(snip) => {
                   setSelectedSnippet(snip);
                   setCurrentCode(snip.code || sampleSnippet);
-                  setOriginalCode(snip.code || sampleSnippet);
                 }}
               />
             </div>
@@ -272,7 +279,7 @@ export const SnippetViewPage = () => {
                   wrapLongLines
                   className="code"
                 >
-                  {currentCode}
+                  {compareCode}
                 </SyntaxHighlighter>
               </div>
               <button
