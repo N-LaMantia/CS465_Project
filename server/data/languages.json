@@ -214,6 +214,18 @@
       ]
     },
     {
+      "title": "Lua",
+      "description": "A lightweight, embeddable programming language known for its simplicity and ease of use, commonly used for game development and scripting.",
+      "languageType": [
+        "Procedural",
+        "Imperative",
+        "Functional"
+      ],
+      "environments": [
+        "Scripting"
+      ]
+    },
+    {
       "title": "Docker",
       "description": "A containerization platform that allows developers to package, share, and run applications in isolated environments, supporting containerization and orchestration.",
       "languageType": [
