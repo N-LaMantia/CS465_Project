@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const snippetSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -10,4 +10,4 @@ const snippetSchema = new mongoose.Schema({
   compatibleVersions: { type: [String], default: [] },
 });
 
-export default mongoose.model("Snippet", snippetSchema);
+module.exports = mongoose.model("Snippet", snippetSchema);

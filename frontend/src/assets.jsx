@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState } from 'react';
-
+import React from 'react';
 
 
 /**
@@ -203,7 +203,9 @@ export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = nul
    * @function <SnipList>
    * 
    * @return A list of snippets in HTML from the database,
-   *  each being clickable buttons.
+   *  each being clickable buttons. As well, each snippet will 
+   *  have an onSelect function that will return the snippet to
+   *  the parent component.
    * 
    */
 export function SnipList({ id = 'snippet1', onSelect: onSelectSnippet, language = null }) {

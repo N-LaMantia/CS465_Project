@@ -16,7 +16,7 @@ import {
   GetLanguages,
   SnipList,
 } from "../../assets.jsx";
-import { useState } from "react";
+import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -46,7 +46,7 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
- * Contributors: Matthew Eagan, Nicholas LaMantia
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Thomas Gallaher
  *
  * @return A page for viewing snippet code
  */
@@ -58,10 +58,33 @@ export const SnippetViewPage = () => {
     `button below to copy*/`;
 
   // Selected language / snippet and code state
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
-  const [selectedSnippet, setSelectedSnippet] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    () => localStorage.getItem("preferredLanguage") || null,
+  );
+  const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  const [allTags, setAllTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setAllTags(data.tags || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchTags();
+  }, [selectedLanguage]);
 
   let languageMap = {
     "C++": "cpp",
@@ -114,8 +137,29 @@ export const SnippetViewPage = () => {
         </nav>
       </header>
       <div id="body">
-        <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
+        <button className="backButton" onClick={() => navigate(`/`)}>
+          &lt; Back
+        </button>
         <div id="content">
+          <div>
+            Tag Selection <br />
+            {allTags.map((tag) => (
+              <input
+                type="checkbox"
+                id={tag}
+                name="tag"
+                value={tag}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedTags([...selectedTags, tag]);
+                  } else {
+                    setSelectedTags(selectedTags.filter((t) => t !== tag));
+                  }
+                }}
+              />
+            ))}
+          </div>
+
           {!compareSnippet && <>
             <div className="dropdown-row" id="fullDropdown">
               <GetLanguages
@@ -168,9 +212,11 @@ export const SnippetViewPage = () => {
 
           {compareSnippet && <>
             <div className="dropdown-row" id="compareDropdown">
-              <GetLanguages id="languageSelect"
+              <GetLanguages
+                defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
                   setSelectedLanguage(lang);
+                  localStorage.setItem("preferredLanguage", lang);
                   setSelectedSnippet(null);
                   setCurrentCode(sampleSnippet);
                   setOriginalCode(sampleSnippet);
