@@ -1,5 +1,5 @@
 {
-  "languages": [ //languages used, some are unused currently
+  "languages": [ 
     {
       "title": "JavaScript",
       "description": "A high-level, dynamic language primarily used for web development on both client and server sides, supporting event-driven, functional, and object-oriented programming.",

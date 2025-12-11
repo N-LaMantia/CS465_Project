@@ -1,7 +1,7 @@
 /**
  * Author: Matthew Eagan
  * 
- * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
+ * Contributors: Matthew Eagan, Nicholas LaMantia, jace Henderson
  * 
  * 
  * @returns functions to use in SnippetViewPage
@@ -14,20 +14,12 @@ import { useEffect, useState } from 'react';
 
 /**
  * Author: Matthew Eagan
- * Contributors: Jace Henderson
+ * Contributors:
  * 
  * @function SettingsIcon
  * 
- * @returns A icon for settings , 
+ * @returns A icon for settings 
  */
-
-
-
-
-/* DO NOT TOUCH. BREAKS EASILY*/
-
-
-
 export function SettingsIcon() {
     return (
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
@@ -36,7 +28,7 @@ export function SettingsIcon() {
                 <path d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 
                 18 24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 
                 30Z" stroke="white" stroke-width="4" stroke-linecap="round"
-                    stroke-linejoin="round" /> 
+                    stroke-linejoin="round" />
 
                 <path d="M38.8 30C38.5338 30.6032 38.4544 31.2724 38.572 
                 31.9212C38.6896 32.57 38.9989 33.1686 39.46 33.64L39.58 
@@ -211,10 +203,12 @@ export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = nul
    * @function <SnipList>
    * 
    * @return A list of snippets in HTML from the database,
-   *  each being clickable buttons.
+   *  each being clickable buttons. As well, each snippet will 
+   *  have an onSelect function that will return the snippet to
+   *  the parent component.
    * 
    */
-export function SnipList({ id = 'snippet1', onSelect: onSelectSnippet, language = null }) {
+export function SnipList({ id = 'snippet1', onSelect: onSelectSnippet, language = null, selectedTags = [] }) {
     const [snippets, setSnippets] = useState([]);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -231,7 +225,17 @@ export function SnipList({ id = 'snippet1', onSelect: onSelectSnippet, language 
                 const resp = await fetch(endpoint);
                 const json = await resp.json();
                 // json should be an array of snippet objects
-                const items = Array.isArray(json) ? json : [];
+                let items = Array.isArray(json) ? json : [];
+                
+                // Filter by selected tags if any
+                if (selectedTags.length > 0) {
+                    items = items.filter(snippet => {
+                        const snippetTags = Array.isArray(snippet.tags) ? snippet.tags : [];
+                        // Include snippet if it has ALL selected tags
+                        return selectedTags.every(tag => snippetTags.includes(tag));
+                    });
+                }
+                
                 if (mounted) setSnippets(items);
             } catch (err) {
                 console.error(err);
@@ -246,7 +250,7 @@ export function SnipList({ id = 'snippet1', onSelect: onSelectSnippet, language 
         return () => {
             mounted = false;
         };
-    }, [open, snippets.length, language]);
+    }, [open, snippets.length, language, selectedTags]);
 
     const handleSelectSnippet = (snippet) => {
         const label = snippet.title || snippet.name || snippet;
@@ -355,6 +359,94 @@ export function RefreshIcon() {
  * @returns An icon
  * 
  */
+/**
+ * Author: Jace Henderson
+ * Contributors:
+ * 
+ * @function TagFilter
+ * 
+ * @returns HTML to display a list of checkboxes for filtering snippets by tags
+ */
+export function TagFilter({ language = null, onTagsChange }) {
+    const [tags, setTags] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        let mounted = true;
+
+        const fetchTags = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const endpoint = language ? `/api/tags/${encodeURIComponent(language)}` : '/api/tags';
+                const resp = await fetch(endpoint);
+                const json = await resp.json();
+                const tagList = Array.isArray(json) ? json : [];
+                if (mounted) setTags(tagList);
+            } catch (err) {
+                console.error(err);
+                if (mounted) setError(err.message || 'Error fetching tags');
+            } finally {
+                if (mounted) setLoading(false);
+            }
+        };
+
+        // Fetch tags when language changes
+        setSelectedTags([]);
+        if (language) {
+            fetchTags();
+        } else {
+            setTags([]);
+            setLoading(false);
+        }
+
+        return () => {
+            mounted = false;
+        };
+    }, [language]);
+
+    const handleTagChange = (tag) => {
+        const newSelectedTags = selectedTags.includes(tag)
+            ? selectedTags.filter(t => t !== tag)
+            : [...selectedTags, tag];
+        
+        setSelectedTags(newSelectedTags);
+        if (typeof onTagsChange === 'function') {
+            onTagsChange(newSelectedTags);
+        }
+    };
+
+    return (
+        <div className="tag-filter">
+            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                {open ? 'Close Tags' : `Filter Tags${selectedTags.length > 0 ? ` (${selectedTags.length})` : ''}`}
+            </button>
+            {open && (
+                <div className="dropdown-menu">
+                    {loading && <div className="dropdown-item">Loading tags...</div>}
+                    {error && <div className="dropdown-item">Error: {error}</div>}
+                    {!loading && !error && tags.length === 0 && (
+                        <div className="dropdown-item">No tags available</div>
+                    )}
+                    {!loading && !error && tags.map((tag) => (
+                        <label key={tag} className="tag-checkbox-item">
+                            <input 
+                                type="checkbox" 
+                                checked={selectedTags.includes(tag)}
+                                onChange={() => handleTagChange(tag)}
+                            />
+                            <span>{tag}</span>
+                        </label>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
 export function AddIcon() {
     return (
         <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
@@ -366,3 +458,4 @@ export function AddIcon() {
 
     );
 }
+
