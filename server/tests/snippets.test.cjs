@@ -1,7 +1,22 @@
+/**
+ * This file contains the test for the /api/snippets/* endpoints
+ *
+ * @file
+ * @author Thomas Gallaher
+ * Contributors:
+ */
 const request = require("supertest");
 const app = require("../app.cjs");
 const Snippet = require("../models/Snippet.js");
 
+/**
+ * Tests if the /api/snippets endpoint is working by creating a 
+ *  snippet and checking if it is returned
+ *
+ * @function
+ * @author Thomas Gallaher
+ * Contributors:
+ */
 describe("GET /api/snippets", () => {
   it("returns all snippets", async () => {
     await Snippet.create({
@@ -22,6 +37,14 @@ describe("GET /api/snippets", () => {
   });
 });
 
+/**
+ * Tests if the /api/snippets/:language endpoint is working by creating a 
+ *  snippet and checking if it is returned
+ *
+ * @function
+ * @author Thomas Gallaher
+ * Contributors:
+ */
 describe("GET /api/snippets/:language", () => {
   it("returns snippets for a specific language", async () => {
     await Snippet.create({
