@@ -73,7 +73,7 @@ app.get("/api/routes", (req, res) => {
  *
  * @returns {Object} - JSON object containing all languages
  */
-app.get("/api/languages", async (req, res) => {
+app.get("/api/languages", async (_, res) => {
   try {
     if (Date.now() - cache.languages.retrieveTime < cacheTimeout) {
       // Check if languages are in cache and return
@@ -84,11 +84,13 @@ app.get("/api/languages", async (req, res) => {
     //
     const snippets = await Snippet.find({});
     const snippetLanguages = [...new Set(snippets.map((s) => s.language))];
+    console.log(snippetLanguages);
 
     // Find Language documents that match those snippet languages
     const languages = await Language.find({
       title: { $in: snippetLanguages },
     });
+    console.log(languages);
 
     cache.languages.retrieveTime = Date.now();
     cache.languages.languages = languages;
