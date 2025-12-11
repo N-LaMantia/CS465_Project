@@ -39,5 +39,4 @@ test("Renders Preferred Language Setting component", async () => {
     expect(screen.getByRole('button', { name: /Preferred Language:/i })).toBeEnabled();
     expect(screen.getByRole('button', { name: /Preferred Language:/i })).not.toHaveTextContent("Loading..."); //not loading
     expect(screen.queryByText(/Error:/i)).not.toBeInTheDocument(); //no error
-
 });

@@ -15,10 +15,11 @@ import {
   GetLanguages,
   SnipList,
 } from "../../assets.jsx";
-import { useState, useEffect, React } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Test } from "vitest";
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -155,7 +156,8 @@ export const SnippetViewPage = () => {
               />
             ))}
           </div>
-          <div className="dropdown-row">
+          <div className="dropdown-row"
+            dropdowns data-testid="dropdowns">
             <GetLanguages
               defaultLanguage={selectedLanguage}
               onSelect={(lang) => {
@@ -164,7 +166,9 @@ export const SnippetViewPage = () => {
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);
+
               }}
+              GetLanguages data-testid="GetLanguages"
             />
             <SnipList
               language={selectedLanguage}
@@ -172,7 +176,9 @@ export const SnippetViewPage = () => {
                 setSelectedSnippet(snip);
                 setCurrentCode(snip.code || sampleSnippet);
                 setOriginalCode(snip.code || sampleSnippet);
+
               }}
+
             />
           </div>
           <div className="snippetCode" id="codeArea1">
@@ -182,6 +188,7 @@ export const SnippetViewPage = () => {
               showLineNumbers
               wrapLongLines
               className="code"
+              SyntaxHighlighter data-testid="SyntaxHighlighter"
             >
               {currentCode}
             </SyntaxHighlighter>
@@ -191,6 +198,7 @@ export const SnippetViewPage = () => {
             id="copyButton"
             className="snippetButton"
             onClick={() => CopyButtonHandler()}
+            copyIcon data-testid="copyButton"
           >
             <CopyIcon />
           </button>
