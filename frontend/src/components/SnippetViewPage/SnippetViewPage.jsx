@@ -143,10 +143,6 @@ export const SnippetViewPage = () => {
           &lt; Back
         </button>
         <div id="content">
-<<<<<<< HEAD
-          <div className="dropdown-row">
-            <GetLanguages //tab 1 (left), see assets.jsx for component details
-=======
           <div>
             Tag Selection <br />
             {allTags.map((tag) => (
@@ -169,7 +165,6 @@ export const SnippetViewPage = () => {
             dropdowns data-testid="dropdowns">
             <GetLanguages
               defaultLanguage={selectedLanguage}
->>>>>>> 0841ecc4288a8d8b88eb8261a4336fac298f16bd
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
                 localStorage.setItem("preferredLanguage", lang);
