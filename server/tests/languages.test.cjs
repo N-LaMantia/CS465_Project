@@ -1,8 +1,23 @@
+/**
+ * This file contains the test for the /api/languages/* endpoints
+ *
+ * @file
+ * @author Thomas Gallaher
+ * Contributors:
+ */
 const request = require("supertest");
 const app = require("../app.cjs");
 const Snippet = require("../models/Snippet.js");
 const Language = require("../models/Language.js");
 
+/**
+ * Tests if the /api/languages endpoint is working by creating a 
+ *  language and checking if it is returned
+ *
+ * @function
+ * @author Thomas Gallaher
+ * Contributors:
+ */
 describe("GET /api/languages", () => {
   it("returns all languages", async () => {
     await Language.create({
@@ -19,6 +34,14 @@ describe("GET /api/languages", () => {
   });
 });
 
+/**
+ * Tests if the /api/languages/:snippet endpoint is working by creating a 
+ *  language and checking if it is returned.
+ *
+ * @function
+ * @author Thomas Gallaher
+ * Contributors:
+ */
 describe("GET /api/languages/:snippet", () => {
   it("returns languages for a snippet title", async () => {
     await Snippet.create([
