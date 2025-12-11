@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const Snippet = require("./models/Snippet.js");
 const Language = require("./models/Language.js");
+const { response } = require("./app.cjs");
 
 dotenv.config();
 
@@ -27,8 +28,8 @@ const seed = async () => {
     console.log("Cleared existing data");
 
     // Read languages from JSON
-    const langData = fs.readFileSync("./server/data/languages.json", "utf8");
-    const langJsonData = JSON.parse(langData);
+    const langData = await fetch("/api/languages", "utf8");
+    const langJsonData = await resp.json();
 
     // Create languages - handle languageType array by taking first valid element
     const validLanguageTypes = ["OOP", "Functional", "Imperative", "Logical/Declarative"];
