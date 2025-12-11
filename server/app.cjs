@@ -81,7 +81,15 @@ app.get("/api/languages", async (req, res) => {
     }
 
     // If languages are not in cache, fetch them
-    const languages = await Language.find({});
+    //
+    const snippets = await Snippet.find({});
+    const snippetLanguages = [...new Set(snippets.map((s) => s.language))];
+
+    // Find Language documents that match those snippet languages
+    const languages = await Language.find({
+      title: { $in: snippetLanguages },
+    });
+
     cache.languages.retrieveTime = Date.now();
     cache.languages.languages = languages;
 
