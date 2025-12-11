@@ -1,7 +1,7 @@
 /**
  * Author: Matthew Eagan
  * 
- * Contributors: Matthew Eagan, Nicholas LaMantia, jace Henderson
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
  * 
  * 
  * @returns functions to use in SnippetViewPage
@@ -361,7 +361,7 @@ export function RefreshIcon() {
  * 
  */
 /**
- * Author: Jace Henderson
+ * Author:  Henderson
  * Contributors:
  * 
  * @function TagFilter
