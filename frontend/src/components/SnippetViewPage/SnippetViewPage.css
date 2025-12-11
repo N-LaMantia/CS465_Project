@@ -54,7 +54,7 @@ nav {
     justify-items: center;
     display: grid;
     grid-template-columns: 1fr 120px;
-    grid-template-rows: 1fr 2fr 120px 120px 120px;
+    grid-template-rows: auto 2fr 120px 120px 120px;
     grid-template-areas:
         "select sidebar"
         "main sidebar"
@@ -145,7 +145,8 @@ nav {
 }
 
 .language-dropdown,
-.snippet-dropdown {
+.snippet-dropdown,
+.tag-filter {
     position: relative;
     display: inline-block;
     flex: 1;
@@ -203,4 +204,69 @@ backButton:hover {
 
 .code {
     height: 50%;
+}
+
+/* Tag Filter Styles */
+.tag-filter {
+    position: relative;
+    display: inline-block;
+    flex: 1;
+}
+
+.tag-filter .dropdown-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background-color: #3c3c3c;
+    border: 3px solid #d9d9d9;
+    border-radius: 4px;
+    color: #d9d9d9;
+    font-size: 18px;
+    font-family: "Trebuchet MS", sans-serif;
+    cursor: pointer;
+}
+
+.tag-filter .dropdown-toggle:hover {
+    background-color: #4a4a4a;
+}
+
+.tag-filter .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: #333;
+    border: 3px solid #d9d9d9;
+    border-radius: 8px;
+    padding: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.tag-checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: #d9d9d9;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tag-checkbox-item:hover {
+    background-color: #4a4a4a;
+}
+
+.tag-checkbox-item input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.tag-checkbox-item span {
+    user-select: none;
+    flex: 1;
 }

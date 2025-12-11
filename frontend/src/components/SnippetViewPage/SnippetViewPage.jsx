@@ -14,6 +14,7 @@ import {
   AddIcon,
   GetLanguages,
   SnipList,
+  TagFilter,
 } from "../../assets.jsx";
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -166,12 +167,19 @@ export const SnippetViewPage = () => {
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);
-
+                setSelectedTags([]);
+              }}
+            />
+            <TagFilter 
+              language={selectedLanguage}
+              onTagsChange={(tags) => {
+                setSelectedTags(tags);
               }}
               GetLanguages data-testid="GetLanguages"
             />
             <SnipList
               language={selectedLanguage}
+              selectedTags={selectedTags}
               onSelect={(snip) => {
                 setSelectedSnippet(snip);
                 setCurrentCode(snip.code || sampleSnippet);
