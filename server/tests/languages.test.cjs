@@ -26,6 +26,16 @@ describe("GET /api/languages", () => {
       languageType: "OOP",
     });
 
+    await Snippet.create({
+      title: "Switch/Match",
+      description: "A switch-like structure",
+      tags: ["control-flow"],
+      language: "JavaScript",
+      rendered: "<p>example</p>",
+      code: "switch (x) { case 1: break; }",
+      compatibleVersions: ["ES6"],
+    });
+
     const res = await request(app).get("/api/languages");
 
     expect(res.statusCode).toBe(200);

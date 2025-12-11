@@ -1,142 +1,359 @@
 {
   "snippets": [
-    {
-      "title": "For Loop",
-      "description": "A loop that iterates over a range of values",
-      "language": "JavaScript",
-      "code": "for (let i = 0; i < 10; i++) {\n  console.log(i);\n}",
-      "tags": ["for", "loop"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "While Loop",
-      "description": "A loop that runs while a condition is true",
-      "language": "JavaScript",
-      "code": "let i = 0;\nwhile (i < 10) {\n  console.log(i);\n  i++;\n}",
-      "tags": ["while", "loop"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "If Statement",
-      "description": "The base conditional statement",
-      "language": "JavaScript",
-      "code": "if (condition) {\n  // code to execute if condition is true\n} else if (anotherCondition) {\n  // code to execute if anotherCondition is true\n} else {\n  // code to execute if condition is false\n}",
-      "tags": ["if", "conditional"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Do While Loop",
-      "description": "A while loop that runs at least once",
-      "language": "JavaScript",
-      "code": "do {\n  // code to execute \n} while (condition);",
-      "tags": ["do while", "loop"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Switch Statement",
-      "description": "A conditional statement that executes a block of code based on a value",
-      "language": "JavaScript",
-      "code": "switch (value) {\n  case 1:\n    console.log('Value is 1');\n    break;\n  case 2:\n    console.log('Value is 2');\n    break;\n  default:\n    console.log('Value does not match any case');\n    break;\n}",
-      "tags": ["switch", "conditional"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Try/Catch/Finally",
-      "description": "A block of code that can handle errors",
-      "language": "JavaScript",
-      "code": "try {\n  // code to execute\n} catch (error) {\n  // code to execute if an error occurs\n} finally {\n  // code to execute regardless of whether an error occurred or not\n}",
-      "tags": ["try/catch/finally", "error handling"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Async/Await",
-      "description": "A way to handle asynchronous operations",
-      "language": "JavaScript",
-      "code": "async function getData() {\n  const response = await fetch('https://api.example.com/data');\n  const data = await response.json();\n  // do something with the data\n}",
-      "tags": ["async/await", "asynchronous"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Function",
-      "description": "A block of code that performs a specific task",
-      "language": "JavaScript",
-      "code": "function greet(name) {\n  console.log('Hello, ' + name);\n}",
-      "tags": ["function"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Class",
-      "description": "A blueprint for creating objects",
-      "language": "JavaScript",
-      "code": "class Person {\n  constructor(name, age) {\n    this.name = name;\n    this.age = age;\n  }\n  sayHello() {\n    console.log('Hello, my name is ' + this.name);\n  }\n}",
-      "tags": ["class", "object-oriented"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Struct",
-      "description": "A user-defined data type",
-      "language": "C++",
-      "code": "struct Person {\n  string name;\n  int age;\n};",
-      "tags": ["struct", "data structure"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Union",
-      "description": "A user-defined data type that can hold multiple values in the same memory location",
-      "language": "C++",
-      "code": "union Color {\n  int r;\n  int g;\n  int b;\n};",
-      "tags": ["union", "data structure"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Array",
-      "description": "A list of values that can be accessed by index",
-      "language": "JavaScript",
-      "code": "const arr = [1, 2, 3, 4, 5];\nconsole.log(arr[0]); // Output: 1",
-      "tags": ["array", "data structure"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Enum",
-      "description": "A set of named constants",
-      "language": "JavaScript",
-      "code": "const Color = {\n  RED: 'red',\n  GREEN: 'green',\n  BLUE: 'blue'\n};",
-      "tags": ["enum"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Singleton",
-      "description": "A class that can only have one instance",
-      "language": "JavaScript",
-      "code": "class Singleton {\n  static instance;\n  constructor() {\n    if (!Singleton.instance) {\n      Singleton.instance = this;\n    }\n    return Singleton.instance;\n  }\n}",
-      "tags": ["Singleton", "design pattern"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Factory",
-      "description": "A design pattern that provides a method for creating objects without specifying the exact class to instantiate.",
-      "language": "JavaScript",
-      "code": "class Car {\n  constructor(model) {\n    this.model = model;\n  }\n}\n\nclass Truck {\n  constructor(model) {\n    this.model = model;\n  }\n}\n\nclass VehicleFactory {\n  createVehicle(type, model) {\n    switch(type) {\n      case 'car':\n        return new Car(model);\n      case 'truck':\n        return new Truck(model);\n      default:\n        throw new Error('Unknown vehicle type');\n    }\n  }\n}\n\nconst factory = new VehicleFactory();\nconst myCar = factory.createVehicle('car', 'Sedan');\nconst myTruck = factory.createVehicle('truck', 'Pickup');",
-      "tags": ["Factory", "design pattern"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Observer",
-      "description": "An object that can be notified when another object's state changes",
-      "language": "JavaScript",
-      "code": "class Observer {\n  constructor(subject) {\n    this.subject = subject;\n    this.subject.attach(this);\n  }\n  update() {\n    // do something\n  }\n}",
-      "tags": ["Observer", "design pattern"],
-      "compatibleVersions": [""]
-    },
-    {
-      "title": "Decorator",
-      "description": "A design pattern that allows adding behavior to objects at runtime",
-      "language": "JavaScript",
-      "code": "class Decorator {\n  constructor(component) {\n    this.component = component;\n  }\n  operation() {\n    // do something\n  }\n}",
-      "tags": ["Decorator", "design pattern"],
-      "compatibleVersions": [""]
-    }
-  ],
+  {
+    "title": "For Loop",
+    "description": "A loop that iterates over a range of values",
+    "language": "JavaScript",
+    "code": "for (let i = 0; i < 10; i++) {\n    console.log(i);\n}",
+    "compatibleVersions": [""],
+    "tags": ["loop", "for"]
+  },
+  {
+    "title": "For Loop",
+    "description": "A loop that iterates over a range of values",
+    "language": "Python",
+    "code": "for i in range(10):\n    print(i)",
+    "compatibleVersions": [""],
+    "tags": ["loop", "for"]
+  },
+  {
+    "title": "For Loop",
+    "description": "A loop that iterates over a range of values",
+    "language": "C++",
+    "code": "for (int i = 0; i < 10; i++) {\n    std::cout << i << std::endl;\n}",
+    "compatibleVersions": [""],
+    "tags": ["loop", "for"]
+  },
+  {
+    "title": "For Loop",
+    "description": "A loop that iterates over a range of values",
+    "language": "Lua",
+    "code": "for i = 0, 9 do\n    print(i)\nend",
+    "compatibleVersions": [""],
+    "tags": ["loop", "for"]
+  },
+  {
+    "title": "While Loop",
+    "description": "A loop that repeats while a condition is true",
+    "language": "JavaScript",
+    "code": "let i = 0;\nwhile (i < 10) {\n    console.log(i);\n    i++;\n}",
+    "compatibleVersions": [""],
+    "tags": ["loop", "while"]
+  },
+  {
+    "title": "While Loop",
+    "description": "A loop that repeats while a condition is true",
+    "language": "Python",
+    "code": "i = 0\nwhile i < 10:\n    print(i)\n    i += 1",
+    "compatibleVersions": [""],
+    "tags": ["loop", "while"]
+  },
+  {
+    "title": "While Loop",
+    "description": "A loop that repeats while a condition is true",
+    "language": "C++",
+    "code": "int i = 0;\nwhile (i < 10) {\n    std::cout << i << std::endl;\n    i++;\n}",
+    "compatibleVersions": [""],
+    "tags": ["loop", "while"]
+  },
+  {
+    "title": "While Loop",
+    "description": "A loop that repeats while a condition is true",
+    "language": "Lua",
+    "code": "i = 0\nwhile i < 10 do\n    print(i)\n    i = i + 1\nend",
+    "compatibleVersions": [""],
+    "tags": ["loop", "while"]
+  },
+  {
+    "title": "Do While Loop",
+    "description": "A loop that executes at least once and repeats while a condition is true",
+    "language": "JavaScript",
+    "code": "let i = 0;\ndo {\n    console.log(i);\n    i++;\n} while (i < 10);",
+    "compatibleVersions": [""],
+    "tags": ["loop", "do-while"]
+  },
+  {
+    "title": "If Statement",
+    "description": "Conditional execution of code blocks",
+    "language": "JavaScript",
+    "code": "if (x > 0) {\n    console.log('Positive');\n} else {\n    console.log('Non-positive');\n}",
+    "compatibleVersions": [""],
+    "tags": ["conditional", "if"]
+  },
+  {
+    "title": "If Statement",
+    "description": "Conditional execution of code blocks",
+    "language": "Python",
+    "code": "if x > 0:\n    print('Positive')\nelse:\n    print('Non-positive')",
+    "compatibleVersions": [""],
+    "tags": ["conditional", "if"]
+  },
+  {
+    "title": "If Statement",
+    "description": "Conditional execution of code blocks",
+    "language": "C++",
+    "code": "if (x > 0) {\n    std::cout << \"Positive\" << std::endl;\n} else {\n    std::cout << \"Non-positive\" << std::endl;\n}",
+    "compatibleVersions": [""],
+    "tags": ["conditional", "if"]
+  },
+  {
+    "title": "Switch Statement",
+    "description": "Conditional branching based on value matching",
+    "language": "JavaScript",
+    "code": "switch (day) {\n    case 1: console.log('Mon'); break;\n    case 2: console.log('Tue'); break;\n    default: console.log('Other');\n}",
+    "compatibleVersions": [""],
+    "tags": ["conditional", "switch"]
+  },
+  {
+    "title": "Switch Statement",
+    "description": "Conditional branching based on value matching",
+    "language": "C++",
+    "code": "switch(day) {\n    case 1: std::cout << \"Mon\" << std::endl; break;\n    case 2: std::cout << \"Tue\" << std::endl; break;\n    default: std::cout << \"Other\" << std::endl;\n}",
+    "compatibleVersions": [""],
+    "tags": ["conditional", "switch"]
+  },
+  {
+    "title": "Try/Catch/Finally",
+    "description": "Exception handling blocks",
+    "language": "JavaScript",
+    "code": "try {\n    riskyFunction();\n} catch (e) {\n    console.error(e);\n} finally {\n    cleanup();\n}",
+    "compatibleVersions": [""],
+    "tags": ["error-handling", "try-catch"]
+  },
+  {
+    "title": "Try/Catch/Finally",
+    "description": "Exception handling blocks",
+    "language": "Python",
+    "code": "try:\n    risky_function()\nexcept Exception as e:\n    print(e)\nfinally:\n    cleanup()",
+    "compatibleVersions": [""],
+    "tags": ["error-handling", "try-catch"]
+  },
+  {
+    "title": "Try/Catch/Finally",
+    "description": "Exception handling blocks",
+    "language": "C++",
+    "code": "try {\n    riskyFunction();\n} catch (std::exception &e) {\n    std::cerr << e.what() << std::endl;\n} finally {\n    cleanup();\n}",
+    "compatibleVersions": [""],
+    "tags": ["error-handling", "try-catch"]
+  },
+  {
+    "title": "Async/Await",
+    "description": "Asynchronous operations with promise handling",
+    "language": "JavaScript",
+    "code": "async function fetchData() {\n    try {\n        const data = await fetch(url);\n        console.log(await data.json());\n    } catch (e) {\n        console.error(e);\n    }\n}",
+    "compatibleVersions": [""],
+    "tags": ["async", "promise"]
+  },
+  {
+    "title": "Async/Await",
+    "description": "Asynchronous operations with coroutine handling",
+    "language": "Python",
+    "code": "import asyncio\n\nasync def fetch_data():\n    try:\n        data = await some_async_function()\n        print(data)\n    except Exception as e:\n        print(e)",
+    "compatibleVersions": [""],
+    "tags": ["async", "coroutine"]
+  },
+  {
+    "title": "Function",
+    "description": "Reusable block of code with optional parameters",
+    "language": "JavaScript",
+    "code": "function add(a, b) {\n    return a + b;\n}",
+    "compatibleVersions": [""],
+    "tags": ["function", "method"]
+  },
+  {
+    "title": "Function",
+    "description": "Reusable block of code with optional parameters",
+    "language": "Python",
+    "code": "def add(a, b):\n    return a + b",
+    "compatibleVersions": [""],
+    "tags": ["function", "method"]
+  },
+  {
+    "title": "Function",
+    "description": "Reusable block of code with optional parameters",
+    "language": "C++",
+    "code": "int add(int a, int b) {\n    return a + b;\n}",
+    "compatibleVersions": [""],
+    "tags": ["function", "method"]
+  },
+  {
+    "title": "Function",
+    "description": "Reusable block of code with optional parameters",
+    "language": "Lua",
+    "code": "function add(a, b)\n    return a + b\nend",
+    "compatibleVersions": [""],
+    "tags": ["function", "method"]
+  },
+  {
+    "title": "Class",
+    "description": "Blueprint for creating objects with properties and methods",
+    "language": "JavaScript",
+    "code": "class Person {\n    constructor(name) {\n        this.name = name;\n    }\n    greet() {\n        console.log('Hello, ' + this.name);\n    }\n}",
+    "compatibleVersions": [""],
+    "tags": ["class", "OOP"]
+  },
+  {
+    "title": "Class",
+    "description": "Blueprint for creating objects with properties and methods",
+    "language": "Python",
+    "code": "class Person:\n    def __init__(self, name):\n        self.name = name\n    def greet(self):\n        print('Hello, ' + self.name)",
+    "compatibleVersions": [""],
+    "tags": ["class", "OOP"]
+  },
+  {
+    "title": "Class",
+    "description": "Blueprint for creating objects with properties and methods",
+    "language": "C++",
+    "code": "class Person {\npublic:\n    std::string name;\n    Person(std::string n) : name(n) {}\n    void greet() {\n        std::cout << \"Hello, \" << name << std::endl;\n    }\n};",
+    "compatibleVersions": [""],
+    "tags": ["class", "OOP"]
+  },
+  {
+    "title": "Array",
+    "description": "Ordered collection of values",
+    "language": "JavaScript",
+    "code": "const nums = [1, 2, 3, 4, 5];\nconsole.log(nums[0]);",
+    "compatibleVersions": [""],
+    "tags": ["array", "data-structure"]
+  },
+  {
+    "title": "Array",
+    "description": "Ordered collection of values",
+    "language": "Python",
+    "code": "nums = [1, 2, 3, 4, 5]\nprint(nums[0])",
+    "compatibleVersions": [""],
+    "tags": ["array", "data-structure"]
+  },
+  {
+    "title": "Array",
+    "description": "Ordered collection of values",
+    "language": "C++",
+    "code": "#include <array>\nstd::array<int,5> nums = {1,2,3,4,5};\nstd::cout << nums[0];",
+    "compatibleVersions": [""],
+    "tags": ["array", "data-structure"]
+  },
+  {
+    "title": "Array",
+    "description": "Ordered collection of values",
+    "language": "Lua",
+    "code": "nums = {1,2,3,4,5}\nprint(nums[1])",
+    "compatibleVersions": [""],
+    "tags": ["array", "data-structure"]
+  },
+  {
+    "title": "Struct",
+    "description": "A collection of related variables",
+    "language": "C++",
+    "code": "struct Point {\n    int x;\n    int y;\n};",
+    "compatibleVersions": [""],
+    "tags": ["struct", "data-structure"]
+  },
+  {
+    "title": "Union",
+    "description": "A memory-efficient structure storing different types in the same location",
+    "language": "C++",
+    "code": "union Data {\n    int i;\n    float f;\n};",
+    "compatibleVersions": [""],
+    "tags": ["union", "data-structure"]
+  },
+  {
+    "title": "Enum",
+    "description": "A set of named constant values",
+    "language": "C++",
+    "code": "enum Color { Red, Green, Blue };",
+    "compatibleVersions": [""],
+    "tags": ["enum", "constant"]
+  },
+  {
+    "title": "Stack",
+    "description": "LIFO data structure",
+    "language": "Python",
+    "code": "stack = []\nstack.append(1)\nstack.append(2)\nstack.pop()",
+    "compatibleVersions": [""],
+    "tags": ["stack", "data-structure"]
+  },
+  {
+    "title": "Queue",
+    "description": "FIFO data structure",
+    "language": "Python",
+    "code": "from collections import deque\nqueue = deque([1,2,3])\nqueue.append(4)\nqueue.popleft()",
+    "compatibleVersions": [""],
+    "tags": ["queue", "data-structure"]
+  },
+  {
+    "title": "Set",
+    "description": "Collection of unique elements",
+    "language": "Python",
+    "code": "s = {1,2,3,4}\ns.add(5)\ns.remove(3)",
+    "compatibleVersions": [""],
+    "tags": ["set", "data-structure"]
+  },
+  {
+    "title": "Map",
+    "description": "Key-value store",
+    "language": "Python",
+    "code": "m = {'a': 1, 'b': 2}\nprint(m['a'])\nm['c'] = 3",
+    "compatibleVersions": [""],
+    "tags": ["map", "dictionary"]
+  },
+  {
+    "title": "Lambda",
+    "description": "Anonymous function",
+    "language": "Python",
+    "code": "square = lambda x: x**2\nprint(square(5))",
+    "compatibleVersions": [""],
+    "tags": ["lambda", "function"]
+  },
+  {
+    "title": "Lambda",
+    "description": "Anonymous function",
+    "language": "JavaScript",
+    "code": "const square = x => x * x;\nconsole.log(square(5));",
+    "compatibleVersions": [""],
+    "tags": ["lambda", "function"]
+  },
+  {
+    "title": "Import/Export/Require",
+    "description": "Module system",
+    "language": "JavaScript",
+    "code": "import fs from 'fs';\nconst path = require('path');",
+    "compatibleVersions": [""],
+    "tags": ["module", "import"]
+  },
+  {
+    "title": "Linked List",
+    "description": "A chain of nodes containing data and pointers to the next node",
+    "language": "Python",
+    "code": "class Node:\n    def __init__(self, val):\n        self.val = val\n        self.next = None\nhead = Node(1)\nhead.next = Node(2)",
+    "compatibleVersions": [""],
+    "tags": ["linked-list", "data-structure"]
+  },
+  {
+    "title": "Linked List",
+    "description": "A chain of nodes containing data and pointers to the next node",
+    "language": "C++",
+    "code": "struct Node {\n    int val;\n    Node* next;\n};\nNode* head = new Node{1, nullptr};\nhead->next = new Node{2, nullptr};",
+    "compatibleVersions": [""],
+    "tags": ["linked-list", "data-structure"]
+  },
+  {
+    "title": "Linked List",
+    "description": "A chain of nodes containing data and pointers to the next node",
+    "language": "JavaScript",
+    "code": "class Node {\n    constructor(val) {\n        this.val = val;\n        this.next = null;\n    }\n}\nlet head = new Node(1);\nhead.next = new Node(2);",
+    "compatibleVersions": [""],
+    "tags": ["linked-list", "data-structure"]
+  },
+  {
+    "title": "Linked List",
+    "description": "A chain of nodes containing data and pointers to the next node",
+    "language": "Lua",
+    "code": "Node = {val = 0, next = nil}\nhead = {val=1, next={val=2, next=nil}}",
+    "compatibleVersions": [""],
+    "tags": ["linked-list", "data-structure"]
+  }
+]
+,
   "snps": [
     "for",
     "while",
@@ -151,6 +368,14 @@
     "union",
     "array",
     "enum",
+    "stack",
+    "queue",
+    "set",
+    "map",
+    "list/array",
+    "lambda",
+    "import/export/require",
+    "linked list",
     "Singleton",
     "Factory",
     "Observer",
@@ -171,18 +396,10 @@
     "MVC",
     "State",
     "Publish-Subscribe",
-    "lambda",
-    "import/export/require",
-    "linked list",
     "binary tree",
     "graph",
     "heap",
     "priority queue",
-    "stack",
-    "queue",
-    "set",
-    "map",
-    "list/array",
     "hash table",
     "binary search",
     "merge sort",
