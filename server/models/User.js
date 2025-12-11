@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const settingsSchema = new mongoose.Schema({
   preferredLanguage: { type: String, default: "" },
@@ -13,4 +13,4 @@ const userSchema = new mongoose.Schema({
   settings: { type: settingsSchema, default: () => ({}) },
 });
 
-export default mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

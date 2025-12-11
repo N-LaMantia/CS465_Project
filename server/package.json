@@ -2,25 +2,23 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.cjs",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "jest --runInBand"
-  },
-  "jest": {
-    "testEnvironment": "node"
+    "dev": "nodemon index.cjs",
+    "test": "NODE_ENV=test jest --runInBand",
+    "test:ci": "NODE_ENV=test jest --runInBand --silent"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "CS465-Project": "file:..",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongodb": "^7.0.0",
-    "mongoose": "^8.20.0"
+    "mongoose": "^8.20.0",
+    "msw": "^2.12.4"
   },
   "devDependencies": {
     "jest": "^30.2.0",

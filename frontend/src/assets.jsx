@@ -1,7 +1,7 @@
 /**
  * Author: Matthew Eagan
  * 
- * Contributors: Matthew Eagan, Nicholas LaMantia, jace Henderson
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
  * 
  * 
  * @returns functions to use in SnippetViewPage
@@ -9,7 +9,7 @@
  */
 
 import { useEffect, useState } from 'react';
-
+import React from 'react';
 
 
 /**
@@ -110,6 +110,7 @@ export function SettingsIcon() {
  * 
  * @function GetLanguages
  * 
+ * @param {Array|null} allowedLanguages - optional list of language titles to allow in the dropdown
  * @returns HTML to display a selectable drop-down with a list of languages
  */
 export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = null }) {
@@ -360,7 +361,7 @@ export function RefreshIcon() {
  * 
  */
 /**
- * Author: Jace Henderson
+ * Author:  Henderson
  * Contributors:
  * 
  * @function TagFilter

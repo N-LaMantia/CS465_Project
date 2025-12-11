@@ -14,11 +14,13 @@ import {
   AddIcon,
   GetLanguages,
   SnipList,
+  TagFilter,
 } from "../../assets.jsx";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -45,7 +47,11 @@ async function CopySnippetToClipBoard(snippet) {
  *
  * @function SnippetViewPage
  * @author Matthew Eagan
+<<<<<<< HEAD
  * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
+=======
+ * Contributors: Matthew Eagan, Nicholas LaMantia, Thomas Gallaher
+>>>>>>> 0841ecc4288a8d8b88eb8261a4336fac298f16bd
  *
  * @return A page for viewing snippet code
  */
@@ -57,10 +63,33 @@ export const SnippetViewPage = () => {
     `button below to copy`;
 
   // Selected language / snippet and code state
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    () => localStorage.getItem("preferredLanguage") || null,
+  );
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  const [allTags, setAllTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setAllTags(data.tags || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchTags();
+  }, [selectedLanguage]);
 
   let languageMap = {
     "C++": "cpp",
@@ -110,24 +139,67 @@ export const SnippetViewPage = () => {
         </nav>
       </header>
       <div id="body">
-        <b onClick={() => navigate(`/`)}>&lt; All Snippets</b>
+        <button className="backButton" onClick={() => navigate(`/`)}>
+          &lt; Back
+        </button>
         <div id="content">
+<<<<<<< HEAD
           <div className="dropdown-row">
             <GetLanguages //tab 1 (left), see assets.jsx for component details
+=======
+          <div>
+            Tag Selection <br />
+            {allTags.map((tag) => (
+              <input
+                type="checkbox"
+                id={tag}
+                name="tag"
+                value={tag}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedTags([...selectedTags, tag]);
+                  } else {
+                    setSelectedTags(selectedTags.filter((t) => t !== tag));
+                  }
+                }}
+              />
+            ))}
+          </div>
+          <div className="dropdown-row"
+            dropdowns data-testid="dropdowns">
+            <GetLanguages
+              defaultLanguage={selectedLanguage}
+>>>>>>> 0841ecc4288a8d8b88eb8261a4336fac298f16bd
               onSelect={(lang) => {
                 setSelectedLanguage(lang);
+                localStorage.setItem("preferredLanguage", lang);
                 setSelectedSnippet(null);
                 setCurrentCode(sampleSnippet);
                 setOriginalCode(sampleSnippet);
+                setSelectedTags([]);
               }}
             />
+<<<<<<< HEAD
             <SnipList // tab 2 (right)
+=======
+            <TagFilter 
               language={selectedLanguage}
+              onTagsChange={(tags) => {
+                setSelectedTags(tags);
+              }}
+              GetLanguages data-testid="GetLanguages"
+            />
+            <SnipList
+>>>>>>> 0841ecc4288a8d8b88eb8261a4336fac298f16bd
+              language={selectedLanguage}
+              selectedTags={selectedTags}
               onSelect={(snip) => {
                 setSelectedSnippet(snip);
                 setCurrentCode(snip.code || sampleSnippet);
                 setOriginalCode(snip.code || sampleSnippet);
+
               }}
+
             />
           </div>
           <div className="snippetCode" id="codeArea1">
@@ -137,14 +209,17 @@ export const SnippetViewPage = () => {
               showLineNumbers
               wrapLongLines
               className="code"
+              SyntaxHighlighter data-testid="SyntaxHighlighter"
             >
               {currentCode}
             </SyntaxHighlighter>
+            <div>{SelectedSnippet && SelectedSnippet.description}</div>
           </div>
           <button //copy button
             id="copyButton"
             className="snippetButton"
             onClick={() => CopyButtonHandler()}
+            copyIcon data-testid="copyButton"
           >
             <CopyIcon />
           </button>

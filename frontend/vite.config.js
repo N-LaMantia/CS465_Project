@@ -8,7 +8,9 @@ export default defineConfig({
     include: ["react-syntax-highlighter"],
   },
   test: {
+    environment: "jsdom",
     globals: true,
+    setupFiles: "./test.setup.js",
   },
   server: {
     port: 5173,
