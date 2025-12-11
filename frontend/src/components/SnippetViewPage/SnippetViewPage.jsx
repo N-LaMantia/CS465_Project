@@ -174,9 +174,6 @@ export const SnippetViewPage = () => {
                 setSelectedTags([]);
               }}
             />
-<<<<<<< HEAD
-            <SnipList // tab 2 (right)
-=======
             <TagFilter 
               language={selectedLanguage}
               onTagsChange={(tags) => {
@@ -185,7 +182,6 @@ export const SnippetViewPage = () => {
               GetLanguages data-testid="GetLanguages"
             />
             <SnipList
->>>>>>> 0841ecc4288a8d8b88eb8261a4336fac298f16bd
               language={selectedLanguage}
               selectedTags={selectedTags}
               onSelect={(snip) => {
