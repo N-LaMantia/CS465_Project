@@ -12,6 +12,9 @@
  *    - /api/snippets - Route to get all snippets
  *    - /api/languages/:snippet - Route to get languages available for a specific snippet
  *    - /api/snippets/:language - Route to get snippets available for a specific language
+ *    - /api/tags - Route to get all tags
+ *    - /api/tags/:language - Route to get tags available for a specific language
+ *    - /api/tags/:languages/:tags - Route to get snippets available for a specific language list and tag list
  */
 const express = require("express");
 const cors = require("cors");
@@ -220,6 +223,14 @@ app.get("/api/snippets/:language", async (req, res) => {
   }
 });
 
+/**
+ * Route to get all tags
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @returns {Object} - JSON object containing all tags
+ */
 app.get("/api/tags", async (req, res) => {
   try {
     const snippets = await Snippet.find({});
@@ -231,6 +242,16 @@ app.get("/api/tags", async (req, res) => {
   }
 });
 
+/**
+ * Route to get tags available for a specific language
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @param {string} language - The language
+ *
+ * @returns {Object} - JSON object containing all tags available for the language
+ */
 app.get("/api/tags/:language", async (req, res) => {
   try {
     const snippets = await Snippet.find({ language: req.params.language });
@@ -242,16 +263,84 @@ app.get("/api/tags/:language", async (req, res) => {
   }
 });
 
-app.get("/api/snippets/:language/:tag", async (req, res) => {
+/**
+ * Route to get snippets available for a specific tag
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @param {string} tag - The tag
+ *
+ * @returns {Object} - JSON object containing all snippets available for the tag
+ */
+app.get("/api/tags/snippets/:tag", async (req, res) => {
   try {
-    const snippets = await Snippet.find({
-      language: req.params.language,
-      tags: req.params.tag,
-    });
-    res.json(snippets);
+    const tag = req.params.tag.toLowerCase(); // normalize
+    const allSnippets = await Snippet.find({}); // get all snippets
+
+    // filter for snippets that include the tag
+    const filtered = allSnippets.filter(snippet =>
+      snippet.tags.some(t => t.toLowerCase() === tag)
+    );
+
+    res.json(filtered);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error retrieving snippets by tag" });
+  }
+});
+
+/**
+ * Route to get snippets available for a specific language list and tag list
+ *
+ * sample: /api/tags/language1,language2/tag1,tag2
+ *
+ * @function
+ * @author Thomas Gallaher
+ *
+ * @param {string} languages - The language list
+ * @param {string} tags - The tag list
+ *
+ * @returns {Object} - JSON object containing all snippets available for the language list and tag list and filtered tags which are selectable
+ */
+app.get("/api/tags/:languages/:tags", async (req, res) => {
+  try {
+    const { languages, tags } = req.params;
+
+    const tagSet = new Set();
+
+    const languageArray =
+      languages && languages !== "all" ? languages.split(",") : [];
+    const tagArray = tags && tags !== "all" ? tags.split(",") : [];
+
+    // Build dynamic query
+    const query = {};
+
+    if (languageArray.length > 0) {
+      query.language = { $in: languageArray };
+    }
+
+    if (tagArray.length > 0) {
+      query.tags = { $in: tagArray };
+    }
+
+    const snippets = await Snippet.find(query);
+    for (const snippet of snippets) {
+      for (const tag of snippet.tags) {
+        tagSet.add(tag);
+      }
+    }
+
+    for (const tag of tagArray) {
+      tagSet.delete(tag);
+    }
+
+    const filteredTags = Array.from(tagSet);
+
+    return res.json({ snippets, filteredTags });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Error retrieving snippets" });
   }
 });
 

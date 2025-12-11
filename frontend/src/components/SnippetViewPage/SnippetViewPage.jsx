@@ -6,7 +6,6 @@
  * Contributors: Nicholas LaMantia
  */
 
-import React from "react";
 import "./SnippetViewPage.css";
 import {
   SettingsIcon,
@@ -17,10 +16,11 @@ import {
   SnipList,
   TagFilter,
 } from "../../assets.jsx";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 
 /**
  * A function that copies selected snippet code to the user's system-wide
@@ -65,7 +65,27 @@ export const SnippetViewPage = () => {
   const [SelectedSnippet, setSelectedSnippet] = useState(null);
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setAllTags(data.tags || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchTags();
+  }, [selectedLanguage]);
 
   let languageMap = {
     "C++": "cpp",
@@ -119,7 +139,26 @@ export const SnippetViewPage = () => {
           &lt; Back
         </button>
         <div id="content">
-          <div className="dropdown-row">
+          <div>
+            Tag Selection <br />
+            {allTags.map((tag) => (
+              <input
+                type="checkbox"
+                id={tag}
+                name="tag"
+                value={tag}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedTags([...selectedTags, tag]);
+                  } else {
+                    setSelectedTags(selectedTags.filter((t) => t !== tag));
+                  }
+                }}
+              />
+            ))}
+          </div>
+          <div className="dropdown-row"
+            dropdowns data-testid="dropdowns">
             <GetLanguages
               defaultLanguage={selectedLanguage}
               onSelect={(lang) => {
@@ -136,6 +175,7 @@ export const SnippetViewPage = () => {
               onTagsChange={(tags) => {
                 setSelectedTags(tags);
               }}
+              GetLanguages data-testid="GetLanguages"
             />
             <SnipList
               language={selectedLanguage}
@@ -144,7 +184,9 @@ export const SnippetViewPage = () => {
                 setSelectedSnippet(snip);
                 setCurrentCode(snip.code || sampleSnippet);
                 setOriginalCode(snip.code || sampleSnippet);
+
               }}
+
             />
           </div>
           <div className="snippetCode" id="codeArea1">
@@ -154,6 +196,7 @@ export const SnippetViewPage = () => {
               showLineNumbers
               wrapLongLines
               className="code"
+              SyntaxHighlighter data-testid="SyntaxHighlighter"
             >
               {currentCode}
             </SyntaxHighlighter>
@@ -163,6 +206,7 @@ export const SnippetViewPage = () => {
             id="copyButton"
             className="snippetButton"
             onClick={() => CopyButtonHandler()}
+            copyIcon data-testid="copyButton"
           >
             <CopyIcon />
           </button>
