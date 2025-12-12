@@ -235,6 +235,7 @@ Press the plus (+) button to compare snippets!*/`;
                 onSelect={(snip) => {
                   setSelectedSnippet(snip);
                   setCurrentCode(snip.code || sampleSnippet);
+                  setCompareCode(snip.code || sampleSnippet);
                 }}
               />
             </div>

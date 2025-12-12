@@ -83,8 +83,8 @@ nav {
 
 #fullCodeArea {
   height: 92%;
-  grid-template-columns: 1fr 110px;
-  grid-template-rows: 110px 1fr 1fr 110px;
+  grid-template-columns: 1fr 90px;
+  grid-template-rows: 90px 1fr 1fr 90px;
   grid-template-areas:
     "main button1"
     "main ."
@@ -95,8 +95,8 @@ nav {
 
 #compareCodeArea {
   height: 81%;
-  grid-template-columns: 1fr 110px 1fr 110px;
-  grid-template-rows: 110px 1fr 1fr 110px;
+  grid-template-columns: minmax(200px, 40%) minmax(90px, 10%) minmax(200px, 40%) minmax(90px, 10%);
+  grid-template-rows: 90px 1fr 1fr 90px;
   grid-template-areas:
     "main button1 main1 button3"
     "main . main1 ."
