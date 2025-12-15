@@ -209,6 +209,7 @@ export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = nul
 function UnionSnippets(lang1, lang2) {
     // Dummy set of the titles in the selected set
     const lang1Snips = new Set(lang1.map(item => item.title));
+    console.log("lang1", lang1, "lang2", lang2);
 
     return [
         // Filters based on the titles between the two sets
@@ -275,13 +276,13 @@ export function SnipList({
                     );
                 }
 
-                console.log(endpoints);
+                // console.log(endpoints);
 
                 const resp = await Promise.all(
                     endpoints.map(endpoint => fetch(endpoint))
                 );
 
-                console.log(resp);
+                // console.log(resp);
 
                 let data = null
 
@@ -347,7 +348,7 @@ export function SnipList({
         <div className="snippet-dropdown">
             <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
                 {open ? 'Close Snippets' : (selected || defaultSnippet || 'Select Snippet')}
-                {console.log("Retreived selected", selected)}
+                {/* {console.log("Retreived selected", selected)} */}
             </button>
             {open && (
                 <div className="dropdown-menu">
@@ -392,7 +393,7 @@ export function SnipList({
  */
 export function CopyIcon() {
     return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+        <svg  viewBox="0 0 50 50" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M10.4166 31.25H8.33329C7.22822 31.25 6.16842 30.811 
             5.38701 30.0296C4.60561 29.2482 4.16663 28.1884 4.16663 
@@ -447,97 +448,9 @@ export function RefreshIcon() {
  * @returns An icon
  * 
  */
-/**
- * Author:  Henderson
- * Contributors:
- * 
- * @function TagFilter
- * 
- * @returns HTML to display a list of checkboxes for filtering snippets by tags
- */
-export function TagFilter({ language = null, onTagsChange }) {
-    const [tags, setTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        let mounted = true;
-
-        const fetchTags = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const endpoint = language ? `/api/tags/${encodeURIComponent(language)}` : '/api/tags';
-                const resp = await fetch(endpoint);
-                const json = await resp.json();
-                const tagList = Array.isArray(json) ? json : [];
-                if (mounted) setTags(tagList);
-            } catch (err) {
-                console.error(err);
-                if (mounted) setError(err.message || 'Error fetching tags');
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        };
-
-        // Fetch tags when language changes
-        setSelectedTags([]);
-        if (language) {
-            fetchTags();
-        } else {
-            setTags([]);
-            setLoading(false);
-        }
-
-        return () => {
-            mounted = false;
-        };
-    }, [language]);
-
-    const handleTagChange = (tag) => {
-        const newSelectedTags = selectedTags.includes(tag)
-            ? selectedTags.filter(t => t !== tag)
-            : [...selectedTags, tag];
-        
-        setSelectedTags(newSelectedTags);
-        if (typeof onTagsChange === 'function') {
-            onTagsChange(newSelectedTags);
-        }
-    };
-
-    return (
-        <div className="tag-filter">
-            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-                {open ? 'Close Tags' : `Filter Tags${selectedTags.length > 0 ? ` (${selectedTags.length})` : ''}`}
-            </button>
-            {open && (
-                <div className="dropdown-menu">
-                    {loading && <div className="dropdown-item">Loading tags...</div>}
-                    {error && <div className="dropdown-item">Error: {error}</div>}
-                    {!loading && !error && tags.length === 0 && (
-                        <div className="dropdown-item">No tags available</div>
-                    )}
-                    {!loading && !error && tags.map((tag) => (
-                        <label key={tag} className="tag-checkbox-item">
-                            <input 
-                                type="checkbox" 
-                                checked={selectedTags.includes(tag)}
-                                onChange={() => handleTagChange(tag)}
-                            />
-                            <span>{tag}</span>
-                        </label>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
-
 export function AddIcon() {
     return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+        <svg viewBox="0 0 50 50" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M25 10.4167V39.5834M10.4166 25H39.5833"
                 stroke="#D9D9D9" stroke-width="4" stroke-linecap="round"
@@ -559,7 +472,7 @@ export function AddIcon() {
  */
 export function SubIcon() {
     return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" 
+        <svg viewBox="0 0 50 50" fill="none" 
             xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="0.5" width="49" height="49"/>
             <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4" 
@@ -569,7 +482,7 @@ export function SubIcon() {
 }
 
 /**
- * Author:  Henderson
+ * Author: Jace Henderson
  * Contributors:
  * 
  * @function TagFilter

@@ -65,7 +65,7 @@ Press the plus (+) button to compare snippets!*/`;
     () => localStorage.getItem("preferredLanguage") || null,
   );
   // An additional selected language for comparing
-  const [compareLanguage, setCompareLanugage] = useState(null);
+  const [compareLanguage, setCompareLanugage] = useState(selectedLanguage);
 
   // The main selected code snippet
   const [selectedSnippet, setSelectedSnippet] = useState(null);
@@ -300,7 +300,7 @@ Press the plus (+) button to compare snippets!*/`;
                   id="codeAreaLeft" 
                   language={languageMap[selectedLanguage]}
                   style={oneDark}
-                  customStyle={{padding: '0'}}
+                  customStyle={{padding: '0', fontSize: '13px'}}
                   showLineNumbers
                   wrapLongLines
                   className="code"
@@ -330,7 +330,7 @@ Press the plus (+) button to compare snippets!*/`;
                   id="codeAreaRight" 
                   language={languageMap[selectedLanguage]}
                   style={oneDark}
-                  customStyle={{padding: '0'}}
+                  customStyle={{padding: '0', fontSize: '13px'}}
                   showLineNumbers
                   wrapLongLines
                   className="code"
