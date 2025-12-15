@@ -167,7 +167,11 @@ Press the plus (+) button to compare snippets!*/`;
           </div>
 
           {!compareMode && (<>
-            <div className="dropdown-row" id="fullDropdown">
+            <div 
+              className="dropdown-row" 
+              id="fullDropdown" 
+              dropdowns data-testid="dropdowns"
+            >
               <GetLanguages
                 defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
@@ -209,7 +213,10 @@ Press the plus (+) button to compare snippets!*/`;
               )}
             </div>
             <div className="snippetCode" id="fullCodeArea">
-              <div className="displayedSnippet">  
+              <div 
+                className="displayedSnippet" 
+                SyntaxHighlighter data-testid="SyntaxHighlighter"
+              >  
                 <SyntaxHighlighter
                   id="codeArea" 
                   language={languageMap[selectedLanguage]}
@@ -225,6 +232,7 @@ Press the plus (+) button to compare snippets!*/`;
               <button
                 id="copyButton"
                 className="snippetButton"
+                copyIcon data-testid="copyButton"
                 onClick={() => CopyButtonHandler()}
               >
                 <CopyIcon />
