@@ -195,7 +195,8 @@ nav {
 }
 
 .language-dropdown,
-.snippet-dropdown {
+.snippet-dropdown,
+.tag-filter {
     position: relative;
     display: inline-block;
     flex: 1;

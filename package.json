@@ -35,9 +35,11 @@
   },
   "dependencies": {
     "dotenv": "^17.2.3",
+    "lua-fmt": "^2.6.0",
     "mongodb": "^7.0.0",
     "mongoose": "^8.20.0",
     "nodemon": "^3.1.11",
+    "prettier": "^3.7.4",
     "react-syntax-highlighter": "^16.1.0"
   }
 }

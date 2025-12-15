@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+
 /**
  * A function that copies selected snippet code to the user's system-wide
  * clipboard
