@@ -17,7 +17,7 @@ import {
   SnipList,
   TagFilter,
 } from "../../assets.jsx";
-import { useState, useEffect, React } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -68,6 +68,9 @@ Press the plus (+) button to compare snippets!*/`;
 
   // The main selected code snippet
   const [selectedSnippet, setSelectedSnippet] = useState(null);
+
+  // The comparison code snippet
+  const [compareSnippet, setCompareSnippet] = useState(null);
 
   // The text information pulled from the DB for the selected snippet
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
@@ -185,6 +188,7 @@ Press the plus (+) button to compare snippets!*/`;
                   selectedTags={selectedTags}
                   currSnippet={selectedSnippet.title}
                   onSelect={(snip) => {
+                    console.log("Snip: ", snip);
                     setSelectedSnippet(snip);
                     setCurrentCode(snip.code || sampleSnippet);
                   }}
@@ -197,6 +201,7 @@ Press the plus (+) button to compare snippets!*/`;
                   currSnippet={null}
                   onSelect={(snip) => {
                     setSelectedSnippet(snip);
+                    console.log(snip);
                     setCurrentCode(snip.code || sampleSnippet);
                   }}
                 />
@@ -263,8 +268,10 @@ Press the plus (+) button to compare snippets!*/`;
                   compLanguage={compareLanguage}  
                   selectedTags={selectedTags}
                   currSnippet={selectedSnippet.title}
-                  onSelect={(snip) => {
+                  onSelect={(snip, snip1) => {
                     setSelectedSnippet(snip);
+                    setCompareSnippet(snip1);
+                    console.log("Snip: ", snip, snip1);
                     setCurrentCode(snip.code || sampleSnippet);
                     setCompareCode(snip.code || sampleSnippet);
                   }}
@@ -276,8 +283,10 @@ Press the plus (+) button to compare snippets!*/`;
                   compLanguage={compareLanguage} 
                   selectedTags={selectedTags}
                   currSnippet={null}
-                  onSelect={(snip) => {
+                  onSelect={(snip, snip1) => {
                     setSelectedSnippet(snip);
+                    setCompareSnippet(snip1);
+                    console.log("Snip: ", snip, snip1);
                     setCurrentCode(snip.code || sampleSnippet);
                     setCompareCode(snip.code || sampleSnippet);
                   }}

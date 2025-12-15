@@ -245,6 +245,7 @@ export function SnipList({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selected, setSelected] = useState(null);
+    const [compareSelected, setCompareSelected] = useState(null);
     const [defaultSnippet, setDefault] = useState(null);
 
     useEffect(() => {
@@ -334,6 +335,7 @@ export function SnipList({
     const handleSelectSnippet = (snippet) => {
         const label = snippet.title || snippet.name || snippet;
         const select = document.getElementById(id);
+        console.log("Retreived select", select.value);
         if (select) select.value = label;
         setSelected(label);
         setOpen(false);
@@ -344,6 +346,7 @@ export function SnipList({
         <div className="snippet-dropdown">
             <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
                 {open ? 'Close Snippets' : (selected || defaultSnippet || 'Select Snippet')}
+                {console.log("Retreived selected", selected)}
             </button>
             {open && (
                 <div className="dropdown-menu">
@@ -362,7 +365,12 @@ export function SnipList({
                     })}
                 </div>
             )}
-            <select id={id} style={{ display: 'none' }} aria-hidden="true" value={selected || ''}>
+            <select 
+                id={id} 
+                style={{ display: 'none' }} 
+                aria-hidden="true" 
+                value={selected || ''}
+            >
                 {snippets.map((snippet) => {
                     const title = snippet.title || snippet.name || snippet;
                     return <option key={title} value={title}>{title}</option>
