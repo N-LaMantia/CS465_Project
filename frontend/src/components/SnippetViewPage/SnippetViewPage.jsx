@@ -15,6 +15,7 @@ import {
   SubIcon,
   GetLanguages,
   SnipList,
+  TagFilter,
 } from "../../assets.jsx";
 import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
@@ -171,9 +172,17 @@ Press the plus (+) button to compare snippets!*/`;
                   setCurrentCode(sampleSnippet);
                 }}
               />
+              <TagFilter 
+                language={selectedLanguage}
+                onTagsChange={(tags) => {
+                  setSelectedTags(tags);
+                }}
+                GetLanguages data-testid="GetLanguages"
+              />
               {selectedSnippet ? (
                 <SnipList
                   language={selectedLanguage} 
+                  selectedTags={selectedTags}
                   currSnippet={selectedSnippet.title}
                   onSelect={(snip) => {
                     setSelectedSnippet(snip);
@@ -183,6 +192,7 @@ Press the plus (+) button to compare snippets!*/`;
               ) : (
                 <SnipList
                   compare={compareMode}
+                  selectedTags={selectedTags}
                   language={selectedLanguage} 
                   currSnippet={null}
                   onSelect={(snip) => {
@@ -225,6 +235,13 @@ Press the plus (+) button to compare snippets!*/`;
 
           {compareMode && <>
             <div className="dropdown-row" id="compareDropdown">
+              <TagFilter 
+                language={selectedLanguage}
+                onTagsChange={(tags) => {
+                  setSelectedTags(tags);
+                }}
+                GetLanguages data-testid="GetLanguages"
+              />
               <GetLanguages id="originalLang"
                 defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
@@ -244,6 +261,7 @@ Press the plus (+) button to compare snippets!*/`;
                   compare={compareMode}
                   language={selectedLanguage}
                   compLanguage={compareLanguage}  
+                  selectedTags={selectedTags}
                   currSnippet={selectedSnippet.title}
                   onSelect={(snip) => {
                     setSelectedSnippet(snip);
@@ -256,6 +274,7 @@ Press the plus (+) button to compare snippets!*/`;
                   compare={compareMode}
                   language={selectedLanguage}
                   compLanguage={compareLanguage} 
+                  selectedTags={selectedTags}
                   currSnippet={null}
                   onSelect={(snip) => {
                     setSelectedSnippet(snip);

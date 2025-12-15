@@ -237,7 +237,8 @@ export function SnipList({
     compare, 
     language,
     compLanguage,
-    currSnippet
+    currSnippet,
+    selectedTags = []
 }) {
     const [snippets, setSnippets] = useState([]);
     const [open, setOpen] = useState(false);
@@ -298,7 +299,17 @@ export function SnipList({
                 // Transfer fetched data to usable json format
                 const json = (data.flat());
 
-                const items = Array.isArray(json) ? json : [];
+                let items = Array.isArray(json) ? json : [];
+
+                // Filter by selected tags if any
+                if (selectedTags.length > 0) {
+                    items = items.filter(snippet => {
+                        const snippetTags = Array.isArray(snippet.tags) ? snippet.tags : [];
+                        // Include snippet if it has ALL selected tags
+                        return selectedTags.every(tag => snippetTags.includes(tag));
+                    });
+                }
+
                 if (mounted) {
                     setSnippets(items);
                     console.log("Snippets: ", snippets);
@@ -457,5 +468,93 @@ export function SubIcon() {
             <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4" 
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+    );
+}
+
+/**
+ * Author:  Henderson
+ * Contributors:
+ * 
+ * @function TagFilter
+ * 
+ * @returns HTML to display a list of checkboxes for filtering snippets by tags
+ */
+export function TagFilter({ language = null, onTagsChange }) {
+    const [tags, setTags] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        let mounted = true;
+
+        const fetchTags = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const endpoint = language ? `/api/tags/${encodeURIComponent(language)}` : '/api/tags';
+                const resp = await fetch(endpoint);
+                const json = await resp.json();
+                const tagList = Array.isArray(json) ? json : [];
+                if (mounted) setTags(tagList);
+            } catch (err) {
+                console.error(err);
+                if (mounted) setError(err.message || 'Error fetching tags');
+            } finally {
+                if (mounted) setLoading(false);
+            }
+        };
+
+        // Fetch tags when language changes
+        setSelectedTags([]);
+        if (language) {
+            fetchTags();
+        } else {
+            setTags([]);
+            setLoading(false);
+        }
+
+        return () => {
+            mounted = false;
+        };
+    }, [language]);
+
+    const handleTagChange = (tag) => {
+        const newSelectedTags = selectedTags.includes(tag)
+            ? selectedTags.filter(t => t !== tag)
+            : [...selectedTags, tag];
+        
+        setSelectedTags(newSelectedTags);
+        if (typeof onTagsChange === 'function') {
+            onTagsChange(newSelectedTags);
+        }
+    };
+
+    return (
+        <div className="tag-filter">
+            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                {open ? 'Close Tags' : `Filter Tags${selectedTags.length > 0 ? ` (${selectedTags.length})` : ''}`}
+            </button>
+            {open && (
+                <div className="dropdown-menu">
+                    {loading && <div className="dropdown-item">Loading tags...</div>}
+                    {error && <div className="dropdown-item">Error: {error}</div>}
+                    {!loading && !error && tags.length === 0 && (
+                        <div className="dropdown-item">No tags available</div>
+                    )}
+                    {!loading && !error && tags.map((tag) => (
+                        <label key={tag} className="tag-checkbox-item">
+                            <input 
+                                type="checkbox" 
+                                checked={selectedTags.includes(tag)}
+                                onChange={() => handleTagChange(tag)}
+                            />
+                            <span>{tag}</span>
+                        </label>
+                    ))}
+                </div>
+            )}
+        </div>
     );
 }
