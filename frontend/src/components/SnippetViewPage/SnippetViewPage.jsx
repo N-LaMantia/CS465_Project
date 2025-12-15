@@ -135,7 +135,7 @@ export const SnippetViewPage = () => {
         </nav>
       </header>
       <div id="body">
-        <button className="backButton" onClick={() => navigate(`/`)}>
+        <button aria-label="Go back (button)" className="backButton" onClick={() => navigate(`/`)}>
           &lt; Back
         </button>
         <div id="content">
@@ -143,6 +143,7 @@ export const SnippetViewPage = () => {
             Tag Selection <br />
             {allTags.map((tag) => (
               <input
+                aria-label={tag}
                 type="checkbox"
                 id={tag}
                 name="tag"
@@ -158,6 +159,7 @@ export const SnippetViewPage = () => {
             ))}
           </div>
           <div className="dropdown-row"
+            aria-label="Languages, snippets, and tags selection"
             dropdowns data-testid="dropdowns">
             <GetLanguages
               defaultLanguage={selectedLanguage}
@@ -170,7 +172,7 @@ export const SnippetViewPage = () => {
                 setSelectedTags([]);
               }}
             />
-            <TagFilter 
+            <TagFilter
               language={selectedLanguage}
               onTagsChange={(tags) => {
                 setSelectedTags(tags);
@@ -189,7 +191,7 @@ export const SnippetViewPage = () => {
 
             />
           </div>
-          <div className="snippetCode" id="codeArea1">
+          <div className="snippetCode" id="codeArea1" aria-label="Snippet code area">
             <SyntaxHighlighter
               language={languageMap[selectedLanguage]}
               style={oneDark}
@@ -204,6 +206,7 @@ export const SnippetViewPage = () => {
           </div>
           <button
             id="copyButton"
+            aria-label="Copy snippet to clipboard (button)"
             className="snippetButton"
             onClick={() => CopyButtonHandler()}
             copyIcon data-testid="copyButton"

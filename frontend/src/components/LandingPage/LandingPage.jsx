@@ -28,7 +28,7 @@ export const LandingPage = () => {
 
     return (
         <>
-            <title>Snippet</title>
+            <title aria-label="Snippet">Snippet</title>
             <header>
                 <div id="siteLogo">
                     <b>CSnippy</b>
@@ -41,7 +41,7 @@ export const LandingPage = () => {
             </header>
             <hr></hr>
             <div id="body">
-                <h1>Welcome to CSnippy!</h1>
+                <h1 aria-label="Welcome to CSnippy">Welcome to CSnippy!</h1>
                 <button
                     className="snipConverterButton"
                     onClick={() => navigate(`/snippet`)}
@@ -51,13 +51,13 @@ export const LandingPage = () => {
                 &nbsp;
                 <PreferredLangSetting />
                 &nbsp;
-                <h3 className="description">
+                <h3 aria-label="A description of the site." className="description">
                     This application is designed for developers to easily compare code
                     snippets across multiple programming languages. Please continue by
                     hitting the "Snippet Comparer" button above.
                 </h3>
                 &nbsp;&nbsp;&nbsp;
-                <footer className="footer">
+                <footer aria-label="footer" className="footer">
                     Created by Matthew Eagan, Nicholas LaMantia, Thomas Gallaher, and Jace
                     Henderson. © 2025 CSnippy. All rights reserved.
                 </footer>
