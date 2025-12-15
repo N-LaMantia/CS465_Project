@@ -66,7 +66,7 @@ Press the plus (+) button to compare snippets!*/`;
   const [compareLanguage, setCompareLanugage] = useState(null);
 
   // The main selected code snippet
-  const [SelectedSnippet, setSelectedSnippet] = useState(null);
+  const [selectedSnippet, setSelectedSnippet] = useState(null);
 
   // The text information pulled from the DB for the selected snippet
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
@@ -86,7 +86,7 @@ Press the plus (+) button to compare snippets!*/`;
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log("tags: ", data);
         setAllTags(data.tags || []);
       } catch (err) {
         console.error(err);
@@ -104,7 +104,7 @@ Press the plus (+) button to compare snippets!*/`;
   };
 
   // Active comparison states
-  const [compareSnippet, isComparing] = useState(false);
+  const [compareMode, isComparing] = useState(false);
 
   // Visual indicator of successful snippet copy
   const [conf, setConf] = useState("");
@@ -161,7 +161,7 @@ Press the plus (+) button to compare snippets!*/`;
             ))}
           </div>
 
-          {!compareSnippet && <>
+          {!compareMode && (<>
             <div className="dropdown-row" id="fullDropdown">
               <GetLanguages
                 defaultLanguage={selectedLanguage}
@@ -171,13 +171,26 @@ Press the plus (+) button to compare snippets!*/`;
                   setCurrentCode(sampleSnippet);
                 }}
               />
-              <SnipList
-                language={selectedLanguage}
-                onSelect={(snip) => {
-                  setSelectedSnippet(snip);
-                  setCurrentCode(snip.code || sampleSnippet);
-                }}
-              />
+              {selectedSnippet ? (
+                <SnipList
+                  language={selectedLanguage} 
+                  currSnippet={selectedSnippet.title}
+                  onSelect={(snip) => {
+                    setSelectedSnippet(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                  }}
+                />
+              ) : (
+                <SnipList
+                  compare={compareMode}
+                  language={selectedLanguage} 
+                  currSnippet={null}
+                  onSelect={(snip) => {
+                    setSelectedSnippet(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                  }}
+                />
+              )}
             </div>
             <div className="snippetCode" id="fullCodeArea">
               <div className="displayedSnippet">  
@@ -208,36 +221,49 @@ Press the plus (+) button to compare snippets!*/`;
                 <AddIcon />
               </button>
             </div>
-          </>}
+          </>)}
 
-          {compareSnippet && <>
+          {compareMode && <>
             <div className="dropdown-row" id="compareDropdown">
               <GetLanguages id="originalLang"
                 defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
                   setSelectedLanguage(lang);
-                  localStorage.setItem("preferredLanguage", lang);
-                  setSelectedSnippet(null);
                   setCurrentCode(sampleSnippet);
                 }}
               />
               <GetLanguages id="compareLang"
                 defaultLanguage={selectedLanguage}
                 onSelect={(lang) => {
-                  setSelectedLanguage(lang);
-                  localStorage.setItem("preferredLanguage", lang);
-                  setSelectedSnippet(null);
+                  setCompareLanugage(lang);
                   setCompareCode(sampleSnippet);
                 }}
               />
-              <SnipList id="snippetSelect"
-                language={selectedLanguage}
-                onSelect={(snip) => {
-                  setSelectedSnippet(snip);
-                  setCurrentCode(snip.code || sampleSnippet);
-                  setCompareCode(snip.code || sampleSnippet);
-                }}
-              />
+              {selectedSnippet ? (
+                <SnipList
+                  compare={compareMode}
+                  language={selectedLanguage}
+                  compLanguage={compareLanguage}  
+                  currSnippet={selectedSnippet.title}
+                  onSelect={(snip) => {
+                    setSelectedSnippet(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                    setCompareCode(snip.code || sampleSnippet);
+                  }}
+                />
+              ) : (
+                <SnipList
+                  compare={compareMode}
+                  language={selectedLanguage}
+                  compLanguage={compareLanguage} 
+                  currSnippet={null}
+                  onSelect={(snip) => {
+                    setSelectedSnippet(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                    setCompareCode(snip.code || sampleSnippet);
+                  }}
+                />
+              )}
             </div>
             <div className="snippetCode" id="compareCodeArea">
               <div className="displayedSnippet">  
