@@ -12,11 +12,12 @@ import {
   CopyIcon,
   RefreshIcon,
   AddIcon,
+  SubIcon,
   GetLanguages,
   SnipList,
   TagFilter,
 } from "../../assets.jsx";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -54,17 +55,30 @@ async function CopySnippetToClipBoard(snippet) {
 export const SnippetViewPage = () => {
   //Initialize useNavigate as an object to avoid invalid hook calls
   const navigate = useNavigate();
+  // Default text to prompt the user
   const sampleSnippet =
-    `Hello! This is code for you to copy! \nPress the ` +
-    `button below to copy`;
+    `/*Select a language and a snippet above!
+Press the plus (+) button to compare snippets!*/`;
 
   // Selected language / snippet and code state
   const [selectedLanguage, setSelectedLanguage] = useState(
     () => localStorage.getItem("preferredLanguage") || null,
   );
-  const [SelectedSnippet, setSelectedSnippet] = useState(null);
+  // An additional selected language for comparing
+  const [compareLanguage, setCompareLanugage] = useState(selectedLanguage);
+
+  // The main selected code snippet
+  const [selectedSnippet, setSelectedSnippet] = useState(null);
+
+  // The comparison code snippet
+  const [compareSnippet, setCompareSnippet] = useState(null);
+
+  // The text information pulled from the DB for the selected snippet
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
-  const [originalCode, setOriginalCode] = useState(sampleSnippet);
+  // The text information pulled from the DB for the compare snippet
+  const [compareCode, setCompareCode] = useState(sampleSnippet);
+
+  // Filters a user can select to streamline snippet selection
   const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -77,7 +91,7 @@ export const SnippetViewPage = () => {
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log("tags: ", data);
         setAllTags(data.tags || []);
       } catch (err) {
         console.error(err);
@@ -89,10 +103,13 @@ export const SnippetViewPage = () => {
 
   let languageMap = {
     "C++": "cpp",
-    JavaScript: "javascript",
-    Python: "python",
-    Lua: "lua",
+    "JavaScript": "javascript",
+    "Python": "python",
+    "Lua": "lua",
   };
+
+  // Active comparison states
+  const [compareMode, isComparing] = useState(false);
 
   // Visual indicator of successful snippet copy
   const [conf, setConf] = useState("");
@@ -111,14 +128,6 @@ export const SnippetViewPage = () => {
     CopySnippetToClipBoard(currentCode);
     // Display confirmation message
     showConf("Copied!");
-  };
-
-  // Handler for when the refresh button is clicked allows for 2 functions
-  const RefreshButtonHandler = () => {
-    // Reset to original snippet code
-    setCurrentCode(originalCode);
-    // Display confirmation message
-    showConf("Refreshed!");
   };
 
   return (
@@ -140,7 +149,6 @@ export const SnippetViewPage = () => {
         </button>
         <div id="content">
           <div>
-            Tag Selection <br />
             {allTags.map((tag) => (
               <input
                 type="checkbox"
@@ -157,73 +165,203 @@ export const SnippetViewPage = () => {
               />
             ))}
           </div>
-          <div className="dropdown-row"
-            dropdowns data-testid="dropdowns">
-            <GetLanguages
-              defaultLanguage={selectedLanguage}
-              onSelect={(lang) => {
-                setSelectedLanguage(lang);
-                localStorage.setItem("preferredLanguage", lang);
-                setSelectedSnippet(null);
-                setCurrentCode(sampleSnippet);
-                setOriginalCode(sampleSnippet);
-                setSelectedTags([]);
-              }}
-            />
-            <TagFilter 
-              language={selectedLanguage}
-              onTagsChange={(tags) => {
-                setSelectedTags(tags);
-              }}
-              GetLanguages data-testid="GetLanguages"
-            />
-            <SnipList
-              language={selectedLanguage}
-              selectedTags={selectedTags}
-              onSelect={(snip) => {
-                setSelectedSnippet(snip);
-                setCurrentCode(snip.code || sampleSnippet);
-                setOriginalCode(snip.code || sampleSnippet);
 
-              }}
-
-            />
-          </div>
-          <div className="snippetCode" id="codeArea1">
-            <SyntaxHighlighter
-              language={languageMap[selectedLanguage]}
-              style={oneDark}
-              showLineNumbers
-              wrapLongLines
-              className="code"
-              SyntaxHighlighter data-testid="SyntaxHighlighter"
+          {!compareMode && (<>
+            <div 
+              className="dropdown-row" 
+              id="fullDropdown" 
+              dropdowns data-testid="dropdowns"
             >
-              {currentCode}
-            </SyntaxHighlighter>
-            <div>{SelectedSnippet && SelectedSnippet.description}</div>
-          </div>
-          <button
-            id="copyButton"
-            className="snippetButton"
-            onClick={() => CopyButtonHandler()}
-            copyIcon data-testid="copyButton"
-          >
-            <CopyIcon />
-          </button>
-          <button
-            id="refreshButton"
-            className="snippetButton"
-            onClick={() => RefreshButtonHandler(sampleSnippet)}
-          >
-            <RefreshIcon />
-          </button>
-          <button
-            id="addButton"
-            className="snippetButton"
-            onClick={() => CopySnippetToClipBoard(sampleSnippet)}
-          >
-            <AddIcon />
-          </button>
+              <GetLanguages
+                defaultLanguage={selectedLanguage}
+                onSelect={(lang) => {
+                  setSelectedLanguage(lang);
+                  setSelectedSnippet(null);
+                  setCurrentCode(sampleSnippet);
+                }}
+              />
+              <TagFilter 
+                language={selectedLanguage}
+                onTagsChange={(tags) => {
+                  setSelectedTags(tags);
+                }}
+                GetLanguages data-testid="GetLanguages"
+              />
+              {selectedSnippet ? (
+                <SnipList
+                  language={selectedLanguage} 
+                  selectedTags={selectedTags}
+                  currSnippet={selectedSnippet.title}
+                  onSelect={(snip) => {
+                    console.log("Snip: ", snip);
+                    setSelectedSnippet(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                  }}
+                />
+              ) : (
+                <SnipList
+                  compare={compareMode}
+                  selectedTags={selectedTags}
+                  language={selectedLanguage} 
+                  currSnippet={null}
+                  onSelect={(snip) => {
+                    setSelectedSnippet(snip);
+                    console.log(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                  }}
+                />
+              )}
+            </div>
+            <div className="snippetCode" id="fullCodeArea">
+              <div 
+                className="displayedSnippet" 
+                SyntaxHighlighter data-testid="SyntaxHighlighter"
+              >  
+                <SyntaxHighlighter
+                  id="codeArea" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {currentCode}
+                </SyntaxHighlighter>
+              </div>
+              <button
+                id="copyButton"
+                className="snippetButton"
+                copyIcon data-testid="copyButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="addButton"
+                className="snippetButton"
+                onClick={() => isComparing(true)}
+              >
+                <AddIcon />
+              </button>
+            </div>
+          </>)}
+
+          {compareMode && <>
+            <div className="dropdown-row" id="compareDropdown">
+              <TagFilter 
+                language={selectedLanguage}
+                onTagsChange={(tags) => {
+                  setSelectedTags(tags);
+                }}
+                GetLanguages data-testid="GetLanguages"
+              />
+              <GetLanguages id="originalLang"
+                defaultLanguage={selectedLanguage}
+                onSelect={(lang) => {
+                  setSelectedLanguage(lang);
+                  setCurrentCode(sampleSnippet);
+                }}
+              />
+              <GetLanguages id="compareLang"
+                defaultLanguage={selectedLanguage}
+                onSelect={(lang) => {
+                  setCompareLanugage(lang);
+                  setCompareCode(sampleSnippet);
+                }}
+              />
+              {selectedSnippet ? (
+                <SnipList
+                  compare={compareMode}
+                  language={selectedLanguage}
+                  compLanguage={compareLanguage}  
+                  selectedTags={selectedTags}
+                  currSnippet={selectedSnippet.title}
+                  onSelect={(snip, snip1) => {
+                    setSelectedSnippet(snip);
+                    setCompareSnippet(snip1);
+                    console.log("Snip: ", snip, snip1);
+                    setCurrentCode(snip.code || sampleSnippet);
+                    setCompareCode(snip.code || sampleSnippet);
+                  }}
+                />
+              ) : (
+                <SnipList
+                  compare={compareMode}
+                  language={selectedLanguage}
+                  compLanguage={compareLanguage} 
+                  selectedTags={selectedTags}
+                  currSnippet={null}
+                  onSelect={(snip, snip1) => {
+                    setSelectedSnippet(snip);
+                    setCompareSnippet(snip1);
+                    console.log("Snip: ", snip, snip1);
+                    setCurrentCode(snip.code || sampleSnippet);
+                    setCompareCode(snip.code || sampleSnippet);
+                  }}
+                />
+              )}
+            </div>
+            <div className="snippetCode" id="compareCodeArea">
+              <div className="displayedSnippet">  
+                <SyntaxHighlighter
+                  id="codeAreaLeft" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0', fontSize: '13px'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {currentCode}
+                </SyntaxHighlighter>
+              </div>
+              <button
+                id="copyButton"
+                className="snippetButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="subtractButton"
+                className="snippetButton"
+                onClick={() => isComparing(false)}
+              >
+                <SubIcon />
+              </button>
+              
+              {/* Second snippet view to be compared */}
+              <div className="displayedSnippet"> 
+                 {/* Displayed code  */}
+                <SyntaxHighlighter
+                  id="codeAreaRight" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0', fontSize: '13px'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {compareCode}
+                </SyntaxHighlighter>
+              </div>
+              <button
+                id="copyButton1"
+                className="snippetButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="subtractButton1"
+                className="snippetButton"
+                onClick={() => isComparing(false)}
+              >
+                <SubIcon />
+              </button>
+            </div>
+          </>}
         </div>
       </div>
       {conf && <div id="confMessage">{conf}</div>}

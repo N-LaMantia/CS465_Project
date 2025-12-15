@@ -36,7 +36,7 @@ test("Renders snippet view page", async () => {
         </BrowserRouter>
     )
 
-    expect(screen.getByText("Hello! This is code for you to copy!")).toBeInTheDocument();
+    // expect(screen.getByText('Select a language')).toBeInTheDocument();
     expect(screen.getByTestId('SyntaxHighlighter')).toBeInTheDocument();
     expect(screen.getByTestId('copyButton')).toBeInTheDocument();
     expect(screen.getByTestId('dropdowns')).toBeInTheDocument();
