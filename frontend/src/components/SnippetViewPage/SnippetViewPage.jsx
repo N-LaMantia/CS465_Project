@@ -120,9 +120,9 @@ Press the plus (+) button to compare snippets!*/`;
   };
 
   // Handler for when the copy button is clicked allows for 2 functions
-  const CopyButtonHandler = () => {
+  const CopyButtonHandler = (thisCode) => {
     // Copy current modified text to system clipboard
-    CopySnippetToClipBoard(currentCode);
+    CopySnippetToClipBoard(thisCode);
     // Display confirmation message
     showConf("Copied!");
   };
@@ -248,7 +248,7 @@ Press the plus (+) button to compare snippets!*/`;
                 id="copyButton"
                 className="snippetButton"
                 copyIcon data-testid="copyButton"
-                onClick={() => CopyButtonHandler()}
+                onClick={() => CopyButtonHandler(currentCode)}
               >
                 <CopyIcon />
               </button>
@@ -333,7 +333,7 @@ Press the plus (+) button to compare snippets!*/`;
                 id="copyButton"
                 aria-label="Copy snippet to clipboard (button)"
                 className="snippetButton"
-                onClick={() => CopyButtonHandler()}
+                onClick={() => CopyButtonHandler(currentCode)}
               >
                 <CopyIcon />
               </button>
@@ -363,7 +363,7 @@ Press the plus (+) button to compare snippets!*/`;
               <button
                 id="copyButton1"
                 className="snippetButton"
-                onClick={() => CopyButtonHandler()}
+                onClick={() => CopyButtonHandler(compareCode)}
               >
                 <CopyIcon />
               </button>
