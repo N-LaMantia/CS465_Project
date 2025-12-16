@@ -216,6 +216,7 @@ function UnionSnippets(lang1, lang2) {
         ...new Set(
             lang2
                 .filter(item => lang1Snips.has(item.title))
+                .map(item => item.title)
         )
     ];
 };
@@ -247,7 +248,6 @@ export function SnipList({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selected, setSelected] = useState(null);
-    const [compareSelected, setCompareSelected] = useState(null);
     const [defaultSnippet, setDefault] = useState(null);
 
     useEffect(() => {
@@ -348,7 +348,7 @@ export function SnipList({
         <div className="snippet-dropdown">
             <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
                 {open ? 'Close Snippets' : (selected || defaultSnippet || 'Select Snippet')}
-                {/* {console.log("Retreived selected", selected)} */}
+                {console.log("Retreived selected", selected)}
             </button>
             {open && (
                 <div className="dropdown-menu">
