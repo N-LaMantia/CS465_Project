@@ -1,36 +1,46 @@
 /**
  * Author: Matthew Eagan
- * 
+ *
  * Contributors: Matthew Eagan, Nicholas LaMantia, Jace Henderson
- * 
- * 
+ *
+ *
  * @returns functions to use in SnippetViewPage
- * 
+ *
  */
 
-import { useEffect, useState } from 'react';
-import React from 'react';
-
+import { useEffect, useState } from "react";
+import React from "react";
 
 /**
  * Author: Matthew Eagan
  * Contributors:
- * 
+ *
  * @function SettingsIcon
- * 
- * @returns A icon for settings 
+ *
+ * @returns A icon for settings
  */
 export function SettingsIcon() {
-    return (
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_3_30)">
-                <path d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 
+  return (
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_3_30)">
+        <path
+          d="M24 30C27.3137 30 30 27.3137 30 24C30 20.6863 27.3137 
                 18 24 18C20.6863 18 18 20.6863 18 24C18 27.3137 20.6863 30 24 
-                30Z" stroke="white" stroke-width="4" stroke-linecap="round"
-                    stroke-linejoin="round" />
+                30Z"
+          stroke="white"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
 
-                <path d="M38.8 30C38.5338 30.6032 38.4544 31.2724 38.572 
+        <path
+          d="M38.8 30C38.5338 30.6032 38.4544 31.2724 38.572 
                 31.9212C38.6896 32.57 38.9989 33.1686 39.46 33.64L39.58 
                 33.76C39.9519 34.1315 40.2469 34.5726 40.4482 35.0582C40.6495 
                 35.5438 40.7531 36.0643 40.7531 36.59C40.7531 37.1157 40.6495 
@@ -92,309 +102,357 @@ export function SettingsIcon() {
                 26.0783 44.8284 26.8284C44.0783 27.5786 43.0609 28 42 
                 28H41.82C41.1764 28.0026 40.5477 28.1933 40.0111 
                 28.5486C39.4745 28.904 39.0535 29.4085 38.8 30Z"
-                    stroke="white" stroke-width="4" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </g>
-            <defs>
-                <clipPath id="clip0_3_30">
-                    <rect width="48" height="48" fill="#D9D9D9" />
-                </clipPath>
-            </defs>
-        </svg>
-    );
+          stroke="white"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3_30">
+          <rect width="48" height="48" fill="#D9D9D9" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
 }
 
 /**
  * Author: Nicholas LaMantia
- * Contributors: 
- * 
+ * Contributors:
+ *
  * @function GetLanguages
- * 
+ *
  * @param {Array|null} allowedLanguages - optional list of language titles to allow in the dropdown
  * @returns HTML to display a selectable drop-down with a list of languages
  */
-export function GetLanguages({ id = 'language1', onSelect, defaultLanguage = null }) {
-    const [languages, setLanguages] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [selected, setSelected] = useState(defaultLanguage);
+export function GetLanguages({
+  id = "language1",
+  onSelect,
+  defaultLanguage = null,
+}) {
+  const [languages, setLanguages] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selected, setSelected] = useState(defaultLanguage);
 
-    useEffect(() => {
-        let mounted = true;
-        const fetchLanguages = async () => {
-            setLoading(true);
-            try {
-                const resp = await fetch('/api/languages');
-                const json = await resp.json();
+  useEffect(() => {
+    let mounted = true;
+    const fetchLanguages = async () => {
+      setLoading(true);
+      try {
+        const resp = await fetch("/api/languages");
+        const json = await resp.json();
 
-                // The server returns an array of language documents; their title is the display value
-                let langs = [];
-                if (Array.isArray(json)) {
-                    langs = json.map((l) => l.title || l.name || l);
-                } else if (json && Array.isArray(json.languages)) {
-                    langs = json.languages.map((l) => l.title || l.name || l);
-                }
-
-                if (mounted) setLanguages(langs);
-            } catch (err) {
-                console.error(err);
-                if (mounted) setError(err.message || 'Error fetching languages');
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        };
-
-
-        // Fetch languages lazily when the dropdown is opened for the first time.
-        if (open && languages.length === 0) {
-            fetchLanguages();
+        // The server returns an array of language documents; their title is the display value
+        let langs = [];
+        if (Array.isArray(json)) {
+          langs = json.map((l) => l.title || l.name || l);
+        } else if (json && Array.isArray(json.languages)) {
+          langs = json.languages.map((l) => l.title || l.name || l);
         }
 
-        return () => {
-            mounted = false;
-        };
-    }, [open, languages.length]);
-
-    const handleSelect = (lang) => {
-        // Keep existing code that may rely on a hidden <select id={id}>
-        const select = document.getElementById(id);
-        if (select) select.value = lang;
-
-        if (typeof onSelect === 'function') onSelect(lang);
-        setSelected(lang);
-        setOpen(false);
+        if (mounted) setLanguages(langs);
+      } catch (err) {
+        console.error(err);
+        if (mounted) setError(err.message || "Error fetching languages");
+      } finally {
+        if (mounted) setLoading(false);
+      }
     };
 
-    return (
-        <div className="language-dropdown">
-            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-                {open ? 'Close Languages' : (selected || 'Select Language')}
-            </button>
-            {open && (
-                <div className="dropdown-menu">
-                    {loading && <div className="dropdown-item">Loading...</div>}
-                    {error && <div className="dropdown-item">Error: {error}</div>}
-                    {!loading && !error && languages.length === 0 && (
-                        <div className="dropdown-item">No languages found</div>
-                    )}
-                    {!loading && !error && languages.map((language) => (
-                        <button key={language} type="button" className="dropdown-item" onClick={() => handleSelect(language)}>
-                            {language}
-                        </button>
-                    ))}
-                </div>
-            )}
-            {/* keep a hidden select so any existing DOM code can still reference language1 */}
-            <select id={id} style={{ display: 'none' }} aria-hidden="true" value={selected || ''}>
-                {languages.map((language) => (
-                    <option key={language} value={language}>{language}</option>
-                ))}
-            </select>
+    // Fetch languages lazily when the dropdown is opened for the first time.
+    if (open && languages.length === 0) {
+      fetchLanguages();
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [open, languages.length]);
+
+  const handleSelect = (lang) => {
+    // Keep existing code that may rely on a hidden <select id={id}>
+    const select = document.getElementById(id);
+    if (select) select.value = lang;
+
+    if (typeof onSelect === "function") onSelect(lang);
+    setSelected(lang);
+    setOpen(false);
+  };
+
+  return (
+    <div className="language-dropdown">
+      <button
+        className="snippetLanguage dropdown-toggle"
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        {open ? "Close Languages" : selected || "Select Language"}
+      </button>
+      {open && (
+        <div className="dropdown-menu">
+          {loading && <div className="dropdown-item">Loading...</div>}
+          {error && <div className="dropdown-item">Error: {error}</div>}
+          {!loading && !error && languages.length === 0 && (
+            <div className="dropdown-item">No languages found</div>
+          )}
+          {!loading &&
+            !error &&
+            languages.map((language) => (
+              <button
+                key={language}
+                type="button"
+                className="dropdown-item"
+                onClick={() => handleSelect(language)}
+              >
+                {language}
+              </button>
+            ))}
         </div>
-    );
+      )}
+      {/* keep a hidden select so any existing DOM code can still reference language1 */}
+      <select
+        id={id}
+        style={{ display: "none" }}
+        aria-hidden="true"
+        value={selected || ""}
+      >
+        {languages.map((language) => (
+          <option key={language} value={language}>
+            {language}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }
 
 /**
-   * 
-   * Author: Matthew Eagan 
-   * Contributors: 
-   * 
-   * @function UnionSnippets
-   * 
-   * @return A unionized set of snippets between languages that share the same
-   *  title to select from in the comparison mode
-   * 
-   */
+ *
+ * Author: Matthew Eagan
+ * Contributors:
+ *
+ * @function UnionSnippets
+ *
+ * @return A unionized set of snippets between languages that share the same
+ *  title to select from in the comparison mode
+ *
+ */
 function UnionSnippets(lang1, lang2) {
-    // Dummy set of the titles in the selected set
-    const lang1Snips = new Set(lang1.map(item => item.title));
+  // Dummy set of the titles in the selected set
+  const lang1Snips = new Set(lang1.map((item) => item.title));
 
-    return [
-        // Filters based on the titles between the two sets
-        ...new Set(
-            lang2
-                .filter(item => lang1Snips.has(item.title))
-        )
-    ];
-};
+  return [
+    // Filters based on the titles between the two sets
+    ...new Set(lang2.filter((item) => lang1Snips.has(item.title))),
+  ];
+}
 
 /**
-   * 
-   * Author: Nicholas LaMantia 
-   * Contributors: Matthew Eagan
-   * 
-   * @function SnipList
-   * 
-   * @return A list of snippets in HTML from the database,
-   *  each being clickable buttons. As well, each snippet will 
-   *  have an onSelect function that will return the snippet to
-   *  the parent component.
-   * 
-   */
-export function SnipList({ 
-    id = 'snippet1', 
-    onSelect: onSelectSnippet, 
-    compare, 
-    language,
-    compLanguage,
-    currSnippet,
-    selectedTags = []
+ *
+ * Author: Nicholas LaMantia
+ * Contributors: Matthew Eagan
+ *
+ * @function SnipList
+ *
+ * @return A list of snippets in HTML from the database,
+ *  each being clickable buttons. As well, each snippet will
+ *  have an onSelect function that will return the snippet to
+ *  the parent component.
+ *
+ */
+export function SnipList({
+  id = "snippet1",
+  onSelect: onSelectSnippet,
+  compare,
+  language,
+  compLanguage,
+  currSnippet,
+  selectedTags = [],
 }) {
-    const [snippets, setSnippets] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [selected, setSelected] = useState(null);
-    const [compareSelected, setCompareSelected] = useState(null);
-    const [defaultSnippet, setDefault] = useState(null);
+  const [snippets, setSnippets] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [compareSelected, setCompareSelected] = useState(null);
+  const [defaultSnippet, setDefault] = useState(null);
 
-    useEffect(() => {
-        if (currSnippet) {
-            setDefault(currSnippet);
+  useEffect(() => {
+    if (currSnippet) {
+      setDefault(currSnippet);
+    }
+
+    let mounted = true;
+
+    const fetchSnippets = async () => {
+      setLoading(true);
+      try {
+        const endpoints = [];
+
+        // Pull snippets based on the first language
+        endpoints.push(
+          language
+            ? `/api/snippets/${encodeURIComponent(language)}`
+            : "/api/snippets",
+        );
+
+        // console.log("Endpoints: ", endpoints);
+        // console.log("Language: ", language);
+        // console.log("Comp Language: ", compLanguage);
+        // console.log("Compare: ", compare);
+        // Pull snippets based on the comparison language
+        if (compare && compLanguage) {
+          endpoints.push(`/api/snippets/${encodeURIComponent(compLanguage)}`);
         }
 
-        let mounted = true;
+        console.log("Endpoints: ", endpoints);
 
-        const fetchSnippets = async () => {
-            setLoading(true);
-            try {
-                const endpoints = [];
+        const resp = await Promise.all(
+          endpoints.map((endpoint) => fetch(endpoint)),
+        );
 
-                // Pull snippets based on the first language
-                endpoints.push(
-                    language ? 
-                    `/api/snippets/${encodeURIComponent(language)}` : 
-                    '/api/snippets'
-                );
+        console.log("Response: ", resp);
 
-                // Pull snippets based on the comparison language
-                if (compare && compLanguage){
-                    endpoints.push(
-                        `/api/snippets/${encodeURIComponent(compLanguage)}`
-                    );
-                }
+        let data = null;
 
-                console.log(endpoints);
+        // Comparison mode
+        if (compare) {
+          // Map the promise to 2 sets with both selected langs
+          const [lang1, lang2] = await Promise.all(
+            resp.map((res) => res.json()),
+          );
+          // Unionize the 2 sets
+          data = UnionSnippets(lang1, lang2);
+        }
+        // Standard mode
+        else {
+          data = await Promise.all(resp.map((res) => res.json()));
+        }
+        // Transfer fetched data to usable json format
+        const json = data.flat();
 
-                const resp = await Promise.all(
-                    endpoints.map(endpoint => fetch(endpoint))
-                );
+        let items = Array.isArray(json) ? json : [];
 
-                console.log(resp);
-
-                let data = null
-
-                // Comparison mode
-                if(compare){
-                    // Map the promise to 2 sets with both selected langs
-                    const [lang1, lang2] = await Promise.all(
-                        resp.map(res => res.json())
-                    );
-                    // Unionize the 2 sets
-                    data = UnionSnippets(lang1, lang2);
-                }
-                // Standard mode
-                else{
-                    data = await Promise.all(resp.map(res => res.json()));
-                }
-                // Transfer fetched data to usable json format
-                const json = (data.flat());
-
-                let items = Array.isArray(json) ? json : [];
-
-                // Filter by selected tags if any
-                if (selectedTags.length > 0) {
-                    items = items.filter(snippet => {
-                        const snippetTags = Array.isArray(snippet.tags) ? snippet.tags : [];
-                        // Include snippet if it has ALL selected tags
-                        return selectedTags.every(tag => snippetTags.includes(tag));
-                    });
-                }
-
-                if (mounted) {
-                    setSnippets(items);
-                    console.log("Snippets: ", snippets);
-                }
-            } catch (err) {
-                console.error(err);
-                if (mounted) setError(err.message || 'Error fetching snippets');
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        };
-
-        if (open) {
-            fetchSnippets();
+        // Filter by selected tags if any
+        if (selectedTags.length > 0) {
+          items = items.filter((snippet) => {
+            const snippetTags = Array.isArray(snippet.tags) ? snippet.tags : [];
+            // Include snippet if it has ALL selected tags
+            return selectedTags.every((tag) => snippetTags.includes(tag));
+          });
         }
 
-        return () => {
-            mounted = false;
-        };
-    }, [open, snippets.length, language, selectedTags]);
-
-    const handleSelectSnippet = (snippet) => {
-        const label = snippet.title || snippet.name || snippet;
-        const select = document.getElementById(id);
-        console.log("Retreived select", select.value);
-        if (select) select.value = label;
-        setSelected(label);
-        setOpen(false);
-        if (typeof onSelectSnippet === 'function') onSelectSnippet(snippet);
+        if (mounted) {
+          setSnippets(items);
+          console.log("Snippets: ", snippets);
+        }
+      } catch (err) {
+        console.error(err);
+        if (mounted) setError(err.message || "Error fetching snippets");
+      } finally {
+        if (mounted) setLoading(false);
+      }
     };
 
-    return (
-        <div className="snippet-dropdown">
-            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-                {open ? 'Close Snippets' : (selected || defaultSnippet || 'Select Snippet')}
-                {console.log("Retreived selected", selected)}
-            </button>
-            {open && (
-                <div className="dropdown-menu">
-                    {loading && <div className="dropdown-item">Loading...</div>}
-                    {error && <div className="dropdown-item">Error: {error}</div>}
-                    {!loading && !error && snippets.length === 0 && (
-                        <div className="dropdown-item">No snippets found</div>
-                    )}
-                    {!loading && !error && snippets.map((snippet) => {
-                        const title = snippet.title || snippet.name || snippet;
-                        return (
-                            <button key={title} type="button" className="dropdown-item" onClick={() => handleSelectSnippet(snippet)}>
-                                {title}
-                            </button>
-                        );
-                    })}
-                </div>
-            )}
-            <select 
-                id={id} 
-                style={{ display: 'none' }} 
-                aria-hidden="true" 
-                value={selected || ''}
-            >
-                {snippets.map((snippet) => {
-                    const title = snippet.title || snippet.name || snippet;
-                    return <option key={title} value={title}>{title}</option>
-                })}
-            </select>
+    if (open) {
+      fetchSnippets();
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [open, snippets.length, language, selectedTags]);
+
+  const handleSelectSnippet = (snippet) => {
+    const label = snippet.title || snippet.name || snippet;
+    const select = document.getElementById(id);
+    console.log("Retreived select", select.value);
+    if (select) select.value = label;
+    setSelected(label);
+    setOpen(false);
+    if (typeof onSelectSnippet === "function") onSelectSnippet(snippet);
+  };
+
+  return (
+    <div className="snippet-dropdown">
+      <button
+        className="snippetLanguage dropdown-toggle"
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        {open
+          ? "Close Snippets"
+          : selected || defaultSnippet || "Select Snippet"}
+        {console.log("Retreived selected", selected)}
+      </button>
+      {open && (
+        <div className="dropdown-menu">
+          {loading && <div className="dropdown-item">Loading...</div>}
+          {error && <div className="dropdown-item">Error: {error}</div>}
+          {!loading && !error && snippets.length === 0 && (
+            <div className="dropdown-item">No snippets found</div>
+          )}
+          {!loading &&
+            !error &&
+            snippets.map((snippet) => {
+              const title = snippet.title || snippet.name || snippet;
+              return (
+                <button
+                  key={title}
+                  type="button"
+                  className="dropdown-item"
+                  onClick={() => handleSelectSnippet(snippet)}
+                >
+                  {title}
+                </button>
+              );
+            })}
         </div>
-    );
+      )}
+      <select
+        id={id}
+        style={{ display: "none" }}
+        aria-hidden="true"
+        value={selected || ""}
+      >
+        {snippets.map((snippet) => {
+          const title = snippet.title || snippet.name || snippet;
+          return (
+            <option key={title} value={title}>
+              {title}
+            </option>
+          );
+        })}
+      </select>
+    </div>
+  );
 }
 
 /**
  * Author: Matthew Eagan
  * Contributors:
- * 
+ *
  * @function CopyIcon
- * 
- * 
+ *
+ *
  * @returns An icon
  */
 export function CopyIcon() {
-    return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M10.4166 31.25H8.33329C7.22822 31.25 6.16842 30.811 
+  return (
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 50 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.4166 31.25H8.33329C7.22822 31.25 6.16842 30.811 
             5.38701 30.0296C4.60561 29.2482 4.16663 28.1884 4.16663 
             27.0834V8.33335C4.16663 7.22829 4.60561 6.16848 5.38701 
             5.38708C6.16842 4.60567 7.22822 4.16669 8.33329 
@@ -404,26 +462,35 @@ export function CopyIcon() {
             22.9167V41.6667C45.8333 43.9679 43.9678 45.8334 41.6666 
             45.8334H22.9166C20.6154 45.8334 18.75 43.9679 18.75 
             41.6667V22.9167C18.75 20.6155 20.6154 18.75 22.9166 18.75Z"
-                stroke="#D9D9D9" stroke-width="4" stroke-linecap="round"
-                stroke-linejoin="round" />
-        </svg>
-    );
+        stroke="#D9D9D9"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
 }
 
 /**
  * Authors: Matthew Eagan
  * Contributors:
- * 
+ *
  * @function RefreshIcon
- * 
+ *
  * @returns An icon
- * 
+ *
  * */
 export function RefreshIcon() {
-    return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M47.9167 8.33335V20.8333M47.9167 20.8333H35.4167M47.9167 
+  return (
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 50 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M47.9167 8.33335V20.8333M47.9167 20.8333H35.4167M47.9167 
             20.8333L38.25 11.75C36.011 9.50984 33.2409 7.87336 30.1984 
             6.99329C27.1558 6.11323 23.9398 6.01825 20.8506 6.71722C17.7614 
             7.41619 14.8996 8.88634 12.5323 10.9905C10.1649 13.0946 8.36914 
@@ -432,226 +499,169 @@ export function RefreshIcon() {
             16.7592 42.1267 19.8017 43.0067C22.8443 43.8868 26.0602 43.9818 
             29.1494 43.2828C32.2387 42.5838 35.1005 41.1137 37.4678 
             39.0096C39.8352 36.9054 41.6309 34.2359 42.6875 31.25"
-                stroke="#D9D9D9" stroke-width="4" stroke-linecap="round"
-                stroke-linejoin="round" />
-        </svg>
-    );
+        stroke="#D9D9D9"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
 }
 
 /**
  * Author: Matthew Eagan
  * Contributors:
- * 
+ *
  * @function AddIcon
- * 
+ *
  * @returns An icon
- * 
+ *
  */
-/**
- * Author:  Henderson
- * Contributors:
- * 
- * @function TagFilter
- * 
- * @returns HTML to display a list of checkboxes for filtering snippets by tags
- */
-export function TagFilter({ language = null, onTagsChange }) {
-    const [tags, setTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        let mounted = true;
-
-        const fetchTags = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const endpoint = language ? `/api/tags/${encodeURIComponent(language)}` : '/api/tags';
-                const resp = await fetch(endpoint);
-                const json = await resp.json();
-                const tagList = Array.isArray(json) ? json : [];
-                if (mounted) setTags(tagList);
-            } catch (err) {
-                console.error(err);
-                if (mounted) setError(err.message || 'Error fetching tags');
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        };
-
-        // Fetch tags when language changes
-        setSelectedTags([]);
-        if (language) {
-            fetchTags();
-        } else {
-            setTags([]);
-            setLoading(false);
-        }
-
-        return () => {
-            mounted = false;
-        };
-    }, [language]);
-
-    const handleTagChange = (tag) => {
-        const newSelectedTags = selectedTags.includes(tag)
-            ? selectedTags.filter(t => t !== tag)
-            : [...selectedTags, tag];
-        
-        setSelectedTags(newSelectedTags);
-        if (typeof onTagsChange === 'function') {
-            onTagsChange(newSelectedTags);
-        }
-    };
-
-    return (
-        <div className="tag-filter">
-            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-                {open ? 'Close Tags' : `Filter Tags${selectedTags.length > 0 ? ` (${selectedTags.length})` : ''}`}
-            </button>
-            {open && (
-                <div className="dropdown-menu">
-                    {loading && <div className="dropdown-item">Loading tags...</div>}
-                    {error && <div className="dropdown-item">Error: {error}</div>}
-                    {!loading && !error && tags.length === 0 && (
-                        <div className="dropdown-item">No tags available</div>
-                    )}
-                    {!loading && !error && tags.map((tag) => (
-                        <label key={tag} className="tag-checkbox-item">
-                            <input 
-                                type="checkbox" 
-                                checked={selectedTags.includes(tag)}
-                                onChange={() => handleTagChange(tag)}
-                            />
-                            <span>{tag}</span>
-                        </label>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
-
 export function AddIcon() {
-    return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M25 10.4167V39.5834M10.4166 25H39.5833"
-                stroke="#D9D9D9" stroke-width="4" stroke-linecap="round"
-                stroke-linejoin="round" />
-        </svg>
-
-    );
+  return (
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 50 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M25 10.4167V39.5834M10.4166 25H39.5833"
+        stroke="#D9D9D9"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
 }
-
 
 /**
  * Author: Matthew Eagan
  * Contributors:
- * 
+ *
  * @function SubIcon
- * 
+ *
  * @returns An icon
- * 
+ *
  */
 export function SubIcon() {
-    return (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" 
-            xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width="49" height="49"/>
-            <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4" 
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    );
+  return (
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 50 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="0.5" y="0.5" width="49" height="49" />
+      <path
+        d="M10.4167 25H39.5834"
+        stroke="#D9D9D9"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
 }
 
 /**
  * Author:  Henderson
  * Contributors:
- * 
+ *
  * @function TagFilter
- * 
+ *
  * @returns HTML to display a list of checkboxes for filtering snippets by tags
  */
 export function TagFilter({ language = null, onTagsChange }) {
-    const [tags, setTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [open, setOpen] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-        const fetchTags = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const endpoint = language ? `/api/tags/${encodeURIComponent(language)}` : '/api/tags';
-                const resp = await fetch(endpoint);
-                const json = await resp.json();
-                const tagList = Array.isArray(json) ? json : [];
-                if (mounted) setTags(tagList);
-            } catch (err) {
-                console.error(err);
-                if (mounted) setError(err.message || 'Error fetching tags');
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        };
-
-        // Fetch tags when language changes
-        setSelectedTags([]);
-        if (language) {
-            fetchTags();
-        } else {
-            setTags([]);
-            setLoading(false);
-        }
-
-        return () => {
-            mounted = false;
-        };
-    }, [language]);
-
-    const handleTagChange = (tag) => {
-        const newSelectedTags = selectedTags.includes(tag)
-            ? selectedTags.filter(t => t !== tag)
-            : [...selectedTags, tag];
-        
-        setSelectedTags(newSelectedTags);
-        if (typeof onTagsChange === 'function') {
-            onTagsChange(newSelectedTags);
-        }
+    const fetchTags = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const endpoint = language
+          ? `/api/tags/${encodeURIComponent(language)}`
+          : "/api/tags";
+        const resp = await fetch(endpoint);
+        const json = await resp.json();
+        const tagList = Array.isArray(json) ? json : [];
+        if (mounted) setTags(tagList);
+      } catch (err) {
+        console.error(err);
+        if (mounted) setError(err.message || "Error fetching tags");
+      } finally {
+        if (mounted) setLoading(false);
+      }
     };
 
-    return (
-        <div className="tag-filter">
-            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-                {open ? 'Close Tags' : `Filter Tags${selectedTags.length > 0 ? ` (${selectedTags.length})` : ''}`}
-            </button>
-            {open && (
-                <div className="dropdown-menu">
-                    {loading && <div className="dropdown-item">Loading tags...</div>}
-                    {error && <div className="dropdown-item">Error: {error}</div>}
-                    {!loading && !error && tags.length === 0 && (
-                        <div className="dropdown-item">No tags available</div>
-                    )}
-                    {!loading && !error && tags.map((tag) => (
-                        <label key={tag} className="tag-checkbox-item">
-                            <input 
-                                type="checkbox" 
-                                checked={selectedTags.includes(tag)}
-                                onChange={() => handleTagChange(tag)}
-                            />
-                            <span>{tag}</span>
-                        </label>
-                    ))}
-                </div>
-            )}
+    // Fetch tags when language changes
+    setSelectedTags([]);
+    if (language) {
+      fetchTags();
+    } else {
+      setTags([]);
+      setLoading(false);
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [language]);
+
+  const handleTagChange = (tag) => {
+    const newSelectedTags = selectedTags.includes(tag)
+      ? selectedTags.filter((t) => t !== tag)
+      : [...selectedTags, tag];
+
+    setSelectedTags(newSelectedTags);
+    if (typeof onTagsChange === "function") {
+      onTagsChange(newSelectedTags);
+    }
+  };
+
+  return (
+    <div className="tag-filter">
+      <button
+        className="snippetLanguage dropdown-toggle"
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        {open
+          ? "Close Tags"
+          : `Filter Tags${selectedTags.length > 0 ? ` (${selectedTags.length})` : ""}`}
+      </button>
+      {open && (
+        <div className="dropdown-menu">
+          {loading && <div className="dropdown-item">Loading tags...</div>}
+          {error && <div className="dropdown-item">Error: {error}</div>}
+          {!loading && !error && tags.length === 0 && (
+            <div className="dropdown-item">No tags available</div>
+          )}
+          {!loading &&
+            !error &&
+            tags.map((tag) => (
+              <label key={tag} className="tag-checkbox-item">
+                <input
+                  type="checkbox"
+                  checked={selectedTags.includes(tag)}
+                  onChange={() => handleTagChange(tag)}
+                />
+                <span>{tag}</span>
+              </label>
+            ))}
         </div>
-    );
+      )}
+    </div>
+  );
 }
