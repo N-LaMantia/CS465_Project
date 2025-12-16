@@ -71,7 +71,7 @@ Press the plus (+) button to compare snippets!*/`;
   const [selectedSnippet, setSelectedSnippet] = useState(null);
 
   // The comparison code snippet
-  const [compareSnippet, setCompareSnippet] = useState(null);
+  const [CompareSnippet, setCompareSnippet] = useState(null);
 
   // The text information pulled from the DB for the selected snippet
   const [currentCode, setCurrentCode] = useState(sampleSnippet);

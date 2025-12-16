@@ -233,10 +233,10 @@ function UnionSnippets(lang1, lang2) {
    *  the parent component.
    * 
    */
-export function SnipList({ 
-    id = 'snippet1', 
-    onSelect: onSelectSnippet, 
-    compare, 
+export function SnipList({
+    id = 'snippet1',
+    onSelect: onSelectSnippet,
+    compare,
     language,
     compLanguage,
     currSnippet,
@@ -247,7 +247,7 @@ export function SnipList({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selected, setSelected] = useState(null);
-    const [compareSelected, setCompareSelected] = useState(null);
+    const [CompareSelected, SetCompareSelected] = useState(null);
     const [defaultSnippet, setDefault] = useState(null);
 
     useEffect(() => {
@@ -264,13 +264,13 @@ export function SnipList({
 
                 // Pull snippets based on the first language
                 endpoints.push(
-                    language ? 
-                    `/api/snippets/${encodeURIComponent(language)}` : 
-                    '/api/snippets'
+                    language ?
+                        `/api/snippets/${encodeURIComponent(language)}` :
+                        '/api/snippets'
                 );
 
                 // Pull snippets based on the comparison language
-                if (compare && compLanguage){
+                if (compare && compLanguage) {
                     endpoints.push(
                         `/api/snippets/${encodeURIComponent(compLanguage)}`
                     );
@@ -287,7 +287,7 @@ export function SnipList({
                 let data = null
 
                 // Comparison mode
-                if(compare){
+                if (compare) {
                     // Map the promise to 2 sets with both selected langs
                     const [lang1, lang2] = await Promise.all(
                         resp.map(res => res.json())
@@ -296,7 +296,7 @@ export function SnipList({
                     data = UnionSnippets(lang1, lang2);
                 }
                 // Standard mode
-                else{
+                else {
                     data = await Promise.all(resp.map(res => res.json()));
                 }
                 // Transfer fetched data to usable json format
@@ -367,10 +367,10 @@ export function SnipList({
                     })}
                 </div>
             )}
-            <select 
-                id={id} 
-                style={{ display: 'none' }} 
-                aria-hidden="true" 
+            <select
+                id={id}
+                style={{ display: 'none' }}
+                aria-hidden="true"
                 value={selected || ''}
             >
                 {snippets.map((snippet) => {
@@ -393,7 +393,7 @@ export function SnipList({
  */
 export function CopyIcon() {
     return (
-        <svg  viewBox="0 0 50 50" fill="none"
+        <svg viewBox="0 0 50 50" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M10.4166 31.25H8.33329C7.22822 31.25 6.16842 30.811 
             5.38701 30.0296C4.60561 29.2482 4.16663 28.1884 4.16663 
@@ -472,11 +472,11 @@ export function AddIcon() {
  */
 export function SubIcon() {
     return (
-        <svg viewBox="0 0 50 50" fill="none" 
+        <svg viewBox="0 0 50 50" fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width="49" height="49"/>
-            <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4" 
-                stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="0.5" y="0.5" width="49" height="49" />
+            <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4"
+                stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     );
 }
@@ -534,7 +534,7 @@ export function TagFilter({ language = null, onTagsChange }) {
         const newSelectedTags = selectedTags.includes(tag)
             ? selectedTags.filter(t => t !== tag)
             : [...selectedTags, tag];
-        
+
         setSelectedTags(newSelectedTags);
         if (typeof onTagsChange === 'function') {
             onTagsChange(newSelectedTags);
@@ -555,8 +555,8 @@ export function TagFilter({ language = null, onTagsChange }) {
                     )}
                     {!loading && !error && tags.map((tag) => (
                         <label key={tag} className="tag-checkbox-item">
-                            <input 
-                                type="checkbox" 
+                            <input
+                                type="checkbox"
                                 checked={selectedTags.includes(tag)}
                                 onChange={() => handleTagChange(tag)}
                             />
