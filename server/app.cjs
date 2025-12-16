@@ -231,6 +231,27 @@ app.get("/api/snippets/:language", async (req, res) => {
   }
 });
 
+app.get("/api/snippets/:languages/:title", async (req, res) => {
+  try {
+    
+    const { languages, title } = req.params;
+
+    const languageArray =
+      languages ? languages.split(",") : [];
+
+    let snippetList = []
+
+    for (const language of languageArray) {
+      snippetList.push(await Snippet.findOne({ language: language, title: title }));
+    }
+    res.json(snippetList);
+  } 
+  catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error retrieving snippets by language" });
+  }
+})
+
 /**
  * Route to get all tags
  *
