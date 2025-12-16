@@ -1,46 +1,46 @@
 #root {
-  padding: 0;
-  font-family: "Trebuchet MS", sans-serif;
+    padding: 0;
+    font-family: "Trebuchet MS", sans-serif;
 }
 
 header {
-  box-sizing: border-box;
-  margin: 0;
-  padding-left: 20px;
-  padding-right: 20px;
-  display: flex;
-  flex-direction: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 #siteLogo {
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 40px;
-  color: #d9d9d9;
-  text-align: left;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 40px;
+    color: #d9d9d9;
+    text-align: left;
 }
 
 nav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
 }
 
 #navIcons {
-  width: 100%;
-  list-style: none;
+    width: 100%;
+    list-style: none;
 }
 
 #body {
-  box-sizing: border-box;
-  margin: 0;
-  padding-left: 30px;
-  padding-right: 30px;
-  text-align: left;
-  place-items: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: left;
+    place-items: center;
 }
 
 #content {
@@ -52,24 +52,20 @@ nav {
   text-align: center;
   place-items: center;
   justify-items: center;
-  display: grid;
-  grid-template-columns: 1fr 120px;
-  grid-template-rows: 1fr 2fr 120px 120px 120px;
-  grid-template-areas:
-    "select sidebar"
-    "main sidebar"
-    "main button1"
-    "main button2"
-    "main button3";
-  grid-column-gap: 10px;
+}
+
+#codeAreaLeft {
+  grid-area: main;
+}
+
+#codeAreaRight {
+  grid-area: main1;
 }
 
 .snippetCode {
   resize: none;
-  grid-area: main;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
   padding: 20px;
   text-align: left;
   align-items: start;
@@ -82,120 +78,265 @@ nav {
   border-top-width: 0;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  text-wrap: nowrap;
-  scrollbar-color: #171717;
+  display: grid;
+}
+
+#fullCodeArea {
+  height: 92%;
+  grid-template-columns: 1fr 50px;
+  grid-template-rows: 50px 1fr 1fr 50px;
+  grid-template-areas:
+    "main button1"
+    "main ."
+    "main ."
+    "main button2";
+  grid-column-gap: 10px;
+}
+
+#compareCodeArea {
+  height: 81%;
+  grid-template-columns: 
+    minmax(200px, 45%) 
+    minmax(50px, 5%) 
+    minmax(200px, 45%) 
+    minmax(50px, 5%);
+  grid-template-rows: 50px 1fr 1fr 50px;
+  grid-template-areas:
+    "main button1 main1 button3"
+    "main . main1 ."
+    "main . main1 ."
+    "main button2 main1 button4";
+  grid-column-gap: 10px;
 }
 
 .snippetLanguage {
-  grid-area: select;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  font-size: 24px;
-  font-family: "Trebuchet MS", sans-serif;
-  color: #d9d9d9;
-  text-align: left;
-  padding: 10px;
-  background-color: #3c3c3c;
-  border-color: #d9d9d9;
-  border-width: 3px;
+    grid-area: select;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    font-family: "Trebuchet MS", sans-serif;
+    color: #d9d9d9;
+    text-align: left;
+    padding: 10px;
+    background-color: #3c3c3c;
+    border-color: #d9d9d9;
+    border-width: 3px;
 }
 
 .snippetButton {
-  width: 100px;
-  height: 100px;
   place-items: center;
   border-color: #d9d9d9;
   border-width: 3px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 #copyButton {
+  width: 50px;
+  height: 50px;
   grid-area: button1;
 }
 
-#refreshButton {
-  grid-area: button2;
-}
-
-#addButton {
+#copyButton1 {
+  width: 50px;
+  height: 50px;
   grid-area: button3;
 }
 
+#refreshButton {
+    grid-area: button2;
+}
+
+#addButton {
+  width: 50px;
+  height: 50px;
+  grid-area: button2;
+}
+
+#subtractButton {
+  width: 50px;
+  height: 50px;
+  grid-area: button2;
+}
+#subtractButton1 {
+  width: 50px;
+  height: 50px;
+  grid-area: button4;
+}
+
 #confMessage {
-  position: fixed;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: "Trebuchet MS", sans-serif;
-  color: #ffffff;
-  background-color: #10101090;
-  padding: 20px;
-  z-index: 9999;
-  transition: opacity 1s ease-in-out;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Trebuchet MS", sans-serif;
+    color: #ffffff;
+    background-color: #10101090;
+    padding: 20px;
+    z-index: 9999;
+    transition: opacity 1s ease-in-out;
 }
 
 /* Custom dropdown for languages */
-.dropdown-row {
-  grid-area: select;
+#fullDropdown {
   display: flex;
-  gap: 12px;
   align-items: start;
   width: 100%;
 }
 
-.language-dropdown,
+#compareDropdown {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 
+    "snippet filts"
+    "language1 language2";
+}
+
 .snippet-dropdown {
-  position: relative;
-  display: inline-block;
-  flex: 1;
+  grid-area: snippet;
+}
+
+#originalLang {
+  grid-area: language1;
+}
+
+#compareLang {
+  grid-area: language2;
+}
+
+.displayedSnippet {
+  overflow-y: auto;
+  max-height: 375%;
+}
+
+.language-dropdown,
+.snippet-dropdown,
+.tag-filter {
+    position: relative;
+    display: inline-block;
+    flex: 1;
 }
 
 .language-dropdown .dropdown-toggle,
 .snippet-dropdown .dropdown-toggle {
-  width: 100%;
-  text-align: left;
-  padding: 10px;
-  background-color: #3c3c3c;
-  border: 3px solid #d9d9d9;
-  color: #d9d9d9;
-  border-radius: 4px;
-  font-size: 20px;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background-color: #3c3c3c;
+    border: 3px solid #d9d9d9;
+    color: #d9d9d9;
+    border-radius: 4px;
+    font-size: 20px;
 }
 
 .language-dropdown .dropdown-menu,
 .snippet-dropdown .dropdown-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  width: 100%;
-  background: #333;
-  border: 3px solid #d9d9d9;
-  border-radius: 8px;
-  padding: 8px;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 10;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: #333;
+    border: 3px solid #d9d9d9;
+    border-radius: 8px;
+    padding: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
 }
 
 .language-dropdown .dropdown-item,
 .snippet-dropdown .dropdown-item {
-  display: block;
-  width: 100%;
-  padding: 8px 12px;
-  background: transparent;
-  color: #d9d9d9;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-size: 18px;
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    color: #d9d9d9;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 18px;
 }
 
 .language-dropdown .dropdown-item:hover,
 .snippet-dropdown .dropdown-item:hover {
-  background: #4a4a4a;
+    background: #4a4a4a;
+}
+
+backButton:hover {
+    background: #4a4a4a;
+
+}
+
+/* Tag Filter Styles */
+.tag-filter {
+    position: relative;
+    display: inline-block;
+    flex: 1;
+}
+
+.tag-filter .dropdown-toggle {
+    grid-area: filts;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    background-color: #3c3c3c;
+    border: 3px solid #d9d9d9;
+    border-radius: 4px;
+    color: #d9d9d9;
+    font-size: 18px;
+    font-family: "Trebuchet MS", sans-serif;
+    cursor: pointer;
+}
+
+.tag-filter .dropdown-toggle:hover {
+    background-color: #4a4a4a;
+}
+
+.tag-filter .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: #333;
+    border: 3px solid #d9d9d9;
+    border-radius: 8px;
+    padding: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.tag-checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: #d9d9d9;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tag-checkbox-item:hover {
+    background-color: #4a4a4a;
+}
+
+.tag-checkbox-item input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.tag-checkbox-item span {
+    user-select: none;
+    flex: 1;
 }
 
 .code {
-  height: 50%;
+  overflow: auto;
+  width: 100%;
+  max-height: 100%;
 }
