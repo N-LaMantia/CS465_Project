@@ -63,7 +63,7 @@ Press the plus (+) button to compare snippets!*/`;
     () => localStorage.getItem("preferredLanguage") || null,
   );
   // An additional selected language for comparing
-  const [compareLanguage, setCompareLanugage] = useState(null);
+  const [compareLanguage, setCompareLanugage] = useState(selectedLanguage);
 
   // The main selected code snippet
   const [selectedSnippet, setSelectedSnippet] = useState(null);
@@ -209,60 +209,67 @@ Press the plus (+) button to compare snippets!*/`;
             ))}
           </div>
 
-          {!compareMode && (
-            <>
-              <div className="dropdown-row" id="fullDropdown">
-                <TagFilter
-                  language={selectedLanguage}
-                  onTagsChange={(tags) => {
-                    setSelectedTags(tags);
+          {!compareMode && (<>
+            <div 
+              className="dropdown-row" 
+              id="fullDropdown" 
+              dropdowns data-testid="dropdowns"
+            >
+              <GetLanguages
+                defaultLanguage={selectedLanguage}
+                onSelect={(lang) => {
+                  setSelectedLanguage(lang);
+                  setSelectedSnippet(null);
+                  setCurrentCode(sampleSnippet);
+                }}
+              />
+              <TagFilter 
+                language={selectedLanguage}
+                onTagsChange={(tags) => {
+                  setSelectedTags(tags);
+                }}
+                GetLanguages data-testid="GetLanguages"
+              />
+              {selectedSnippet ? (
+                <SnipList
+                  language={selectedLanguage} 
+                  selectedTags={selectedTags}
+                  currSnippet={selectedSnippet.title}
+                  onSelect={(snip) => {
+                    console.log("Snip: ", snip);
+                    setSelectedSnippet(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
+                  }}
+                />
+              ) : (
+                <SnipList
+                  compare={compareMode}
+                  selectedTags={selectedTags}
+                  language={selectedLanguage} 
+                  currSnippet={null}
+                  onSelect={(snip) => {
+                    setSelectedSnippet(snip);
+                    console.log(snip);
+                    setCurrentCode(snip.code || sampleSnippet);
                   }}
                   GetLanguages
                   data-testid="GetLanguages"
                 />
-                {selectedSnippet ? (
-                  <SnipList
-                    language={selectedLanguage}
-                    selectedTags={selectedTags}
-                    currSnippet={selectedSnippet.title}
-                    onSelect={(snip) => {
-                      console.log("Snip: ", snip);
-                      setSelectedSnippet(snip);
-                      setCurrentCode(snip.code || sampleSnippet);
-                    }}
-                  />
-                ) : (
-                  <SnipList
-                    compare={compareMode}
-                    selectedTags={selectedTags}
-                    language={selectedLanguage}
-                    currSnippet={null}
-                    onSelect={(snip) => {
-                      setSelectedSnippet(snip);
-                      console.log(snip);
-                      setCurrentCode(snip.code || sampleSnippet);
-                    }}
-                  />
-                )}
-              </div>
-              <div className="snippetCode" id="fullCodeArea">
-                <div className="displayedSnippet">
-                  <SyntaxHighlighter
-                    id="codeArea"
-                    language={languageMap[selectedLanguage]}
-                    style={oneDark}
-                    customStyle={{ padding: "0", fontSize: "16px" }}
-                    showLineNumbers
-                    wrapLongLines
-                    className="code"
-                  >
-                    {currentCode}
-                  </SyntaxHighlighter>
-                </div>
-                <button
-                  id="copyButton"
-                  className="snippetButton"
-                  onClick={() => CopyButtonHandler()}
+              )}
+            </div>
+            <div className="snippetCode" id="fullCodeArea">
+              <div 
+                className="displayedSnippet" 
+                SyntaxHighlighter data-testid="SyntaxHighlighter"
+              >  
+                <SyntaxHighlighter
+                  id="codeArea" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
                 >
                   <CopyIcon />
                 </button>
@@ -274,8 +281,23 @@ Press the plus (+) button to compare snippets!*/`;
                   <AddIcon />
                 </button>
               </div>
-            </>
-          )}
+              <button
+                id="copyButton"
+                className="snippetButton"
+                copyIcon data-testid="copyButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="addButton"
+                className="snippetButton"
+                onClick={() => isComparing(true)}
+              >
+                <AddIcon />
+              </button>
+            </div>
+          </>)}
 
           {compareMode && (
             <>
@@ -296,101 +318,48 @@ Press the plus (+) button to compare snippets!*/`;
                     setCurrentCode(sampleSnippet);
                   }}
                 />
-                <GetLanguages
-                  id="compareLang"
-                  defaultLanguage={selectedLanguage}
-                  onSelect={(lang) => {
-                    setCompareLanugage(lang);
-                    setCompareCode(sampleSnippet);
-                  }}
-                />
-                {selectedSnippet ? (
-                  <SnipList
-                    compare={compareMode}
-                    language={selectedLanguage}
-                    compLanguage={compareLanguage}
-                    selectedTags={selectedTags}
-                    currSnippet={selectedSnippet.title}
-                    onSelect={(snip, snip1) => {
-                      setSelectedSnippet(snip);
-                      setCompareSnippet(snip1);
-                      console.log("Snip: ", snip, snip1);
-                      setCurrentCode(snip.code || sampleSnippet);
-                      setCompareCode(snip.code || sampleSnippet);
-                    }}
-                  />
-                ) : (
-                  <SnipList
-                    compare={compareMode}
-                    language={selectedLanguage}
-                    compLanguage={compareLanguage}
-                    selectedTags={selectedTags}
-                    currSnippet={null}
-                    onSelect={(snip, snip1) => {
-                      setSelectedSnippet(snip);
-                      setCompareSnippet(snip1);
-                      console.log("Snip: ", snip, snip1);
-                      setCurrentCode(snip.code || sampleSnippet);
-                      setCompareCode(snip1.code || sampleSnippet);
-                    }}
-                  />
-                )}
+              )}
+            </div>
+            <div className="snippetCode" id="compareCodeArea">
+              <div className="displayedSnippet">  
+                <SyntaxHighlighter
+                  id="codeAreaLeft" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0', fontSize: '13px'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
+                >
+                  {currentCode}
+                </SyntaxHighlighter>
               </div>
-              <div className="snippetCode" id="compareCodeArea">
-                <div className="displayedSnippet">
-                  <SyntaxHighlighter
-                    id="codeAreaLeft"
-                    language={languageMap[selectedLanguage]}
-                    style={oneDark}
-                    customStyle={{ padding: "0" }}
-                    showLineNumbers
-                    wrapLongLines
-                    className="code"
-                  >
-                    {currentCode}
-                  </SyntaxHighlighter>
-                </div>
-                <button
-                  id="copyButton"
-                  className="snippetButton"
-                  onClick={() => CopyButtonHandler()}
-                >
-                  <CopyIcon />
-                </button>
-                <button
-                  id="subtractButton"
-                  className="snippetButton"
-                  onClick={() => isComparing(false)}
-                >
-                  <SubIcon />
-                </button>
-
-                {/* Second snippet view to be compared */}
-                <div className="displayedSnippet">
-                  {/* Displayed code  */}
-                  <SyntaxHighlighter
-                    id="codeAreaRight"
-                    language={languageMap[selectedLanguage]}
-                    style={oneDark}
-                    customStyle={{ padding: "0" }}
-                    showLineNumbers
-                    wrapLongLines
-                    className="code"
-                  >
-                    {compareCode}
-                  </SyntaxHighlighter>
-                </div>
-                <button
-                  id="copyButton1"
-                  className="snippetButton"
-                  onClick={() => CopyButtonHandler()}
-                >
-                  <CopyIcon />
-                </button>
-                <button
-                  id="subtractButton1"
-                  className="snippetButton"
-                  onClick={() => isComparing(false)}
+              <button
+                id="copyButton"
+                className="snippetButton"
+                onClick={() => CopyButtonHandler()}
+              >
+                <CopyIcon />
+              </button>
+              <button
+                id="subtractButton"
+                className="snippetButton"
+                onClick={() => isComparing(false)}
+              >
+                <SubIcon />
+              </button>
+              
+              {/* Second snippet view to be compared */}
+              <div className="displayedSnippet"> 
+                 {/* Displayed code  */}
+                <SyntaxHighlighter
+                  id="codeAreaRight" 
+                  language={languageMap[selectedLanguage]}
+                  style={oneDark}
+                  customStyle={{padding: '0', fontSize: '13px'}}
+                  showLineNumbers
+                  wrapLongLines
+                  className="code"
                 >
                   <SubIcon />
                 </button>

@@ -242,14 +242,18 @@ export function GetLanguages({
  *
  */
 function UnionSnippets(lang1, lang2) {
-  // Dummy set of the titles in the selected set
-  const lang1Snips = new Set(lang1.map((item) => item.title));
+    // Dummy set of the titles in the selected set
+    const lang1Snips = new Set(lang1.map(item => item.title));
+    console.log("lang1", lang1, "lang2", lang2);
 
-  return [
-    // Filters based on the titles between the two sets
-    ...new Set(lang2.filter((item) => lang1Snips.has(item.title))),
-  ];
-}
+    return [
+        // Filters based on the titles between the two sets
+        ...new Set(
+            lang2
+                .filter(item => lang1Snips.has(item.title))
+        )
+    ];
+};
 
 /**
  *
@@ -358,60 +362,40 @@ export function SnipList({
       }
     };
 
-    if (open) {
-      fetchSnippets();
-    }
-
-    return () => {
-      mounted = false;
-    };
-  }, [open, snippets.length, language, selectedTags]);
-
-  const handleSelectSnippet = (snippet) => {
-    const label = snippet.title || snippet.name || snippet;
-    const select = document.getElementById(id);
-    console.log("Retreived select", select.value);
-    if (select) select.value = label;
-    setSelected(label);
-    setOpen(false);
-    if (typeof onSelectSnippet === "function") onSelectSnippet(snippet);
-  };
-
-  return (
-    <div className="snippet-dropdown">
-      <button
-        className="snippetLanguage dropdown-toggle"
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-      >
-        {open
-          ? "Close Snippets"
-          : selected || defaultSnippet || "Select Snippet"}
-        {console.log("Retreived selected", selected)}
-      </button>
-      {open && (
-        <div className="dropdown-menu">
-          {loading && <div className="dropdown-item">Loading...</div>}
-          {error && <div className="dropdown-item">Error: {error}</div>}
-          {!loading && !error && snippets.length === 0 && (
-            <div className="dropdown-item">No snippets found</div>
-          )}
-          {!loading &&
-            !error &&
-            snippets.map((snippet) => {
-              const title = snippet.title || snippet.name || snippet;
-              return (
-                <button
-                  key={title}
-                  type="button"
-                  className="dropdown-item"
-                  onClick={() => handleSelectSnippet(snippet)}
-                >
-                  {title}
-                </button>
-              );
-            })}
+    return (
+        <div className="snippet-dropdown">
+            <button className="snippetLanguage dropdown-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                {open ? 'Close Snippets' : (selected || defaultSnippet || 'Select Snippet')}
+                {/* {console.log("Retreived selected", selected)} */}
+            </button>
+            {open && (
+                <div className="dropdown-menu">
+                    {loading && <div className="dropdown-item">Loading...</div>}
+                    {error && <div className="dropdown-item">Error: {error}</div>}
+                    {!loading && !error && snippets.length === 0 && (
+                        <div className="dropdown-item">No snippets found</div>
+                    )}
+                    {!loading && !error && snippets.map((snippet) => {
+                        const title = snippet.title || snippet.name || snippet;
+                        return (
+                            <button key={title} type="button" className="dropdown-item" onClick={() => handleSelectSnippet(snippet)}>
+                                {title}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+            <select 
+                id={id} 
+                style={{ display: 'none' }} 
+                aria-hidden="true" 
+                value={selected || ''}
+            >
+                {snippets.map((snippet) => {
+                    const title = snippet.title || snippet.name || snippet;
+                    return <option key={title} value={title}>{title}</option>
+                })}
+            </select>
         </div>
       )}
       <select
@@ -443,16 +427,10 @@ export function SnipList({
  * @returns An icon
  */
 export function CopyIcon() {
-  return (
-    <svg
-      width="50"
-      height="50"
-      viewBox="0 0 50 50"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10.4166 31.25H8.33329C7.22822 31.25 6.16842 30.811 
+    return (
+        <svg  viewBox="0 0 50 50" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.4166 31.25H8.33329C7.22822 31.25 6.16842 30.811 
             5.38701 30.0296C4.60561 29.2482 4.16663 28.1884 4.16663 
             27.0834V8.33335C4.16663 7.22829 4.60561 6.16848 5.38701 
             5.38708C6.16842 4.60567 7.22822 4.16669 8.33329 
@@ -518,23 +496,15 @@ export function RefreshIcon() {
  *
  */
 export function AddIcon() {
-  return (
-    <svg
-      width="50"
-      height="50"
-      viewBox="0 0 50 50"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M25 10.4167V39.5834M10.4166 25H39.5833"
-        stroke="#D9D9D9"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
+    return (
+        <svg viewBox="0 0 50 50" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 10.4167V39.5834M10.4166 25H39.5833"
+                stroke="#D9D9D9" stroke-width="4" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+
+    );
 }
 
 /**
@@ -547,28 +517,18 @@ export function AddIcon() {
  *
  */
 export function SubIcon() {
-  return (
-    <svg
-      width="50"
-      height="50"
-      viewBox="0 0 50 50"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect x="0.5" y="0.5" width="49" height="49" />
-      <path
-        d="M10.4167 25H39.5834"
-        stroke="#D9D9D9"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
+    return (
+        <svg viewBox="0 0 50 50" fill="none" 
+            xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="49" height="49"/>
+            <path d="M10.4167 25H39.5834" stroke="#D9D9D9" stroke-width="4" 
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    );
 }
 
 /**
- * Author:  Henderson
+ * Author: Jace Henderson
  * Contributors:
  *
  * @function TagFilter
