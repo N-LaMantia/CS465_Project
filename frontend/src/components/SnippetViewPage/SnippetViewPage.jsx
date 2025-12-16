@@ -70,9 +70,6 @@ Press the plus (+) button to compare snippets!*/`;
   // The main selected code snippet
   const [selectedSnippet, setSelectedSnippet] = useState(null);
 
-  // The comparison code snippet
-  const [CompareSnippet, setCompareSnippet] = useState(null);
-
   // The text information pulled from the DB for the selected snippet
   const [currentCode, setCurrentCode] = useState(sampleSnippet);
   // The text information pulled from the DB for the compare snippet
@@ -130,6 +127,27 @@ Press the plus (+) button to compare snippets!*/`;
     showConf("Copied!");
   };
 
+  useEffect(() => {
+    const fetchDualCode = async () => {
+      if (!compareMode) {
+        return;
+      }
+
+      if (compareMode && selectedLanguage && compareLanguage) {
+        const response = await fetch(
+          `/api/snippets/${selectedLanguage},${compareLanguage}/${selectedSnippet}`
+        );
+        const data = await response.json();
+        console.log("code from server: ", data);
+        // console.log("comp code from server: ", );
+        setCurrentCode(data[0].code);
+        setCompareCode(data[1].code);
+      }
+    }
+
+    fetchDualCode();
+  })
+
   return (
     <>
       <title>Snippet</title>
@@ -137,11 +155,6 @@ Press the plus (+) button to compare snippets!*/`;
         <div id="siteLogo">
           <b>CSnippy</b>
         </div>
-        <nav>
-          <ul id="navIcons">
-            <li className="icon">{<SettingsIcon />}</li>
-          </ul>
-        </nav>
       </header>
       <div id="body">
         <button aria-label="Go back (button)" className="backButton" onClick={() => navigate(`/`)}>
@@ -195,7 +208,7 @@ Press the plus (+) button to compare snippets!*/`;
                   selectedTags={selectedTags}
                   currSnippet={selectedSnippet.title}
                   onSelect={(snip) => {
-                    console.log("Snip: ", snip);
+                    // console.log("Snip: ", snip);
                     setSelectedSnippet(snip);
                     setCurrentCode(snip.code || sampleSnippet);
                   }}
@@ -208,7 +221,7 @@ Press the plus (+) button to compare snippets!*/`;
                   currSnippet={null}
                   onSelect={(snip) => {
                     setSelectedSnippet(snip);
-                    console.log(snip);
+                    // console.log(snip);
                     setCurrentCode(snip.code || sampleSnippet);
                   }}
                 />
@@ -279,10 +292,9 @@ Press the plus (+) button to compare snippets!*/`;
                   compLanguage={compareLanguage}
                   selectedTags={selectedTags}
                   currSnippet={selectedSnippet.title}
-                  onSelect={(snip, snip1) => {
+                  onSelect={(snip) => {
                     setSelectedSnippet(snip);
-                    setCompareSnippet(snip1);
-                    console.log("Snip: ", snip, snip1);
+                    // console.log("Snip: ", snip);
                     setCurrentCode(snip.code || sampleSnippet);
                     setCompareCode(snip.code || sampleSnippet);
                   }}
@@ -296,8 +308,7 @@ Press the plus (+) button to compare snippets!*/`;
                   currSnippet={null}
                   onSelect={(snip, snip1) => {
                     setSelectedSnippet(snip);
-                    setCompareSnippet(snip1);
-                    console.log("Snip: ", snip, snip1);
+                    // console.log("Snip: ", snip, snip1);
                     setCurrentCode(snip.code || sampleSnippet);
                     setCompareCode(snip.code || sampleSnippet);
                   }}
