@@ -155,11 +155,6 @@ Press the plus (+) button to compare snippets!*/`;
         <div id="siteLogo">
           <b>CSnippy</b>
         </div>
-        <nav>
-          <ul id="navIcons">
-            <li className="icon">{<SettingsIcon />}</li>
-          </ul>
-        </nav>
       </header>
       <div id="body">
         <button className="backButton" onClick={() => navigate(`/`)}>

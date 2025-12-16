@@ -33,11 +33,6 @@ export const LandingPage = () => {
                 <div id="siteLogo">
                     <b>CSnippy</b>
                 </div>
-                <nav>
-                    <ul id="navIcons">
-                        <li className="icon">{<SettingsIcon />}</li>
-                    </ul>
-                </nav>
             </header>
             <hr></hr>
             <div id="body">
